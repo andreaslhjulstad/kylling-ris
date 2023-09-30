@@ -1,0 +1,31 @@
+import styles from "./mainpage.module.css";
+
+export default function Mainpage() {
+    return (
+        <div className={styles.wrapper}>
+            <div className={styles.searchAndLogoCard}>
+                <div className={styles.pageTitleContainer}>
+                    <h1 className={styles.pageTitle}>Kylling</h1>
+                    <h1 className={`${styles.pageTitle} ${styles.pageTitleRed}  ${styles.nunitoFont}`}>&</h1>
+                    <h1 className={styles.pageTitle}>Ris</h1>
+                    {/*Placeholder logo element*/}
+                    <img className={styles.logo} src=""></img>
+                </div>
+                <div className={styles.placeholderSearch}>
+                    {/*Assigned div for the search component.*/}
+                    {/*Under are placeholder elements.*/}
+                    <input placeholder="Search"></input>
+                    <p>Kyllingfilet</p>
+                    <p>Jasminris</p>
+                </div>
+            </div>
+            <div className={styles.logAndDateCard}>
+                <h2 className={styles.weekday}>Onsdag</h2>
+                <div>
+                    {/*Assigned div for the log table component.*/}
+                    <div></div>
+                </div>
+            </div>
+        </div>
+      );
+}

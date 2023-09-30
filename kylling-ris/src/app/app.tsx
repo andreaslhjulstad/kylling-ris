@@ -1,5 +1,6 @@
 import "./app.css";
+import Mainpage from "../pages/mainpage/mainpage.tsx";
 
 export default function App() {
-  return <div>Kylling og ris</div>;
+  return <Mainpage></Mainpage>;
 }
