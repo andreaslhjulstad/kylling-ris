@@ -5,9 +5,9 @@ export default function Mainpage() {
         <div className={styles.wrapper}>
             <div className={styles.searchAndLogoCard}>
                 <div className={styles.pageTitleContainer}>
-                    <h1 className={styles.pageTitle}>Kylling</h1>
-                    <h1 className={`${styles.pageTitle} ${styles.pageTitleRed}  ${styles.nunitoFont}`}>&</h1>
-                    <h1 className={styles.pageTitle}>Ris</h1>
+                    <h1 className={styles.pageTitleBlue}>Kylling</h1>
+                    <h1 className={styles.pageTitleRed}>&</h1>
+                    <h1 className={styles.pageTitleBlue}>Ris</h1>
                     {/*Placeholder logo element*/}
                     <img className={styles.logo} src=""></img>
                 </div>

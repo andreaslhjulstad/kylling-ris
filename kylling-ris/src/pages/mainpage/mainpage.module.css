@@ -37,13 +37,14 @@
     margin-top: 5vh;
 }
 
-.pageTitle {
+.pageTitleBlue {
     color: #2275C3;
-    padding: 0;
+
 }
 
 .pageTitleRed {
     color: #C2242B;
+
 }
 
 .logo {
