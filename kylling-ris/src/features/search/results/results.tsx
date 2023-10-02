@@ -14,9 +14,9 @@ export default function Results() {
     <div>
       {foods.map((food: Food) => (
         <div key={food.id}>
-          <p>Name: {food.name}</p>
-          <p>Calories: {getNutrition(food, "energi_kcal")}</p>
-          <p>Proteins: {getNutrition(food, "protein")}g</p>
+          <p>{food.name}</p>
+          <p>Kalorier: {getNutrition(food, "energi_kcal")}</p>
+          <p>Proteiner: {getNutrition(food, "protein")}g</p>
         </div>
       ))}
     </div>

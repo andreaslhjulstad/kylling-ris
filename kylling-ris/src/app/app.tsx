@@ -1,10 +1,6 @@
 import "./app.css";
-import Results from "../features/search/results/results";
+import Mainpage from "../pages/mainpage/mainpage.tsx";
 
 export default function App() {
-  return (
-    <div>
-      <Results />
-    </div>
-  );
+  return <Mainpage></Mainpage>;
 }
