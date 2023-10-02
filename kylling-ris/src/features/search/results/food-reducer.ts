@@ -3,7 +3,7 @@ import Food from "./food";
 import mockData from "./mock-data.json";
 
 interface FoodState {
-  foods: Array<Food>;
+  foods: Food[];
 }
 
 const initialState: FoodState = {

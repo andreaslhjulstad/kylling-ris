@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import foodReducer from "./food-slice";
+import foodReducer from "../features/search/results/food-reducer";
 
 const rootReducer = combineReducers({
   food: foodReducer
