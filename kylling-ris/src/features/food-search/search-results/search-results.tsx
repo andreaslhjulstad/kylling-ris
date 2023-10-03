@@ -13,12 +13,14 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     useSearchResults(searchQuery);
 
   return (
-    <div className={`${styles.searchResults} ${styles.invisibleScrollbar}`}>
+    <div className={styles.searchResults}>
       <InfiniteScroll
+        initialScrollY={0}
         dataLength={foodItems.length}
         next={loadMoreFoodItems}
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
+        className={styles.invisibleScrollbar}
         height={700}
       >
         {foodItems.map((food: Food) => (

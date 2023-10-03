@@ -11,8 +11,7 @@ export default temporaryUseSearchResults;
 
 const initialResultsLoaded = 14;
 
-//Temporarily have the client sort and filter.
-//This simulates how it would be if we used our server.
+//This tries to simulate how it would be if we used our server.
 function temporaryUseSearchResults(searchQuery: string): {
   foodItems: Food[];
   hasMoreFoodItems: boolean;
