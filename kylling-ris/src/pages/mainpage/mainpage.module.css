@@ -1,87 +1,86 @@
 .wrapper {
-    display: flex;
-    width: auto;
-    height: 100vh;
+  display: flex;
+  width: auto;
+  height: 100vh;
 }
 
 .logAndDateCard {
-    background-color: #2275C3;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 66%;
-    height: inherit;
-    flex-grow: 2;
+  background-color: #2275c3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 66%;
+  height: inherit;
+  flex-grow: 2;
 }
 
 .searchAndLogoCard {
-    display: flex;
-    flex-direction: column;
-    width: 33%;
-    height: inherit;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  height: inherit;
+  flex-grow: 1;
 }
 
-.placeholderSearch {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3vh;
+.search {
+  margin-left: 3vw;
+  margin-right: auto;
+  width: 100%;
+  margin-top: 3vh;
 }
 
 .pageTitleContainer {
-    display: flex;
-    flex-direction: row;
-    padding: 0;
-    margin-left: 3vw;
-    margin-right: auto;
-    margin-top: 5vh;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin-left: 3vw;
+  margin-right: auto;
+  margin-top: 5vh;
 }
 
 .pageTitleBlue {
-    color: #2275C3;
-
+  color: #2275c3;
 }
 
 .pageTitleRed {
-    color: #C2242B;
-
+  color: #c2242b;
 }
 
 .logo {
-    width: 35px;
-    height: 35px;
-    margin-top: auto;
-    margin-bottom: auto;
+  width: 35px;
+  height: 35px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .weekday {
-    color: white;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 3vh;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3vh;
 }
 
 @media only screen and (max-width: 780px) {
-    .wrapper {
-        flex-direction: column;
-    }
+  .wrapper {
+    flex-direction: column;
+  }
 
-    .logAndDateCard {
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        height: auto;
-    }
+  .logAndDateCard {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+  }
 
-    .searchAndLogoCard {
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        align-items: center;
-        height: auto;
-    }
+  .searchAndLogoCard {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    align-items: center;
+    height: auto;
+  }
 
-    .pageTitleContainer {
-        margin-left: auto;
-    }
+  .pageTitleContainer {
+    margin-left: auto;
+  }
 }
