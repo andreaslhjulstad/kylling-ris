@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 //Future useSearchResults:
 //Use tanstack query to retreive food items.
 //Include searchQuery, filters, sorts in request so that the server can take care of it.
-
 export default temporaryUseSearchResults;
 
 const initialResultsLoaded = 14;

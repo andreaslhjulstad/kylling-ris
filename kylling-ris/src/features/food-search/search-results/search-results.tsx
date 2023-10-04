@@ -24,7 +24,11 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         height={700}
       >
         {foodItems.map((food: Food) => (
-          <div className={styles.foodItem} key={food.id}>
+          <div
+            className={styles.foodItem}
+            key={food.id}
+            data-testid={`food-search-result-${food.id}`}
+          >
             <img
               onClick={() => {
                 console.log(`Added ${food.name}`);

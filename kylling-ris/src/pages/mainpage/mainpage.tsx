@@ -1,4 +1,4 @@
-import Search from "../../features/food-search/food-search";
+import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
 
 export default function Mainpage() {
@@ -13,7 +13,7 @@ export default function Mainpage() {
           <img className={styles.logo} src=""></img>
         </div>
         <div className={styles.search}>
-          <Search />
+          <FoodSearch />
         </div>
       </div>
       <div className={styles.logAndDateCard}>
