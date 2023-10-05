@@ -59,7 +59,7 @@
   margin-bottom: 3vh;
 }
 
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 1170px) {
   .wrapper {
     flex-direction: column;
   }
