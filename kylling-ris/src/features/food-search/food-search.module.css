@@ -1,0 +1,30 @@
+.foodSearch {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  border-bottom: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+.searchBar > input {
+  width: 100%;
+  border: none;
+  font-size: 1.3em;
+  padding: 0 3px 3px 9px;
+}
+
+.searchBar > input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.searchIcon {
+  height: 1.3em;
+  margin: 0 7px 0 13px;
+  user-select: none;
+}

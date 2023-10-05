@@ -1,4 +1,4 @@
-import Results from "../../features/search/results/results";
+import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
 
 export default function Mainpage() {
@@ -12,11 +12,8 @@ export default function Mainpage() {
           {/*Placeholder logo element*/}
           <img className={styles.logo} src=""></img>
         </div>
-        <div className={styles.placeholderSearch}>
-          {/*Assigned div for the search component.*/}
-          {/*Under are placeholder elements.*/}
-          <input placeholder="Search"></input>
-          <Results />
+        <div className={styles.search}>
+          <FoodSearch />
         </div>
       </div>
       <div className={styles.logAndDateCard}>

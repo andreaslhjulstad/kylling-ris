@@ -1,0 +1,43 @@
+.searchResults {
+  display: flex;
+  flex-direction: column;
+}
+
+.foodItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  height: 50px;
+}
+
+.foodInfo > h1 {
+  font-size: 1em;
+  font-weight: medium;
+}
+
+.foodInfo > h2 {
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+.addImage {
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.loadingFoodItemsMessage {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Chrome, Safari and Opera */
+.invisibleScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.invisibleScrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
