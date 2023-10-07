@@ -1,5 +1,7 @@
+import FoodLogTable from "../../features/food-log/food-log-table";
 import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
+import mockData from "../../features/food-search/search-results/mock-data.json";
 
 export default function Mainpage() {
   return (
@@ -20,7 +22,7 @@ export default function Mainpage() {
         <h2 className={styles.weekday}>Onsdag</h2>
         <div>
           {/*Assigned div for the log table component.*/}
-          <div></div>
+          <FoodLogTable loggedFoods={JSON.parse(JSON.stringify(mockData))} />
         </div>
       </div>
     </div>
