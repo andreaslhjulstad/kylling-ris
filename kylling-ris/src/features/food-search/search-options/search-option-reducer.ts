@@ -1,31 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    showGluten: true,
-    showMilk: true,
-    showSoya: true,
-    sortOption: "name-ascending"
+//allergens are the filtered away allergens.
+export interface SearchOption {
+  allergens: string[];
+  sortOption: string;
 }
 
+const initialState: SearchOption = {
+  allergens: JSON.parse(localStorage.getItem("allergens") ?? "[]"),
+  sortOption: JSON.parse(localStorage.getItem("sort") ?? "[]")
+};
+
 const searchOptionSlice = createSlice({
-    name: "searchOption",
-    initialState,
-    reducers:{
-        toggleGluten:(state) => {
-            state.showGluten = !state.showGluten
-        },
-        toggleMilk:(state) => {
-            state.showMilk = !state.showMilk
-        },
-        toggleSoya:(state) => {
-            state.showSoya = !state.showSoya
-        },
-        changeSort: (state, action) => {
-            state.sortOption = action.payload;
-        }
+  name: "searchOption",
+  initialState,
+  reducers: {
+    setAllergens: (state, action) => {
+      state.allergens = action.payload;
+      localStorage.setItem("allergens", JSON.stringify(action.payload));
     },
-})
+    changeSort: (state, action) => {
+      state.sortOption = action.payload;
+      localStorage.setItem("sort", JSON.stringify(action.payload));
+    }
+  }
+});
 
-export const {toggleGluten, toggleMilk, toggleSoya, changeSort} = searchOptionSlice.actions
+export const { setAllergens, changeSort } = searchOptionSlice.actions;
 
-export default searchOptionSlice.reducer
+export default searchOptionSlice.reducer;

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import Food from "./food";
 import { useState, useEffect } from "react";
-import SearchOption from "../search-options/searchOption";
+import { SearchOption } from "../search-options/search-option-reducer";
 
 //Future useSearchResults:
 //Use tanstack query to retreive food items.
@@ -11,29 +11,20 @@ export default temporaryUseSearchResults;
 
 const initialResultsLoaded = 14;
 
-function sortFoodItems(foodItems: Food[], sortOption:string) {
-  return foodItems.sort((a, b) => {
-    switch (sortOption) {
-      case "name-ascending":
-        return a.name.localeCompare(b.name);
-      case "name-descending":
-        return b.name.localeCompare(a.name);
-      case "protein-ascending":
-        return a.protein - b.protein;
-      case "protein-descending":
-        return b.protein - a.protein;
-      case "kcal-ascending":
-        return a.calories - b.calories;
-      case "kcal-descending":
-        return b.calories - a.calories;
-      default:
-        return 0;
-    }
-  });
-}
+const sortComparison: { [sortName: string]: (a: Food, b: Food) => number } = {
+  "name-ascending": (a, b) => a.name.localeCompare(b.name),
+  "name-descending": (a, b) => b.name.localeCompare(a.name),
+  "protein-ascending": (a, b) => a.protein - b.protein,
+  "protein-descending": (a, b) => b.protein - a.protein,
+  "kcal-ascending": (a, b) => a.calories - b.calories,
+  "kcal-descending": (a, b) => b.calories - a.calories
+};
 
 //This tries to simulate how it would be if we used our server.
-function temporaryUseSearchResults(searchQuery: string, searchOptions:SearchOption): {
+function temporaryUseSearchResults(
+  searchQuery: string,
+  searchOptions: SearchOption
+): {
   foodItems: Food[];
   hasMoreFoodItems: boolean;
   loadMoreFoodItems: () => Promise<void>;
@@ -49,23 +40,13 @@ function temporaryUseSearchResults(searchQuery: string, searchOptions:SearchOpti
     setResultsLoaded(initialResultsLoaded);
   }, [searchQueryAfterInactivity]);
 
-  
-  //Filtering based on search query.
-  let filteredFoodItems = allFoods.filter((food) =>
-    queryIsSimilarTo(searchQueryAfterInactivity, food.name)
-  );
-
-  if(!searchOptions.showSoya){
-    filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Soya")));
-  }
-  if(!searchOptions.showMilk){
-    filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Melk")));
-  }
-  if(!searchOptions.showGluten){
-    filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Gluten")));
-  }
-
-  filteredFoodItems = sortFoodItems(filteredFoodItems, searchOptions.sortOption);
+  //Applying sort, allergen filter and search.
+  let filteredFoodItems = allFoods
+    .filter((food) => queryIsSimilarTo(searchQueryAfterInactivity, food.name))
+    .filter(({ allergens }) =>
+      !searchOptions.allergens.some((disallowedAllergen) => allergens.includes(disallowedAllergen))
+    )
+    .sort(sortComparison[searchOptions.sortOption]);
 
   return {
     foodItems: filteredFoodItems.slice(0, resultsLoaded),
