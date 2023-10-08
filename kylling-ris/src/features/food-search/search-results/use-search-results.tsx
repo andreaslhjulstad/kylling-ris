@@ -11,6 +11,27 @@ export default temporaryUseSearchResults;
 
 const initialResultsLoaded = 14;
 
+function sortFoodItems(foodItems: Food[], sortOption:string) {
+  return foodItems.sort((a, b) => {
+    switch (sortOption) {
+      case "name-ascending":
+        return a.name.localeCompare(b.name);
+      case "name-descending":
+        return b.name.localeCompare(a.name);
+      case "protein-ascending":
+        return a.protein - b.protein;
+      case "protein-descending":
+        return b.protein - a.protein;
+      case "kcal-ascending":
+        return a.calories - b.calories;
+      case "kcal-descending":
+        return b.calories - a.calories;
+      default:
+        return 0;
+    }
+  });
+}
+
 //This tries to simulate how it would be if we used our server.
 function temporaryUseSearchResults(searchQuery: string, searchOptions:SearchOption): {
   foodItems: Food[];
@@ -43,6 +64,8 @@ function temporaryUseSearchResults(searchQuery: string, searchOptions:SearchOpti
   if(!searchOptions.showGluten){
     filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Gluten")));
   }
+
+  filteredFoodItems = sortFoodItems(filteredFoodItems, searchOptions.sortOption);
 
   return {
     foodItems: filteredFoodItems.slice(0, resultsLoaded),
