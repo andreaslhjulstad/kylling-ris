@@ -3,6 +3,8 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useDispatch } from "react-redux";
+import { addFoodElement } from "./food-reducer";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -12,6 +14,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
   const { foodItems, hasMoreFoodItems, loadMoreFoodItems } =
     useSearchResults(searchQuery);
 
+  // Dispatch used to access addFoodElement function
+  const dispatch = useDispatch();
+  
   return (
     <div className={styles.searchResults}>
       <InfiniteScroll
@@ -31,7 +36,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
           >
             <img
               onClick={() => {
-                console.log(`Added ${food.name}`);
+                dispatch(addFoodElement(food));
               }}
               className={styles.addImage}
               src={addImage}
