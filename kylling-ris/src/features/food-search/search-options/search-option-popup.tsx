@@ -1,12 +1,19 @@
-import styles from "./filter-option-popup.module.css";
+import { useDispatch } from "react-redux";
+import styles from "./search-option-popup.module.css";
 import { useState } from "react";
+import { toggleGluten, toggleMilk, toggleSoya } from "./search-option-reducer";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export default function FilterOptionPopup() {
   const [modal, setModal] = useState(true);
-
+  
   const toggleModal = () => {
     setModal(!modal);
   };
+  
+  const searchOptions = useSelector(((state:RootState) => state.searchOption));
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -21,23 +28,23 @@ export default function FilterOptionPopup() {
               <option value="name-descending">Navn z-a</option>
               <option value="protein-ascending">Proteiner (stigene)</option>
               <option value="protein-descending">Proteiner (synkene)</option>
-              <option value="kcal-ascending">kalorier (stigene)</option>
-              <option value="kcal-descending">kalorier (synkene)</option>
+              <option value="kcal-ascending">Kalorier (stigene)</option>
+              <option value="kcal-descending">Kalorier (synkene)</option>
             </select>
 
             <div className={styles.labelCheckboxContainer}>
-              <label>Gluten</label>
-              <input className={styles.checkbox} type="checkbox" name="Gluten" id="Gluten" />
+              <label>Vis Gluten</label>
+              <input className={styles.checkbox} type="checkbox" name="Gluten" id="Gluten" checked={searchOptions.showGluten} onClick={() => dispatch(toggleGluten())}/>
             </div>
 
             <div className={styles.labelCheckboxContainer}>
-              <label>Melk</label>
-              <input className={styles.checkbox} type="checkbox" name="Melk" id="Melk" />
+              <label>Vis Melk</label>
+              <input className={styles.checkbox} type="checkbox" name="Melk" id="Melk" checked={searchOptions.showMilk} onClick={() => dispatch(toggleMilk())}/>
             </div>
 
             <div className={styles.labelCheckboxContainer}>
-              <label>Soya</label>
-              <input className={styles.checkbox} type="checkbox" name="Soya" id="Soya" />
+              <label>Vis Soya</label>
+              <input className={styles.checkbox} type="checkbox" name="Soya" id="Soya" checked={searchOptions.showSoya} onClick={() => dispatch(toggleSoya())} />
             </div>
 
             <button className={styles.saveOptionsButton} onClick={toggleModal}>

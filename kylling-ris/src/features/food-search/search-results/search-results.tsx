@@ -3,14 +3,19 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
 
+
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
+  const searchOptions = useSelector(((state:RootState) => state.searchOption));
+
   const { foodItems, hasMoreFoodItems, loadMoreFoodItems } =
-    useSearchResults(searchQuery);
+  useSearchResults(searchQuery, searchOptions);
 
   return (
     <div className={styles.searchResults}>

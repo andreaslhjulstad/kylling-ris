@@ -5,7 +5,7 @@ import searchIcon from "../../assets/search-icon.png";
 
 import cogwheel from "../../assets/cogwheel.png";
 import Popup from 'reactjs-popup';
-import FilterOptionPopup from "./search-options/filter-option-popup";
+import FilterOptionPopup from "./search-options/search-option-popup";
 
 export default function FoodSearch() {
   //What the user has entered in the search field.

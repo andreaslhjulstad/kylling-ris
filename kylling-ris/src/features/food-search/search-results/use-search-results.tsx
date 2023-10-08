@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import Food from "./food";
 import { useState, useEffect } from "react";
+import SearchOption from "../search-options/searchOption";
 
 //Future useSearchResults:
 //Use tanstack query to retreive food items.
@@ -11,7 +12,7 @@ export default temporaryUseSearchResults;
 const initialResultsLoaded = 14;
 
 //This tries to simulate how it would be if we used our server.
-function temporaryUseSearchResults(searchQuery: string): {
+function temporaryUseSearchResults(searchQuery: string, searchOptions:SearchOption): {
   foodItems: Food[];
   hasMoreFoodItems: boolean;
   loadMoreFoodItems: () => Promise<void>;
@@ -27,10 +28,21 @@ function temporaryUseSearchResults(searchQuery: string): {
     setResultsLoaded(initialResultsLoaded);
   }, [searchQueryAfterInactivity]);
 
+  
   //Filtering based on search query.
-  const filteredFoodItems = allFoods.filter((food) =>
+  let filteredFoodItems = allFoods.filter((food) =>
     queryIsSimilarTo(searchQueryAfterInactivity, food.name)
   );
+
+  if(!searchOptions.showSoya){
+    filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Soya")));
+  }
+  if(!searchOptions.showMilk){
+    filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Melk")));
+  }
+  if(!searchOptions.showGluten){
+    filteredFoodItems = filteredFoodItems.filter((food => !food.allergens.includes("Gluten")));
+  }
 
   return {
     foodItems: filteredFoodItems.slice(0, resultsLoaded),
