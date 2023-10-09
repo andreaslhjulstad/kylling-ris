@@ -15,8 +15,7 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
   const columns: TableColumn<Food>[] = [
     {
       name: "Navn",
-      selector: (row) => row.name,
-      sortable: true
+      selector: (row) => row.name
     },
     {
       name: "Vekt",
@@ -24,17 +23,15 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
     },
     {
       name: "Kalorier (kcal)",
-      selector: (row) => row.calories,
-      sortable: true
+      selector: (row) => row.calories
     },
     {
       name: "Protein (g)",
-      selector: (row) => row.protein,
-      sortable: true
+      selector: (row) => row.protein
     },
     {
-      button: true,
-      cell: (row) => (
+      button: true, // Special formatting for button column
+      cell: (row) => ( // Renders a button with a trash icon in the cell
         <button
           className={styles.deleteButton}
           onClick={() => handleDelete(row.id)}
@@ -58,6 +55,13 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
       pagination
       paginationComponentOptions={{ noRowsPerPage: true }}
       highlightOnHover
+      responsive
+      noDataComponent={
+        <p className={styles.placeHolder}>
+          Du har ikke lagt til noe mat enda, gjør et søk til venstre og trykk på
+          '+'-knappen for å legge til noe
+        </p>
+      }
     />
   );
 }

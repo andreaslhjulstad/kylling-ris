@@ -1,48 +1,45 @@
 import { TableStyles } from "react-data-table-component";
 
 export const foodLogTableStyles: TableStyles = {
-  tableWrapper: {
-    style: {
-      fontFamily: "inherit",
-      border: "none"
-    }
-  },
   table: {
     style: {
-      maxWidth: "60%",
-      maxHeight: "486px",
-      minHeight: "486px",
-      margin: "auto",
-      border: "1px solid white"
+      minHeight: "533px",
+      margin: "auto"
     }
   },
   headCells: {
     style: {
       fontWeight: 800,
-      color: "#1e1e1e"
+      color: "#1E1E1E"
     }
   },
   rows: {
     style: {
-      color: "#1e1e1e"
+      color: "#1E1E1E",
+      fontSize: "1rem"
     },
     highlightOnHoverStyle: {
-      color: "#1e1e1e",
+      color: "#1E1E1E",
       backgroundColor: "#C8E2FA"
     }
   },
   pagination: {
     style: {
-      color: "#1e1e1e",
-      maxWidth: "60%",
+      color: "#1E1E1E",
       margin: "auto",
       border: "none"
     }
   },
   header: {
     style: {
-      maxWidth: "60%",
-      margin: "auto"
+      fontSize: "1.5rem",
+      margin: "auto",
+      color: "#1E1E1E"
+    }
+  },
+  headRow: {
+    style: {
+      fontSize: "1rem"
     }
   }
 };

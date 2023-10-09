@@ -59,6 +59,11 @@
   margin-bottom: 3vh;
 }
 
+.tableWrapper {
+  width: 80%;
+  margin: 0 auto 0 auto;
+}
+
 @media only screen and (max-width: 1170px) {
   .wrapper {
     flex-direction: column;
@@ -81,5 +86,11 @@
 
   .pageTitleContainer {
     margin-left: auto;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .tableWrapper {
+    width: 100%;
   }
 }

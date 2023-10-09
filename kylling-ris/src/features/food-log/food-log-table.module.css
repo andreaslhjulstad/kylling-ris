@@ -5,26 +5,16 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.editButton {
-  background-color: #2275c3;
-  width: 25px;
-  height: 25px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  margin-right: auto;
 }
 
 .deleteIcon {
   color: #FEFDFE;
-  height: 15px;
-  width: 15px;
+  height: 16px;
+  width: 16px;
+  margin-top: 3px;
 }
 
-.editIcon {
-  color: #FEFDFE;
-  height: 15px;
-  width: 15px;
+.placeHolder {
+  padding: 20px;
 }
-

@@ -20,8 +20,7 @@ export default function Mainpage() {
       </div>
       <div className={styles.logAndDateCard}>
         <h2 className={styles.weekday}>Onsdag</h2>
-        <div>
-          {/*Assigned div for the log table component.*/}
+        <div className={styles.tableWrapper}>
           <FoodLogTable loggedFoods={JSON.parse(JSON.stringify(mockData))} />
         </div>
       </div>
