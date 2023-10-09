@@ -36,7 +36,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
           >
             <img
               onClick={() => {
-                dispatch(addFoodElement(food));
+                // In the future: get the weight from the pop-up (set to null for now, uses default weight)
+                const selectedWeight = null;
+                dispatch(addFoodElement({ food: food, weight: selectedWeight }));
               }}
               className={styles.addImage}
               src={addImage}
