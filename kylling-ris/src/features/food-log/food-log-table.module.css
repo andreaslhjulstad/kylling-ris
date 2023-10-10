@@ -1,5 +1,6 @@
 .deleteButton {
-  background-color: red;
+  background-color: rgb(63, 63, 63);
+  color: #b0b0b0;
   width: 25px;
   height: 25px;
   border: none;
@@ -7,10 +8,12 @@
   cursor: pointer;
 }
 
+.deleteButton:hover {
+  background-color: red;
+  color: white;
+}
+
 .deleteIcon {
-  color: #FFFFFF;
-  height: 17px;
-  width: 17px;
   margin-top: 3px;
 }
 
@@ -60,5 +63,3 @@
     margin-right: auto;
   }
 }
-
-

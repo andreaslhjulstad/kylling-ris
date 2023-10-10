@@ -1,7 +1,7 @@
 import DataTable, { TableColumn } from "react-data-table-component";
 import Food from "../food-search/search-results/food";
 import { useState } from "react";
-import { FiTrash2 } from "react-icons/fi";
+import { HiTrash } from "react-icons/hi";
 import styles from "./food-log-table.module.css";
 import { foodLogTableStyles } from "./food-log-table-styles";
 
@@ -34,7 +34,7 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
         className={styles.deleteButton}
         onClick={() => handleDelete(row.id)}
       >
-        <FiTrash2 className={styles.deleteIcon} />
+        <HiTrash className={styles.deleteIcon} stroke-width={0} size={19} />
       </button>
     )
   };
@@ -68,7 +68,10 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
 
   const ExpandedRowComponent = ({ data }: { data: Food }) => (
     <div className={styles.expandedRow}>
-      <p>Vekt: {data.weight}{data.weight_unit}</p>
+      <p>
+        Vekt: {data.weight}
+        {data.weight_unit}
+      </p>
       <p>Kalorier (kcal): {data.calories}</p>
       <p>Protein (g): {data.protein}</p>
     </div>
@@ -79,10 +82,17 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
       <h1 className={styles.header}>Logget mat</h1>
       <div className={styles.totals}>
         <h2 className={styles.totalCalories}>
-          Totale kalorier: {Math.round(data.reduce((total, food) => total + food.calories, 0) * 10) / 10}kcal
+          Totale kalorier:{" "}
+          {Math.round(
+            data.reduce((total, food) => total + food.calories, 0) * 10
+          ) / 10}
+          kcal
         </h2>
         <h2 className={styles.totalProtein}>
-          Total protein: {Math.round(data.reduce((total, food) => total + food.protein, 0) * 10) / 10}
+          Total protein:{" "}
+          {Math.round(
+            data.reduce((total, food) => total + food.protein, 0) * 10
+          ) / 10}
           g
         </h2>
       </div>
@@ -99,8 +109,8 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
         responsive
         noDataComponent={
           <p className={styles.placeholder}>
-            Du har ikke lagt til noe mat enda, gjør et søk og trykk
-            på '+'-knappen for å legge til noe
+            Du har ikke lagt til noe mat enda, gjør et søk og trykk på
+            '+'-knappen for å legge til noe
           </p>
         }
       />
