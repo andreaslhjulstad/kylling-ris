@@ -34,7 +34,7 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
         className={styles.deleteButton}
         onClick={() => handleDelete(row.id)}
       >
-        <HiTrash className={styles.deleteIcon} stroke-width={0} size={19} />
+        <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
       </button>
     )
   };
