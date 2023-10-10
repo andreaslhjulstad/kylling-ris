@@ -16,7 +16,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
 
   // Dispatch used to access addFoodElement function
   const dispatch = useDispatch();
-  
+
   return (
     <div className={styles.searchResults}>
       <InfiniteScroll
@@ -36,9 +36,11 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
           >
             <img
               onClick={() => {
-                // In the future: get the weight from the pop-up (set to null for now, uses default weight)
-                const selectedWeight = null;
-                dispatch(addFoodElement({ food: food, weight: selectedWeight }));
+                // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
+                const selectedWeight = 0;
+                dispatch(
+                  addFoodElement({ food: food, weight: selectedWeight })
+                );
               }}
               className={styles.addImage}
               src={addImage}
