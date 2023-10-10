@@ -5,16 +5,60 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: auto;
 }
 
 .deleteIcon {
-  color: #FEFDFE;
-  height: 16px;
-  width: 16px;
+  color: #FFFFFF;
+  height: 17px;
+  width: 17px;
   margin-top: 3px;
 }
 
-.placeHolder {
+.placeholder {
   padding: 20px;
 }
+
+.header {
+  background-color: #FFFFFF;
+  font-size: 1.5rem;
+  padding: 16px 0 16px 16px;
+}
+
+.totals {
+  background-color: #FFFFFF;
+  padding: 16px 0 16px 16px;
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.totalCalories {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.totalProtein {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.expandedRow {
+  padding: 12px 0 12px 12px;
+  border-bottom: 1px solid #E0E0E0;
+  display: flex;
+  gap: 10px;
+}
+
+@media only screen and (max-width: 365px) {
+  .expandedRow {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .deleteButton {
+    margin-right: auto;
+  }
+}
+
+

@@ -11,12 +11,36 @@ interface FoodLogTableProps {
 
 export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
   const [data, setData] = useState<Food[]>(loggedFoods);
+  const [compact, setCompact] = useState(window.innerWidth <= 775); // 775px is the breakpoint for the compact version
 
-  const columns: TableColumn<Food>[] = [
-    {
-      name: "Navn",
-      selector: (row) => row.name
-    },
+  // Set the 'compact' state based on the window width
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 775) {
+      setCompact(true);
+    } else {
+      setCompact(false);
+    }
+  });
+
+  const nameColumn: TableColumn<Food> = {
+    name: "Navn",
+    selector: (row) => row.name
+  };
+
+  const deleteButtonColumn: TableColumn<Food> = {
+    button: true,
+    cell: (row) => (
+      <button
+        className={styles.deleteButton}
+        onClick={() => handleDelete(row.id)}
+      >
+        <FiTrash2 className={styles.deleteIcon} />
+      </button>
+    )
+  };
+
+  // Define the additional columns that are specific to the non-compact version
+  const additionalColumns: TableColumn<Food>[] = [
     {
       name: "Vekt",
       selector: (row) => `${row.weight} ${row.weight_unit}`
@@ -28,40 +52,57 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
     {
       name: "Protein (g)",
       selector: (row) => row.protein
-    },
-    {
-      button: true, // Special formatting for button column
-      cell: (row) => ( // Renders a button with a trash icon in the cell
-        <button
-          className={styles.deleteButton}
-          onClick={() => handleDelete(row.id)}
-        >
-          <FiTrash2 className={styles.deleteIcon} />
-        </button>
-      )
     }
   ];
+
+  // Construct the columns array based on the 'compact' condition
+  // If compact, only use the name and delete button columns
+  // Otherwise, include the additional columns as well
+  const columns: TableColumn<Food>[] = compact
+    ? [nameColumn, deleteButtonColumn]
+    : [nameColumn, ...additionalColumns, deleteButtonColumn];
 
   const handleDelete = (id: number) => {
     setData(data.filter((food) => food.id !== id));
   };
 
+  const ExpandedRowComponent = ({ data }: { data: Food }) => (
+    <div className={styles.expandedRow}>
+      <p>Vekt: {data.weight}{data.weight_unit}</p>
+      <p>Kalorier (kcal): {data.calories}</p>
+      <p>Protein (g): {data.protein}</p>
+    </div>
+  );
+
   return (
-    <DataTable
-      title="Logget mat"
-      columns={columns}
-      data={data}
-      customStyles={foodLogTableStyles}
-      pagination
-      paginationComponentOptions={{ noRowsPerPage: true }}
-      highlightOnHover
-      responsive
-      noDataComponent={
-        <p className={styles.placeHolder}>
-          Du har ikke lagt til noe mat enda, gjør et søk til venstre og trykk på
-          '+'-knappen for å legge til noe
-        </p>
-      }
-    />
+    <div>
+      <h1 className={styles.header}>Logget mat</h1>
+      <div className={styles.totals}>
+        <h2 className={styles.totalCalories}>
+          Totale kalorier: {Math.round(data.reduce((total, food) => total + food.calories, 0) * 10) / 10}kcal
+        </h2>
+        <h2 className={styles.totalProtein}>
+          Total protein: {Math.round(data.reduce((total, food) => total + food.protein, 0) * 10) / 10}
+          g
+        </h2>
+      </div>
+      <DataTable
+        columns={columns}
+        data={data}
+        customStyles={foodLogTableStyles}
+        pagination
+        expandableRows={compact}
+        expandableRowsComponent={ExpandedRowComponent}
+        paginationComponentOptions={{ noRowsPerPage: true }}
+        highlightOnHover
+        responsive
+        noDataComponent={
+          <p className={styles.placeholder}>
+            Du har ikke lagt til noe mat enda, gjør et søk og trykk
+            på '+'-knappen for å legge til noe
+          </p>
+        }
+      />
+    </div>
   );
 }
