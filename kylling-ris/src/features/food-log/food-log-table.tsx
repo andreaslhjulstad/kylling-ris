@@ -92,6 +92,7 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
         customStyles={foodLogTableStyles}
         pagination
         expandableRows={compact}
+        expandOnRowClicked
         expandableRowsComponent={ExpandedRowComponent}
         paginationComponentOptions={{ noRowsPerPage: true }}
         highlightOnHover
