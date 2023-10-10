@@ -41,7 +41,7 @@ function temporaryUseSearchResults(
   }, [searchQueryAfterInactivity]);
 
   //Applying sort, allergen filter and search.
-  let filteredFoodItems = allFoods
+  const filteredFoodItems = allFoods
     .filter((food) => queryIsSimilarTo(searchQueryAfterInactivity, food.name))
     .filter(({ allergens }) =>
       !searchOptions.allergens.some((disallowedAllergen) => allergens.includes(disallowedAllergen))

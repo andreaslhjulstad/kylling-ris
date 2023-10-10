@@ -48,10 +48,10 @@ export default function FilterOptionPopup() {
         >
           <option value="name-ascending">Navn a-z</option>
           <option value="name-descending">Navn z-a</option>
-          <option value="protein-ascending">Proteiner (stigene)</option>
-          <option value="protein-descending">Proteiner (synkene)</option>
-          <option value="kcal-ascending">Kalorier (stigene)</option>
-          <option value="kcal-descending">Kalorier (synkene)</option>
+          <option value="protein-ascending">Proteiner (stigende)</option>
+          <option value="protein-descending">Proteiner (synkende)</option>
+          <option value="kcal-ascending">Kalorier (stigende)</option>
+          <option value="kcal-descending">Kalorier (synkende)</option>
         </select>
 
         <div className={styles.labelCheckboxContainer}>

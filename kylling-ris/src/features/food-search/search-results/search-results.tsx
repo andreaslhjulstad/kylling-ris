@@ -3,8 +3,9 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { addFoodElement } from "./food-reducer";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -16,6 +17,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
 
   const { foodItems, hasMoreFoodItems, loadMoreFoodItems } =
   useSearchResults(searchQuery, searchOptions);
+
+  // Dispatch used to access addFoodElement function
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.searchResults}>
@@ -36,7 +40,11 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
           >
             <img
               onClick={() => {
-                console.log(`Added ${food.name}`);
+                // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
+                const selectedWeight = 0;
+                dispatch(
+                  addFoodElement({ food: food, weight: selectedWeight })
+                );
               }}
               className={styles.addImage}
               src={addImage}
