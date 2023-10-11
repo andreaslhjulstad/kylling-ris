@@ -9,5 +9,5 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/test-setup/test-setup.ts"
   },
-  base: "/project1"
+  base: "/project2"
 });

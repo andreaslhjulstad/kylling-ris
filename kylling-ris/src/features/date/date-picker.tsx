@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./date-picker.module.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { updateDate } from "../food-log/log-reducer";
+import { selectDate } from "../food-log/food-log-reducer";
 
 export default function DatePicker() {
   const [date, setDate] = useState(new Date());
@@ -50,13 +50,12 @@ export default function DatePicker() {
     const isToday =
       Math.ceil(date.getTime() / (1000 * 3600 * 24)) ===
       Math.ceil(new Date().getTime() / (1000 * 3600 * 24));
-    setDisableForward(isToday); // The user should not be able to navigate to future dates
+
+    // The user should not be able to navigate to future dates
+    setDisableForward(isToday);
 
     // Updates the date in the redux store
-    dispatch(updateDate({ date: date.toISOString().split("T")[0] }));
-
-    // Updates the date in session storage
-    sessionStorage.setItem("date", date.toISOString());
+    dispatch(selectDate({ date: date.toISOString().split("T")[0] }));
   }, [date, dispatch]);
 
   return (

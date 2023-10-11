@@ -1,22 +1,23 @@
-import Food from "./food";
+import FoodInfo from "./food-info";
 import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addFoodElement } from "../../food-log/log-reducer";
+import { addFood } from "../../food-log/food-log-reducer";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
 
-
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
-  const searchOptions = useSelector(((state:RootState) => state.searchOption));
+  const searchOptions = useSelector((state: RootState) => state.searchOption);
 
-  const { foodItems, hasMoreFoodItems, loadMoreFoodItems } =
-  useSearchResults(searchQuery, searchOptions);
+  const { foods, hasMoreFoodItems, loadMoreFoodItems } = useSearchResults(
+    searchQuery,
+    searchOptions
+  );
 
   // Dispatch used to access addFoodElement function
   const dispatch = useDispatch();
@@ -25,14 +26,14 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     <div className={styles.searchResults}>
       <InfiniteScroll
         initialScrollY={0}
-        dataLength={foodItems.length}
+        dataLength={foods.length}
         next={loadMoreFoodItems}
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
         height={700}
       >
-        {foodItems.map((food: Food) => (
+        {foods.map((food: FoodInfo) => (
           <div
             className={styles.foodItem}
             key={food.id}
@@ -41,10 +42,8 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
             <img
               onClick={() => {
                 // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
-                const selectedWeight = 0;
-                dispatch(
-                  addFoodElement({ food: food, weight: selectedWeight })
-                );
+                const selectedWeight = 5;
+                dispatch(addFood({ foodInfo: food, weight: selectedWeight }));
               }}
               className={styles.addImage}
               src={addImage}
@@ -56,9 +55,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                   //Only puts " - " between the fields that are present.
                   [
                     food.brand,
-                    `${food.weight}${food.weight_unit}`,
-                    `Protein: ${food.protein}g`,
-                    `${food.calories}kcal`
+                    `${food.defaultWeight}${food.weightUnit}`,
+                    `Protein: ${food.relativeProtein}g`,
+                    `${food.relativeCalories}kcal`
                   ]
                     .filter((text) => text.length > 0)
                     .join(" - ")

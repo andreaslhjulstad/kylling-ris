@@ -1,37 +1,41 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import Food from "./food";
+import FoodInfo from "./food-info";
 import { useState, useEffect } from "react";
 import { SearchOption } from "../search-options/search-option-reducer";
 
 //Future useSearchResults:
 //Use tanstack query to retreive food items.
 //Include searchQuery, filters, sorts in request so that the server can take care of it.
-export default temporaryUseSearchResults;
+export default useTemporarySearchResults;
 
 const initialResultsLoaded = 14;
 
-const sortComparison: { [sortName: string]: (a: Food, b: Food) => number } = {
+const sortComparison: {
+  [sortName: string]: (a: FoodInfo, b: FoodInfo) => number;
+} = {
   "name-ascending": (a, b) => a.name.localeCompare(b.name),
   "name-descending": (a, b) => b.name.localeCompare(a.name),
-  "protein-ascending": (a, b) => a.protein - b.protein,
-  "protein-descending": (a, b) => b.protein - a.protein,
-  "kcal-ascending": (a, b) => a.calories - b.calories,
-  "kcal-descending": (a, b) => b.calories - a.calories
+  "protein-ascending": (a, b) => a.relativeProtein - b.relativeProtein,
+  "protein-descending": (a, b) => b.relativeProtein - a.relativeProtein,
+  "kcal-ascending": (a, b) => a.relativeCalories - b.relativeCalories,
+  "kcal-descending": (a, b) => b.relativeCalories - a.relativeCalories
 };
 
 //This tries to simulate how it would be if we used our server.
-function temporaryUseSearchResults(
+function useTemporarySearchResults(
   searchQuery: string,
   searchOptions: SearchOption
 ): {
-  foodItems: Food[];
+  foods: FoodInfo[];
   hasMoreFoodItems: boolean;
   loadMoreFoodItems: () => Promise<void>;
 } {
   const [resultsLoaded, setResultsLoaded] =
     useState<number>(initialResultsLoaded);
-  const allFoods: Food[] = useSelector((state: RootState) => state.search.foods);
+  const allFoods: FoodInfo[] = useSelector(
+    (state: RootState) => state.searchResults.foods
+  );
   // In the future we don't want to send a new request on every character typed by the user.
   const searchQueryAfterInactivity = useUpdateOnInactivity(300, searchQuery);
 
@@ -43,13 +47,16 @@ function temporaryUseSearchResults(
   //Applying sort, allergen filter and search.
   const filteredFoodItems = allFoods
     .filter((food) => queryIsSimilarTo(searchQueryAfterInactivity, food.name))
-    .filter(({ allergens }) =>
-      !searchOptions.allergens.some((disallowedAllergen) => allergens.includes(disallowedAllergen))
+    .filter(
+      ({ allergens }) =>
+        !searchOptions.allergens.some((disallowedAllergen) =>
+          allergens.includes(disallowedAllergen)
+        )
     )
     .sort(sortComparison[searchOptions.sortOption]);
 
   return {
-    foodItems: filteredFoodItems.slice(0, resultsLoaded),
+    foods: filteredFoodItems.slice(0, resultsLoaded),
     loadMoreFoodItems: async () => {
       //Simulates the loading time of retrieving from server.
       await new Promise((resolve) => setTimeout(resolve, 1500));

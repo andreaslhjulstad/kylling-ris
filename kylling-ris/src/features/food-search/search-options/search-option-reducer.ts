@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 //allergens are the filtered away allergens.
 export interface SearchOption {
@@ -15,13 +15,21 @@ const searchOptionSlice = createSlice({
   name: "searchOption",
   initialState,
   reducers: {
-    setAllergens: (state, action) => {
-      state.allergens = action.payload;
-      localStorage.setItem("allergens", JSON.stringify(action.payload));
+    setAllergens: (state, action: PayloadAction<string[]>) => {
+      const allergens = action.payload;
+      localStorage.setItem("allergens", JSON.stringify(allergens));
+      return {
+        ...state,
+        allergens
+      };
     },
-    changeSort: (state, action) => {
-      state.sortOption = action.payload;
-      localStorage.setItem("sort", JSON.stringify(action.payload));
+    changeSort: (state, action: PayloadAction<string>) => {
+      const sortOption = action.payload;
+      localStorage.setItem("sort", JSON.stringify(sortOption));
+      return {
+        ...state,
+        sortOption
+      };
     }
   }
 });
