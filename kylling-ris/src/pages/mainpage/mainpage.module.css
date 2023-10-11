@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   width: auto;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .logAndDateCard {
@@ -55,6 +55,7 @@
 .tableWrapper {
   width: 80%;
   margin: 0 auto 0 auto;
+  min-height: 53.7vh;
 }
 
 @media only screen and (max-width: 1170px) {

@@ -29,6 +29,7 @@ export default function FilterOptionPopup() {
 
   useEffect(() => {
     dispatch(setAllergens(allergensNotShown(allergenIsAllowed)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allergenIsAllowed]);
 
   return (
@@ -46,10 +47,18 @@ export default function FilterOptionPopup() {
         >
           <option value="name-ascending">Navn a-z</option>
           <option value="name-descending">Navn z-a</option>
-          <option value="protein-ascending">Proteiner (stigende)</option>
-          <option value="protein-descending">Proteiner (synkende)</option>
-          <option value="kcal-ascending">Kalorier (stigende)</option>
-          <option value="kcal-descending">Kalorier (synkende)</option>
+          <option value="protein-ascending">
+            Proteiner pr. 100g/ml (stigende)
+          </option>
+          <option value="protein-descending">
+            Proteiner pr. 100g/ml (synkende)
+          </option>
+          <option value="kcal-ascending">
+            Kalorier pr. 100g/ml (stigende)
+          </option>
+          <option value="kcal-descending">
+            Kalorier pr. 100g/ml (synkende)
+          </option>
         </select>
 
         <div className={styles.labelCheckboxContainer}>

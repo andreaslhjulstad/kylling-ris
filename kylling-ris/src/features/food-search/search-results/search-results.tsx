@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
+import { useEffect, useRef, useState } from "react";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -31,8 +32,28 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchOptions
   );
 
+  /* 
+  Update height of scroll element when window is resized.
+  Include breakpoint to prevent too large of a difference
+  in starting height between scroll element and table element
+  */
+  const parentRef = useRef(null);
+  const [height, setHeight] = useState(window.innerHeight);
+  const breakpoint = 1200;
+
+  useEffect(() => {
+    const handleResizeWindow = () => setHeight(window.innerHeight);
+    // Listen to window resize event
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      // "Unlisten" to resize event
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
+  const scrollHeight = height > breakpoint ? height * 1 : height * 0.75;
+
   return (
-    <div className={styles.searchResults}>
+    <div className={styles.searchResults} ref={parentRef}>
       <InfiniteScroll
         initialScrollY={0}
         dataLength={foods.length}
@@ -40,7 +61,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
-        height={700}
+        height={scrollHeight}
       >
         {foods.map((food: FoodInfo) => {
           const defaultWeightFoodItem: FoodItem = foodItem(
