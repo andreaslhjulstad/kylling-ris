@@ -6,10 +6,22 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addFood } from "../../food-log/food-log-reducer";
+import FoodItem, { foodItem } from "../../food-log/food-item";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
+
+// g to kg and ml to L conversion for display.
+const appropriateUnit = (x: number, standardUnit: string) => {
+  if (x > 999 && standardUnit === "g") {
+    return `${x / 1000}kg`;
+  }
+  if (x > 999 && standardUnit === "ml") {
+    return `${x / 1000}L`;
+  }
+  return `${x}${standardUnit}`;
+};
 
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
   const searchOptions = useSelector((state: RootState) => state.searchOption);
@@ -19,7 +31,6 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchOptions
   );
 
-  // Dispatch used to access addFoodElement function
   const dispatch = useDispatch();
 
   return (
@@ -33,39 +44,45 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         className={styles.invisibleScrollbar}
         height={700}
       >
-        {foods.map((food: FoodInfo) => (
-          <div
-            className={styles.foodItem}
-            key={food.id}
-            data-testid={`food-search-result-${food.id}`}
-          >
-            <img
-              onClick={() => {
-                // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
-                const selectedWeight = 5;
-                dispatch(addFood({ foodInfo: food, weight: selectedWeight }));
-              }}
-              className={styles.addImage}
-              src={addImage}
-            />
-            <div className={styles.foodInfo}>
-              <h1>{food.name}</h1>
-              <h2>
-                {
-                  //Only puts " - " between the fields that are present.
-                  [
-                    food.brand,
-                    `${food.defaultWeight}${food.weightUnit}`,
-                    `Protein: ${food.relativeProtein}g`,
-                    `${food.relativeCalories}kcal`
-                  ]
-                    .filter((text) => text.length > 0)
-                    .join(" - ")
-                }
-              </h2>
+        {foods.map((food: FoodInfo) => {
+          const defaultWeightFoodItem: FoodItem = foodItem(
+            food,
+            food.defaultWeight
+          )!;
+          return (
+            <div
+              className={styles.foodItem}
+              key={food.id}
+              data-testid={`food-search-result-${food.id}`}
+            >
+              <img
+                onClick={() => {
+                  // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
+                  const selectedWeight = 5;
+                  dispatch(addFood({ foodInfo: food, weight: selectedWeight }));
+                }}
+                className={styles.addImage}
+                src={addImage}
+              />
+              <div className={styles.foodInfo}>
+                <h1>{food.name}</h1>
+                <h2>
+                  {
+                    //Only puts " - " between the fields that are present.
+                    [
+                      food.brand,
+                      appropriateUnit(food.defaultWeight, food.weightUnit),
+                      `Protein: ${defaultWeightFoodItem.protein}g`,
+                      `${defaultWeightFoodItem.calories}kcal`
+                    ]
+                      .filter((text) => text.length > 0)
+                      .join(" - ")
+                  }
+                </h2>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </InfiniteScroll>
     </div>
   );

@@ -20,7 +20,7 @@ const weightStandard = 100;
 export const foodItem = (
   foodInfo: FoodInfo,
   weight: number,
-  id: number
+  id: number = 0
 ): FoodItem | null =>
   weight === 0
     ? null
