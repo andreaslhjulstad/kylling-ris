@@ -3,7 +3,7 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
@@ -33,20 +33,18 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
   );
 
   // Dispatch used to access addFoodElement function
-  const dispatch = useDispatch();
   const parentRef = useRef(null);
   const [height, setHeight] = useState(window.innerHeight);
   const breakpoint = 700;
 
   useEffect(() => {
-    alert("test");
-  const handleResizeWindow = () => setHeight(window.innerHeight);
-  // subscribe to window resize event "onComponentDidMount"
-  window.addEventListener("resize", handleResizeWindow);
-  return () => {
-  // unsubscribe "onComponentDestroy"
-  window.removeEventListener("resize", handleResizeWindow);
-  };
+    const handleResizeWindow = () => setHeight(window.innerHeight);
+    // subscribe to window resize event "onComponentDidMount"
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      // unsubscribe "onComponentDestroy"
+      window.removeEventListener("resize", handleResizeWindow);
+    };
   }, []);
   const scrollHeight = height > breakpoint ? height * 0.75 : height * 0.75;
 
