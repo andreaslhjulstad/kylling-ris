@@ -4,7 +4,7 @@ import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
-import { addFoodElement } from "./food-reducer";
+import { addFoodElement } from "../../food-log/log-reducer";
 
 interface SearchResultsProps {
   searchQuery: string;

@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import foodReducer from "../features/food-search/search-results/food-reducer";
+import searchReducer from "../features/food-search/search-results/search-reducer";
+import logReducer from "../features/food-log/log-reducer";
 
 const rootReducer = combineReducers({
-  food: foodReducer
+  search: searchReducer,
+  log: logReducer
 });
 
 export default rootReducer;
