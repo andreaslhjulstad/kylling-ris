@@ -22,7 +22,7 @@ export const foodItem = (
   weight: number,
   id: number = 0
 ): FoodItem | null =>
-  weight === 0
+  weight <= 0
     ? null
     : {
         ...foodInfo,
