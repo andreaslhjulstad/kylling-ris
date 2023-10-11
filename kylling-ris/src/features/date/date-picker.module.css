@@ -1,0 +1,70 @@
+.weekdayNavigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dateInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date {
+  color: #b0b0b0;
+  margin-top: 0;
+  margin-bottom: 3vh;
+  font-size: 0.8rem;
+}
+
+.weekdayNavigation {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  width: 225px;
+}
+
+.weekday {
+  font-weight: 400;
+}
+
+.navigationArrow {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.disabledNaviagtionArrow {
+  margin-top: 5px;
+  color: #b0b0b0;
+}
+
+@media only screen and (max-width: 1170px) {
+  .dateInfo {
+    margin-top: 3vh;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .weekday {
+    background-color: white;
+    color: black;
+    margin-top: 3vh;
+  }
+
+  .navigationArrow {
+    color: black;
+    margin-top: 3.5vh;
+  }
+
+  .navigationArrow:hover {
+    background-color: #C8E2FA;
+    border-radius: 50%;
+  }
+
+  .disabledNaviagtionArrow {
+    margin-top: 3.5vh;
+  }
+}
