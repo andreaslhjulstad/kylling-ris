@@ -3,10 +3,10 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addFood } from "../../food-log/food-log-reducer";
 import FoodItem, { foodItem } from "../../food-log/food-item";
+import AddFoodPopup from "../add-food-popup/add-food-popup";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -18,7 +18,7 @@ const appropriateUnit = (x: number, standardUnit: string) => {
     return `${x / 1000}kg`;
   }
   if (x > 999 && standardUnit === "ml") {
-    return `${x / 1000}L`;
+    return `${x / 1000}l`;
   }
   return `${x}${standardUnit}`;
 };
@@ -30,8 +30,6 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchQuery,
     searchOptions
   );
-
-  const dispatch = useDispatch();
 
   return (
     <div className={styles.searchResults}>
@@ -55,14 +53,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <img
-                onClick={() => {
-                  // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
-                  const selectedWeight = 5;
-                  dispatch(addFood({ foodInfo: food, weight: selectedWeight }));
-                }}
-                className={styles.addImage}
-                src={addImage}
+              <AddFoodPopup
+                trigger={<img className={styles.addImage} src={addImage} />}
+                food={food}
               />
               <div className={styles.foodInfo}>
                 <h1>{food.name}</h1>
