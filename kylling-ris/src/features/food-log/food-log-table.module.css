@@ -21,18 +21,13 @@
   padding: 20px;
 }
 
-.header {
-  background-color: #FFFFFF;
-  font-size: 1.5rem;
-  padding: 16px 0 16px 16px;
-}
-
 .totals {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 16px 0 16px 16px;
   display: flex;
+  justify-content: space-evenly;
   gap: 10px;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .totalCalories {
@@ -47,7 +42,7 @@
 
 .expandedRow {
   padding: 12px 0 12px 12px;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #e0e0e0;
   display: flex;
   gap: 10px;
 }

@@ -1,25 +1,21 @@
 import DataTable, { TableColumn } from "react-data-table-component";
-import Food from "../food-search/search-results/food";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 import styles from "./food-log-table.module.css";
 import { foodLogTableStyles } from "./food-log-table-styles";
-import { useDispatch } from "react-redux";
-import { removeFoodElement } from "./log-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFood } from "./food-log-reducer";
+import FoodItem from "./food-item";
+import { RootState } from "../../redux/store";
 
-interface FoodLogTableProps {
-  loggedFoods: Food[];
-}
-
-export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
-  const [data, setData] = useState<Food[]>([]);
-  const [compact, setCompact] = useState(window.innerWidth <= 775); // 775px is the breakpoint for the compact version
+export default function FoodLogTable() {
+  const selectedFoodLog = useSelector(
+    (state: RootState) => state.foodLog.selectedFoodLog
+  );
+  // 775px is the breakpoint for the compact version.
+  const [compact, setCompact] = useState<boolean>(window.innerWidth <= 775);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setData(loggedFoods);
-  }, [loggedFoods]);
 
   // Set the 'compact' state based on the window width
   window.addEventListener("resize", () => {
@@ -30,29 +26,30 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
     }
   });
 
-  const nameColumn: TableColumn<Food> = {
+  const nameColumn: TableColumn<FoodItem> = {
     name: "Navn",
     selector: (row) => row.name
   };
 
-  const deleteButtonColumn: TableColumn<Food> = {
+  const deleteButtonColumn: TableColumn<FoodItem> = {
     button: true,
     cell: (row) => (
       <button
         className={styles.deleteButton}
-        onClick={() => handleDelete(row.id, row.weight)}
+        onClick={() => {
+          dispatch(removeFood({ id: row.id }));
+        }}
       >
         <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
       </button>
     )
   };
 
-
   // Define the additional columns that are specific to the non-compact version
-  const additionalColumns: TableColumn<Food>[] = [
+  const additionalColumns: TableColumn<FoodItem>[] = [
     {
       name: "Vekt",
-      selector: (row) => `${row.weight} ${row.weight_unit}`
+      selector: (row) => `${row.weight} ${row.weightUnit}`
     },
     {
       name: "Kalorier (kcal)",
@@ -67,49 +64,44 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
   // Construct the columns array based on the 'compact' condition
   // If compact, only use the name and delete button columns
   // Otherwise, include the additional columns as well
-  const columns: TableColumn<Food>[] = compact
+  const columns: TableColumn<FoodItem>[] = compact
     ? [nameColumn, deleteButtonColumn]
     : [nameColumn, ...additionalColumns, deleteButtonColumn];
 
-  const handleDelete = (id: number, weight: number) => {
-    setData(data.filter((food) => food.id !== id));
-
-    dispatch(removeFoodElement( { id: id, weight: weight } ));
-  };
-
-  const ExpandedRowComponent = ({ data }: { data: Food }) => (
+  const ExpandedRowComponent = ({ data: food }: { data: FoodItem }) => (
     <div className={styles.expandedRow}>
       <p>
-        Vekt: {data.weight}
-        {data.weight_unit}
+        Vekt: {food.weight}
+        {food.weightUnit}
       </p>
-      <p>Kalorier (kcal): {data.calories}</p>
-      <p>Protein (g): {data.protein}</p>
+      <p>Kalorier (kcal): {food.calories}</p>
+      <p>Protein (g): {food.protein}</p>
     </div>
   );
 
   return (
     <div>
-      <h1 className={styles.header}>Logget mat</h1>
       <div className={styles.totals}>
         <h2 className={styles.totalCalories}>
-          Totale kalorier:{" "}
+          Kalorier:{" "}
           {Math.round(
-            data.reduce((total, food) => total + food.calories, 0) * 10
+            selectedFoodLog.reduce((total, food) => total + food.calories, 0) *
+              10
           ) / 10}
           kcal
         </h2>
         <h2 className={styles.totalProtein}>
-          Total protein:{" "}
+          Protein:{" "}
           {Math.round(
-            data.reduce((total, food) => total + food.protein, 0) * 10
+            selectedFoodLog.reduce((total, food) => total + food.protein, 0) *
+              10
           ) / 10}
           g
         </h2>
       </div>
       <DataTable
         columns={columns}
-        data={data}
+        data={selectedFoodLog}
         customStyles={foodLogTableStyles}
         pagination
         expandableRows={compact}

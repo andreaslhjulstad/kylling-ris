@@ -3,160 +3,160 @@
     "id": 71522,
     "name": "Kyllingfilet",
     "brand": "First price",
-    "weight": 2,
-    "weight_unit": "kg",
+    "defaultWeight": 2000,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 96,
-    "protein": 21
+    "relativeCalories": 96,
+    "relativeProtein": 21
   },
   {
     "id": 31667,
     "name": "Kyllingfilet Naturell",
     "brand": "Ytterøy",
-    "weight": 1.8,
-    "weight_unit": "kg",
+    "defaultWeight": 1800,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 104,
-    "protein": 23.8
+    "relativeCalories": 104,
+    "relativeProtein": 23.8
   },
   {
     "id": 24459,
     "name": "Kyllingfilet",
     "brand": "Den Stolte Hane",
-    "weight": 0.75,
-    "weight_unit": "kg",
+    "defaultWeight": 750,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 111,
-    "protein": 23
+    "relativeCalories": 111,
+    "relativeProtein": 23
   },
   {
     "id": 60299,
     "name": "Kyllingfilet",
     "brand": "Prior",
-    "weight": 1.1,
-    "weight_unit": "kg",
+    "defaultWeight": 1100,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 111,
-    "protein": 23
+    "relativeCalories": 111,
+    "relativeProtein": 23
   },
   {
     "id": 41961,
     "name": "Kyllingfilet",
     "brand": "Prior",
-    "weight": 425,
-    "weight_unit": "g",
+    "defaultWeight": 425,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 111,
-    "protein": 23
+    "relativeCalories": 111,
+    "relativeProtein": 23
   },
   {
     "id": 71513,
     "name": "Jasminris",
     "brand": "First price",
-    "weight": 4,
-    "weight_unit": "kg",
+    "defaultWeight": 4000,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 352,
-    "protein": 6.2
+    "relativeCalories": 352,
+    "relativeProtein": 6.2
   },
   {
     "id": 38441,
     "name": "Jasminris",
     "brand": "",
-    "weight": 2,
-    "weight_unit": "kg",
+    "defaultWeight": 2000,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 346,
-    "protein": 7
+    "relativeCalories": 346,
+    "relativeProtein": 7
   },
   {
     "id": 16615,
     "name": "Jasminris",
     "brand": "COOP",
-    "weight": 2,
-    "weight_unit": "kg",
+    "defaultWeight": 2000,
+    "weightUnit": "g",
     "allergens": [],
-    "calories": 352,
-    "protein": 6.2
+    "relativeCalories": 352,
+    "relativeProtein": 6.2
   },
   {
     "id": 1809,
     "name": "Coca-Cola flaske",
     "brand": "Coca-cola",
-    "weight": 1.5,
-    "weight_unit": "l",
+    "defaultWeight": 1500,
+    "weightUnit": "ml",
     "allergens": [],
-    "calories": 42,
-    "protein": 0
+    "relativeCalories": 42,
+    "relativeProtein": 0
   },
   {
     "id": 1813,
     "name": "Coca-Cola u/Sukker flaske",
     "brand": "Coca-cola",
-    "weight": 0.5,
-    "weight_unit": "l",
+    "defaultWeight": 500,
+    "weightUnit": "ml",
     "allergens": [],
-    "calories": 0.3,
-    "protein": 0
+    "relativeCalories": 0.3,
+    "relativeProtein": 0
   },
   {
     "id": 1886,
     "name": "Coca-Cola flaske",
     "brand": "Coca-cola",
-    "weight": 0.5,
-    "weight_unit": "l",
+    "defaultWeight": 500,
+    "weightUnit": "ml",
     "allergens": [],
-    "calories": 42,
-    "protein": 0
+    "relativeCalories": 42,
+    "relativeProtein": 0
   },
   {
     "id": 8527,
     "name": "Lettmelk 1,0%",
     "brand": "Tine",
-    "weight": 1,
-    "weight_unit": "l",
+    "defaultWeight": 1000,
+    "weightUnit": "ml",
     "allergens": ["Melk"],
-    "calories": 41,
-    "protein": 3.5
+    "relativeCalories": 41,
+    "relativeProtein": 3.5
   },
   {
     "id": 8528,
     "name": "Lettmelk 0,5%",
     "brand": "Tine",
-    "weight": 1,
-    "weight_unit": "l",
+    "defaultWeight": 1000,
+    "weightUnit": "ml",
     "allergens": ["Melk"],
-    "calories": 37,
-    "protein": 3.5
+    "relativeCalories": 37,
+    "relativeProtein": 3.5
   },
   {
     "id": 8533,
     "name": "Helmelk",
     "brand": "Tine",
-    "weight": 1,
-    "weight_unit": "l",
+    "defaultWeight": 1000,
+    "weightUnit": "ml",
     "allergens": ["Melk"],
-    "calories": 63,
-    "protein": 3.4
+    "relativeCalories": 63,
+    "relativeProtein": 3.4
   },
   {
     "id": 174749,
     "name": "Soyasaus",
     "brand": "Kikkoman",
-    "weight": 0.5,
-    "weight_unit": "l",
+    "defaultWeight": 500,
+    "weightUnit": "ml",
     "allergens": ["Gluten", "Soya"],
-    "calories": 77,
-    "protein": 10
+    "relativeCalories": 77,
+    "relativeProtein": 10
   },
   {
     "id": 35525,
     "name": "Soyasaus Økologisk",
     "brand": "Kikkoman",
-    "weight": 250,
-    "weight_unit": "ml",
+    "defaultWeight": 250,
+    "weightUnit": "ml",
     "allergens": ["Gluten", "Soya"],
-    "calories": 89,
-    "protein": 11
+    "relativeCalories": 89,
+    "relativeProtein": 11
   }
 ]

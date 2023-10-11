@@ -1,72 +1,81 @@
-import Food from "./food";
+import FoodInfo from "./food-info";
 import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addFoodElement } from "../../food-log/log-reducer";
+import FoodItem, { foodItem } from "../../food-log/food-item";
+import AddFoodPopup from "../add-food-popup/add-food-popup";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
 
+// g to kg and ml to L conversion for display.
+const appropriateUnit = (x: number, standardUnit: string) => {
+  if (x > 999 && standardUnit === "g") {
+    return `${x / 1000}kg`;
+  }
+  if (x > 999 && standardUnit === "ml") {
+    return `${x / 1000}l`;
+  }
+  return `${x}${standardUnit}`;
+};
 
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
-  const searchOptions = useSelector(((state:RootState) => state.searchOption));
+  const searchOptions = useSelector((state: RootState) => state.searchOption);
 
-  const { foodItems, hasMoreFoodItems, loadMoreFoodItems } =
-  useSearchResults(searchQuery, searchOptions);
-
-  // Dispatch used to access addFoodElement function
-  const dispatch = useDispatch();
+  const { foods, hasMoreFoodItems, loadMoreFoodItems } = useSearchResults(
+    searchQuery,
+    searchOptions
+  );
 
   return (
     <div className={styles.searchResults}>
       <InfiniteScroll
         initialScrollY={0}
-        dataLength={foodItems.length}
+        dataLength={foods.length}
         next={loadMoreFoodItems}
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
         height={700}
       >
-        {foodItems.map((food: Food) => (
-          <div
-            className={styles.foodItem}
-            key={food.id}
-            data-testid={`food-search-result-${food.id}`}
-          >
-            <img
-              onClick={() => {
-                // In the future: get the weight from the pop-up (set to 0 for now, uses default weight)
-                const selectedWeight = 0;
-                dispatch(
-                  addFoodElement({ food: food, weight: selectedWeight })
-                );
-              }}
-              className={styles.addImage}
-              src={addImage}
-            />
-            <div className={styles.foodInfo}>
-              <h1>{food.name}</h1>
-              <h2>
-                {
-                  //Only puts " - " between the fields that are present.
-                  [
-                    food.brand,
-                    `${food.weight}${food.weight_unit}`,
-                    `Protein: ${food.protein}g`,
-                    `${food.calories}kcal`
-                  ]
-                    .filter((text) => text.length > 0)
-                    .join(" - ")
-                }
-              </h2>
+        {foods.map((food: FoodInfo) => {
+          const defaultWeightFoodItem: FoodItem = foodItem(
+            food,
+            food.defaultWeight
+          )!;
+          return (
+            <div
+              className={styles.foodItem}
+              key={food.id}
+              data-testid={`food-search-result-${food.id}`}
+            >
+              <AddFoodPopup
+                trigger={<img className={styles.addImage} src={addImage} />}
+                food={food}
+              />
+              <div className={styles.foodInfo}>
+                <h1>{food.name}</h1>
+                <h2>
+                  {
+                    //Only puts " - " between the fields that are present.
+                    [
+                      food.brand,
+                      appropriateUnit(food.defaultWeight, food.weightUnit),
+                      `Protein: ${defaultWeightFoodItem.protein}g`,
+                      `${defaultWeightFoodItem.calories}kcal`
+                    ]
+                      .filter((text) => text.length > 0)
+                      .join(" - ")
+                  }
+                </h2>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </InfiniteScroll>
     </div>
   );

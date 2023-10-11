@@ -20,16 +20,12 @@ export default function FilterOptionPopup() {
   );
 
   const dispatch = useDispatch();
-  
+
   const [allergenIsAllowed, setAllergenIsAllowed] = useState<AllergenIsShown>({
     Gluten: !allergens.includes("Gluten"),
     Melk: !allergens.includes("Melk"),
     Soya: !allergens.includes("Soya")
   });
-
-  const handleSortChange = (e: any) => {
-    dispatch(changeSort(e.target.value));
-  };
 
   useEffect(() => {
     dispatch(setAllergens(allergensNotShown(allergenIsAllowed)));
@@ -44,7 +40,9 @@ export default function FilterOptionPopup() {
           className={styles.dropdown}
           name="sort"
           value={sortOption}
-          onChange={handleSortChange}
+          onChange={({ target: { value: sort } }) => {
+            dispatch(changeSort(sort));
+          }}
         >
           <option value="name-ascending">Navn a-z</option>
           <option value="name-descending">Navn z-a</option>
