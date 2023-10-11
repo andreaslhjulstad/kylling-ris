@@ -52,13 +52,6 @@
   margin-bottom: auto;
 }
 
-.weekday {
-  color: white;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 3vh;
-}
-
 .tableWrapper {
   width: 80%;
   margin: 0 auto 0 auto;
@@ -92,5 +85,9 @@
 @media only screen and (max-width: 775px) {
   .tableWrapper {
     width: 100%;
+  }
+
+  .logAndDateCard {
+    background-color: white;
   }
 }

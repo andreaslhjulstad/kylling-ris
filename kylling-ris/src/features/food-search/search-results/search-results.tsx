@@ -3,9 +3,9 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addFoodElement } from "./food-reducer";
+import { addFoodElement } from "../../food-log/log-reducer";
 
 interface SearchResultsProps {
   searchQuery: string;

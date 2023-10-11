@@ -1,17 +1,25 @@
 import DataTable, { TableColumn } from "react-data-table-component";
 import Food from "../food-search/search-results/food";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiTrash } from "react-icons/hi";
 import styles from "./food-log-table.module.css";
 import { foodLogTableStyles } from "./food-log-table-styles";
+import { useDispatch } from "react-redux";
+import { removeFoodElement } from "./log-reducer";
 
 interface FoodLogTableProps {
   loggedFoods: Food[];
 }
 
 export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
-  const [data, setData] = useState<Food[]>(loggedFoods);
+  const [data, setData] = useState<Food[]>([]);
   const [compact, setCompact] = useState(window.innerWidth <= 775); // 775px is the breakpoint for the compact version
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setData(loggedFoods);
+  }, [loggedFoods]);
 
   // Set the 'compact' state based on the window width
   window.addEventListener("resize", () => {
@@ -32,12 +40,13 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
     cell: (row) => (
       <button
         className={styles.deleteButton}
-        onClick={() => handleDelete(row.id)}
+        onClick={() => handleDelete(row.id, row.weight)}
       >
         <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
       </button>
     )
   };
+
 
   // Define the additional columns that are specific to the non-compact version
   const additionalColumns: TableColumn<Food>[] = [
@@ -62,8 +71,10 @@ export default function FoodLogTable({ loggedFoods }: FoodLogTableProps) {
     ? [nameColumn, deleteButtonColumn]
     : [nameColumn, ...additionalColumns, deleteButtonColumn];
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number, weight: number) => {
     setData(data.filter((food) => food.id !== id));
+
+    dispatch(removeFoodElement( { id: id, weight: weight } ));
   };
 
   const ExpandedRowComponent = ({ data }: { data: Food }) => (
