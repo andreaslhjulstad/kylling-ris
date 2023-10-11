@@ -1,92 +1,51 @@
-# Prosjekt 2
+# Kylling&Ris
 
+Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og registrere mat de har spist. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med mock data, hentet fra et REST-API med produkter fra norske dagligvarebutikker (https://kassal.app/api). Brukeren kan så velge hvilken dato hen vil registrere mat for. Matelementer registreres enkelt ved å klikke på tilhørende pluss-knapp, og vises deretter i en tabell. Her kan brukeren siden fjerne registrerte elementer fra tabellen vha. en søppelbøtte-knapp.
 
+## Oppsett
 
-## Getting started
+For å starte nettsiden, naviger til rotmappen og installer og kjør med npm:  
+`npm install`  
+`npm run dev`
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Krav
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Funksjonelle krav
 
-## Add your files
+- Søkemulighet med søkefelt for input av søk (bruker foreløpig kun mock data).
+- Listebasert presentasjon av søk med dynamisk lasting av flere resultater ved scrolling (i første iterasjon benyttes et "loading"-element ved scrolling, som simulerer ventetid fra serveren).
+- Man kan ikke klikke seg innpå hvert matobjekt for å få mer informasjon, men relevant info vises ved søk eller i tabellen.
+- Mulighet for sortering og filtrering av resultatsettet (allergener, proteininnhold o.l.).
+- Brukergenererte data lagres via redux i form av matobjekter brukeren legger til på ulike datoer. Dataene presenteres igjennom en såkalt "food log table"
+- Applikasjonen har et pent og responsivt design.
+- Prosjektet er ikke satt opp på gruppas virtuelle maskin for denne innleveringen. En databaseløsning har heller ikke blitt implementert enda.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Tekniske krav
 
-```
-cd existing_repo
-git remote add origin https://gitlab.stud.idi.ntnu.no/it2810-h23/Team-50/prosjekt-2.git
-git branch -M main
-git push -uf origin main
-```
+- Applikasjonen er implementert gjennom bruk av React, Vite og Typescript.
+- State managment ved hjelp av redux.
+- Bruker importerte tredjepartskomponenter (f.eks. tabell- og infinite-scroll-elementene).
+- Prettier har (stort sett) blitt benyttet underveis for å formatere koden. Det har blitt kjørt gjennom repoet med eslint og prettier før innlevering.
+- Ingen tester har blitt implementert så langt.
+- Kommentarer har blitt benyttet underveis for å utdype koden.
 
-## Integrate with your tools
+### Spesifikt for første underveisinnlevering
 
-- [ ] [Set up project integrations](https://gitlab.stud.idi.ntnu.no/it2810-h23/Team-50/prosjekt-2/-/settings/integrations)
+- Bruk av mockup-data, hentet fra et API.
+- Tenkt funksjonalitet og visning demonstreres gjennom bruk av mockup-data (søk, legge til og fjerne elementer).
+- Medstudenter skal ha mulighet til å klone repoet og undersøke applikasjonen lokalt.
 
-## Collaborate with your team
+## Planen fremover
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- Implementere en backend-database.
+- Lage en brukerside, hvor data kan presenteres vha. en graf.
+- Et kjent problem med den nåværende implementasjonen er at det kan være vanskelig for mobilbrukere å scrolle ned til tabellen på bunnen av siden, ettersom man gjerne scroller i søkeelementet i stedet for på selve nettsiden. I fremtiden ønsker vi dermed å dele mobil-siden inn i to "tabs": én for søking og én for tabellen.
+- Implementere et "date-picker"-element, slik at brukeren enkelt kan navigere mellom forskjellige datoer.
+- Støtte for QR-scanning av strekkoder på matvarer, for å enkelt kunne legge til mat i applikasjonen.
+- Gi brukeren mulighet til å legge til egendefinerte måltider (f.eks. brødskive med ost og skinke).
+- Sette opp Routing (mellom hovedside og brukerside).
+- Implementere innlogging slik at en bruker kan ha samme logg på forskjellige enheter/nettlesere.
 
-## Test and Deploy
+## Testing
 
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Gruppen valgte å ikke prioritere tester for den første underveisvurderingen. Dette var et bevisst valg for å spare tid. Tidlige komplikasjoner ved testing av søkefeltet var også en faktor for nettopp dette valget. Man kan allikevel fortsatt kjøre `npm test` i kylling-ris mappen for å sjekke oppsett av testing, om ønskelig. Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. Vi har ikke fått testet på andre enheter, ettersom prosjektet ikke er satt opp på VM enda, men vi har testet utseendet på mobil vha. devtools på PC
