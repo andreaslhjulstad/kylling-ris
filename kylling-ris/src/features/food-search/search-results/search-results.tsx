@@ -32,21 +32,25 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchOptions
   );
 
-  // Dispatch used to access addFoodElement function
+  /* 
+  Update height of scroll element when window is resized.
+  Include breakpoint to prevent too large of a difference
+  in starting height between scroll element and table element
+  */
   const parentRef = useRef(null);
   const [height, setHeight] = useState(window.innerHeight);
-  const breakpoint = 700;
+  const breakpoint = 1200;
 
   useEffect(() => {
     const handleResizeWindow = () => setHeight(window.innerHeight);
-    // subscribe to window resize event "onComponentDidMount"
+    // Listen to window resize event
     window.addEventListener("resize", handleResizeWindow);
     return () => {
-      // unsubscribe "onComponentDestroy"
+      // "Unlisten" to resize event
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
-  const scrollHeight = height > breakpoint ? height * 0.75 : height * 0.75;
+  const scrollHeight = height > breakpoint ? height * 1 : height * 0.75;
 
   return (
     <div className={styles.searchResults} ref={parentRef}>
