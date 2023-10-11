@@ -3,6 +3,12 @@ import { useState } from "react";
 import styles from "./food-search.module.css";
 import searchIcon from "../../assets/search-icon.png";
 
+import cogwheel from "../../assets/cogwheel.png";
+import Popup from "reactjs-popup";
+import FilterOptionPopup from "./search-options/search-option-popup";
+import 'reactjs-popup/dist/index.css';
+
+
 export default function FoodSearch() {
   //What the user has entered in the search field.
   const [searchInput, setSearchInput] = useState<string>("");
@@ -22,6 +28,12 @@ export default function FoodSearch() {
             setSearchInput(searchInput);
           }}
         />
+        <Popup
+          trigger={<img src={cogwheel} className={styles.cogwheel} />}
+          modal
+        >
+          {<FilterOptionPopup />}
+        </Popup>
       </div>
       <SearchResults searchQuery={searchInput} />
     </div>

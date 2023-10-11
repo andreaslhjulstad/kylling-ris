@@ -3,16 +3,20 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 import { addFoodElement } from "../../food-log/log-reducer";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
 
+
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
+  const searchOptions = useSelector(((state:RootState) => state.searchOption));
+
   const { foodItems, hasMoreFoodItems, loadMoreFoodItems } =
-    useSearchResults(searchQuery);
+  useSearchResults(searchQuery, searchOptions);
 
   // Dispatch used to access addFoodElement function
   const dispatch = useDispatch();

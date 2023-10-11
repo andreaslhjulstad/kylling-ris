@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import Food from "./food";
 import { useState, useEffect } from "react";
+import { SearchOption } from "../search-options/search-option-reducer";
 
 //Future useSearchResults:
 //Use tanstack query to retreive food items.
@@ -10,8 +11,20 @@ export default temporaryUseSearchResults;
 
 const initialResultsLoaded = 14;
 
+const sortComparison: { [sortName: string]: (a: Food, b: Food) => number } = {
+  "name-ascending": (a, b) => a.name.localeCompare(b.name),
+  "name-descending": (a, b) => b.name.localeCompare(a.name),
+  "protein-ascending": (a, b) => a.protein - b.protein,
+  "protein-descending": (a, b) => b.protein - a.protein,
+  "kcal-ascending": (a, b) => a.calories - b.calories,
+  "kcal-descending": (a, b) => b.calories - a.calories
+};
+
 //This tries to simulate how it would be if we used our server.
-function temporaryUseSearchResults(searchQuery: string): {
+function temporaryUseSearchResults(
+  searchQuery: string,
+  searchOptions: SearchOption
+): {
   foodItems: Food[];
   hasMoreFoodItems: boolean;
   loadMoreFoodItems: () => Promise<void>;
@@ -27,10 +40,13 @@ function temporaryUseSearchResults(searchQuery: string): {
     setResultsLoaded(initialResultsLoaded);
   }, [searchQueryAfterInactivity]);
 
-  //Filtering based on search query.
-  const filteredFoodItems = allFoods.filter((food) =>
-    queryIsSimilarTo(searchQueryAfterInactivity, food.name)
-  );
+  //Applying sort, allergen filter and search.
+  const filteredFoodItems = allFoods
+    .filter((food) => queryIsSimilarTo(searchQueryAfterInactivity, food.name))
+    .filter(({ allergens }) =>
+      !searchOptions.allergens.some((disallowedAllergen) => allergens.includes(disallowedAllergen))
+    )
+    .sort(sortComparison[searchOptions.sortOption]);
 
   return {
     foodItems: filteredFoodItems.slice(0, resultsLoaded),

@@ -1,0 +1,39 @@
+/* centers content in the middle of the screen */
+.filterContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 50vw;
+  height: 25vh;
+  border: solid;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.dropdown {
+  width: 100%;
+  border-width: 2px;
+  border-color: black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.labelCheckboxContainer {
+  margin-bottom: 5px;
+}
+
+.checkbox{
+  margin-left: 5px;
+  height: 15px;
+  width: 15px;
+  cursor: pointer;
+}
