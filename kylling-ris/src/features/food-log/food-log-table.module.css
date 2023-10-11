@@ -13,6 +13,12 @@
   color: white;
 }
 
+.header {
+  background-color: #ffffff;
+  font-size: 1.5rem;
+  padding: 16px 0 16px 16px;
+}
+
 .deleteIcon {
   margin-top: 3px;
 }

@@ -55,6 +55,8 @@
 .tableWrapper {
   width: 80%;
   margin: 0 auto 0 auto;
+  min-height: 53.7vh;
+  overflow-y: scroll;
 }
 
 @media only screen and (max-width: 1170px) {

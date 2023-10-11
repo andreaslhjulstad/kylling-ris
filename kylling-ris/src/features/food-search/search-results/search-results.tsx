@@ -3,10 +3,11 @@ import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
 import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
+import { useEffect, useRef, useState } from "react";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -31,8 +32,26 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchOptions
   );
 
+  // Dispatch used to access addFoodElement function
+  const dispatch = useDispatch();
+  const parentRef = useRef(null);
+  const [height, setHeight] = useState(window.innerHeight);
+  const breakpoint = 700;
+
+  useEffect(() => {
+    alert("test");
+  const handleResizeWindow = () => setHeight(window.innerHeight);
+  // subscribe to window resize event "onComponentDidMount"
+  window.addEventListener("resize", handleResizeWindow);
+  return () => {
+  // unsubscribe "onComponentDestroy"
+  window.removeEventListener("resize", handleResizeWindow);
+  };
+  }, []);
+  const scrollHeight = height > breakpoint ? height * 0.75 : height * 0.75;
+
   return (
-    <div className={styles.searchResults}>
+    <div className={styles.searchResults} ref={parentRef}>
       <InfiniteScroll
         initialScrollY={0}
         dataLength={foods.length}
@@ -40,7 +59,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
-        height={700}
+        height={scrollHeight}
       >
         {foods.map((food: FoodInfo) => {
           const defaultWeightFoodItem: FoodItem = foodItem(
