@@ -1,9 +1,13 @@
 import FoodLogTable from "../../features/food-log/food-log-table";
 import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
-import mockData from "../../features/food-search/search-results/mock-data.json";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import DatePicker from "../../features/date/date-picker";
 
 export default function Mainpage() {
+  const dateFoodMap = useSelector((state: RootState) => state.log.dateFoodMap);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.searchAndLogoCard}>
@@ -19,9 +23,9 @@ export default function Mainpage() {
         </div>
       </div>
       <div className={styles.logAndDateCard}>
-        <h2 className={styles.weekday}>Onsdag</h2>
+        <DatePicker />
         <div className={styles.tableWrapper}>
-          <FoodLogTable loggedFoods={JSON.parse(JSON.stringify(mockData))} />
+          <FoodLogTable loggedFoods={dateFoodMap[useSelector((state: RootState) => state.log.currentDate)] ?? []} />
         </div>
       </div>
     </div>
