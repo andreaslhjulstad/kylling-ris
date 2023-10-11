@@ -18,7 +18,7 @@ function temporaryUseSearchResults(searchQuery: string): {
 } {
   const [resultsLoaded, setResultsLoaded] =
     useState<number>(initialResultsLoaded);
-  const allFoods: Food[] = useSelector((state: RootState) => state.food.foods);
+  const allFoods: Food[] = useSelector((state: RootState) => state.search.foods);
   // In the future we don't want to send a new request on every character typed by the user.
   const searchQueryAfterInactivity = useUpdateOnInactivity(300, searchQuery);
 

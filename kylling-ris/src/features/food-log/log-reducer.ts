@@ -1,27 +1,36 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import Food from "./food";
-import mockData from "./mock-data.json";
+import Food from "../food-search/search-results/food";
 
-interface FoodState {
-  foods: Food[]; // Array for mock data
+interface LogState {
   currentDate: string; // currentently selected date, set to current date as default
   dateFoodMap: { [date: string]: Food[] }; // Map between dates and logged food
 }
 
-const initialState: FoodState = {
-  foods: JSON.parse(JSON.stringify(mockData)),
+function getDateFoodMapFromLocalStorage() {
+  const dateFoodMapString = localStorage.getItem("dateFoodMap");
+  if (dateFoodMapString) {
+    return JSON.parse(dateFoodMapString);
+  }
+  return {};
+}
+
+function updateDateFoodMapInLocalStorage(dateFoodMap: { [date: string]: Food[] }) {
+  localStorage.setItem("dateFoodMap", JSON.stringify(dateFoodMap));
+}
+
+const initialState: LogState = {
   currentDate: new Date().toISOString().split("T")[0],
-  dateFoodMap: {}
+  dateFoodMap: getDateFoodMapFromLocalStorage()
 };
 
-const foodSlice = createSlice({
-  name: "food",
+const logSlice = createSlice({
+  name: "log",
   initialState,
-  reducers: {
+  reducers : {
     // Update date given user input
-    updateDate: ({ currentDate }, action: PayloadAction<{ date: string }>) => {
+    updateDate: (state, action: PayloadAction<{ date: string }>) => {
       const { date } = action.payload;
-      currentDate = date;
+      state.currentDate = date;
     },
     // Add food clicked on by user
     addFoodElement: (
@@ -38,12 +47,12 @@ const foodSlice = createSlice({
       }
 
       // Update protein and calorie values (rounded to 1 decimal), remains the same if no change in weight
-      let newCalories = Number(
+      const newCalories = Number(
         Number(
           Math.round(((food.calories * newWeight) / food.weight) * 100) / 100
         ).toFixed(1)
       );
-      let newProtein = Number(
+      const newProtein = Number(
         Number(
           Math.round(((food.protein * newWeight) / food.weight) * 100) / 100
         ).toFixed(1)
@@ -60,6 +69,7 @@ const foodSlice = createSlice({
         dateFoodMap[date] = [];
       }
       dateFoodMap[date].push(foodWithWeight);
+      updateDateFoodMapInLocalStorage(dateFoodMap);
     },
     // Function for removing food selected by user. Takes in a food id and weight as payload
     removeFoodElement: (
@@ -78,9 +88,11 @@ const foodSlice = createSlice({
           dateFoodMap[date].splice(indexToRemove, 1);
         }
       }
+      updateDateFoodMapInLocalStorage(dateFoodMap);
     }
   }
 });
+
 export const { addFoodElement, updateDate, removeFoodElement } =
-  foodSlice.actions;
-export default foodSlice.reducer;
+logSlice.actions;
+export default logSlice.reducer;
