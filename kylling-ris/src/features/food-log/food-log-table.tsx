@@ -81,10 +81,9 @@ export default function FoodLogTable() {
 
   return (
     <div>
-      <h1 className={styles.header}>Logget mat</h1>
       <div className={styles.totals}>
         <h2 className={styles.totalCalories}>
-          Totale kalorier:{" "}
+          Kalorier:{" "}
           {Math.round(
             selectedFoodLog.reduce((total, food) => total + food.calories, 0) *
               10
@@ -92,7 +91,7 @@ export default function FoodLogTable() {
           kcal
         </h2>
         <h2 className={styles.totalProtein}>
-          Total protein:{" "}
+          Protein:{" "}
           {Math.round(
             selectedFoodLog.reduce((total, food) => total + food.protein, 0) *
               10
