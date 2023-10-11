@@ -1,6 +1,6 @@
 # Kylling&Ris
 
-Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og registrere mat de har spist. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med mock data, hentet fra et REST-API med produkter fra norske dagligvarebutikker (https://kassal.app/api). Brukeren kan så velge hvilken dato hen vil registrere mat for. Matelementer registreres enkelt ved å klikke på tilhørende pluss-knapp, og vises deretter i en tabell. Her kan brukeren siden fjerne registrerte elementer fra tabellen vha. en søppelbøtte-knapp.
+Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og registrere mat de har spist. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med mock data, inspirert av data fra et REST-API med produkter fra norske dagligvarebutikker (https://kassal.app/api) som vi planlegger å bruke senere. Brukeren kan så velge hvilken dato hen vil registrere mat for. Matelementer registreres enkelt ved å klikke på tilhørende pluss-knapp. Deretter kan brukeren skrive inn vekten på produktet, og produktet vises så i en tabell. Her kan brukeren siden fjerne registrerte elementer fra tabellen vha. en søppelbøtte-knapp.
 
 ## Oppsett
 
@@ -31,7 +31,7 @@ For å starte nettsiden, naviger til rotmappen og installer og kjør med npm:
 
 ### Spesifikt for første underveisinnlevering
 
-- Bruk av mockup-data, hentet fra et API.
+- Bruk av mockup-data
 - Tenkt funksjonalitet og visning demonstreres gjennom bruk av mockup-data (søk, legge til og fjerne elementer).
 - Medstudenter skal ha mulighet til å klone repoet og undersøke applikasjonen lokalt.
 
