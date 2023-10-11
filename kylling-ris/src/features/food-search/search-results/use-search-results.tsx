@@ -95,12 +95,14 @@ function useUpdateOnInactivity<T>(
     setTimeout(() => {
       setUpdatesWaiting((previous) => previous - 1);
     }, timeInactiveBeforeUpdate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
     if (updatesWaiting === 0) {
       setInfrequentlyUpdatedValue(value);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatesWaiting]);
 
   return infrequentlyUpdatedValue;

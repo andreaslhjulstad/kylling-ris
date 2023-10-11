@@ -1,5 +1,5 @@
 import DataTable, { TableColumn } from "react-data-table-component";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 import styles from "./food-log-table.module.css";
 import { foodLogTableStyles } from "./food-log-table-styles";
