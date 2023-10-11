@@ -86,4 +86,8 @@
   .tableWrapper {
     width: 100%;
   }
+
+  .logAndDateCard {
+    background-color: white;
+  }
 }

@@ -67,4 +67,8 @@
   .disabledNaviagtionArrow {
     margin-top: 3.5vh;
   }
+  
+  .dateinfo {
+    background-color: white;
+  }
 }
