@@ -1,5 +1,5 @@
 import moment from "moment";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./date-picker.module.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -9,31 +9,55 @@ import "./primereact-theme.css";
 import { addLocale } from "primereact/api";
 import { FormEvent } from "primereact/ts-helpers";
 
+// TODO: Add comments and jsdoc comments, maybe abstract to a hook
+
 export default function DatePicker() {
   const [date, setDate] = useState(new Date());
   const [disableForward, setDisableForward] = useState(false);
-  const [hideCalendar, setHideCalendar] = useState(true);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [touchUI, setTouchUI] = useState(window.innerWidth <= 775);
+  const calendarRef = useRef<HTMLDivElement>(null);
+  const weekdayRef = useRef<HTMLHeadingElement>(null);
 
   const dispatch = useDispatch();
 
-  // Set the 'touchUI' state based on the window width
-  window.addEventListener("resize", () => {
-    if (window.innerWidth <= 775) {
-      setTouchUI(true);
-    } else {
-      setTouchUI(false);
-    }
-  });
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const excluded = [weekdayRef.current];
+      if (
+        !excluded.some((e) => e?.contains(event.target as Node)) &&
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setShowCalendar(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    // Add event listener the touchUI state based on the window width
+    const handleResize = () => {
+      if (window.innerWidth <= 775) {
+        setTouchUI(true);
+      } else {
+        setTouchUI(false);
+      }
+    };
+    window.addEventListener("resize", handleResize, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+      document.removeEventListener("resize", handleResize, true);
+    };
+  }, []);
 
   const handleIncrementDate = () => {
     if (!disableForward) {
       setDate(moment(date).add(1, "days").toDate());
+      setShowCalendar(false);
     }
   };
 
   const handleDecrementDate = () => {
     setDate(moment(date).subtract(1, "days").toDate());
+    setShowCalendar(false);
   };
 
   const months = [
@@ -82,7 +106,6 @@ export default function DatePicker() {
   });
 
   useEffect(() => {
-    console.log(date);
     const isToday =
       Math.ceil(date.getTime() / (1000 * 3600 * 24)) ===
       Math.ceil(new Date().getTime() / (1000 * 3600 * 24));
@@ -105,7 +128,7 @@ export default function DatePicker() {
     dateFromCalendar?.setSeconds(new Date().getSeconds());
     if (dateFromCalendar) {
       setDate(dateFromCalendar);
-      setHideCalendar(true);
+      setShowCalendar(false);
     }
   }
 
@@ -118,8 +141,9 @@ export default function DatePicker() {
           onClick={handleDecrementDate}
         />
         <h1
+          ref={weekdayRef}
           className={styles.weekday}
-          onClick={() => setHideCalendar(!hideCalendar)}
+          onClick={() => setShowCalendar(true)}
         >
           {weekdays[date.getDay()]}
         </h1>
@@ -136,16 +160,19 @@ export default function DatePicker() {
       <p className={styles.date}>{`${date.getDate()}. ${
         months[date.getMonth()]
       } ${date.getFullYear()}`}</p>
-      <Calendar
-        inline
-        locale="no"
-        dateFormat="dd/mm/yy"
-        touchUI={touchUI}
-        style={{ width: "35%", display: hideCalendar ? "none" : "block" }}
-        maxDate={new Date()}
-        onChange={handleDatePickerChange}
-        value={date}
-      />
+      {showCalendar && (
+        <div ref={calendarRef} className={styles.calendarContainer}>
+          <Calendar
+            inline
+            locale="no"
+            dateFormat="dd/mm/yy"
+            touchUI={touchUI}
+            maxDate={new Date()}
+            onChange={handleDatePickerChange}
+            value={date}
+          />
+        </div>
+      )}
     </div>
   );
 }

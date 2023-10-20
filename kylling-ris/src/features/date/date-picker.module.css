@@ -53,6 +53,11 @@
   color: #b0b0b0;
 }
 
+.calendarContainer {
+  position: absolute;
+  top: 18.8vh;
+}
+
 @media only screen and (max-width: 1170px) {
   .dateInfo {
     margin-top: 3vh;
