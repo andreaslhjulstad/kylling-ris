@@ -9,8 +9,6 @@ import "./primereact-theme.css";
 import { addLocale } from "primereact/api";
 import { FormEvent } from "primereact/ts-helpers";
 
-// TODO: Add comments and jsdoc comments, maybe abstract to a hook
-
 export default function DatePicker() {
   const [date, setDate] = useState(new Date());
   const [disableForward, setDisableForward] = useState(false);
@@ -21,8 +19,12 @@ export default function DatePicker() {
 
   const dispatch = useDispatch();
 
+  // UseEffect that adds event listeners to the document, and removes them when the component unmounts
   useEffect(() => {
+    // Method to be used inside an event listener that closes the calendar when the user clicks outside of it
     const handleClickOutside = (event: MouseEvent) => {
+      // The calendar should not close when the user clicks on the weekday.
+      // This ensures no weird behavior with the calendar closing and opening immediately
       const excluded = [weekdayRef.current];
       if (
         !excluded.some((e) => e?.contains(event.target as Node)) &&
@@ -32,8 +34,7 @@ export default function DatePicker() {
         setShowCalendar(false);
       }
     };
-    document.addEventListener("click", handleClickOutside, true);
-    // Add event listener the touchUI state based on the window width
+    // Method to be used inside an event listener to set the touchUI state for the calendar based on the window width
     const handleResize = () => {
       if (window.innerWidth <= 775) {
         setTouchUI(true);
@@ -41,6 +42,7 @@ export default function DatePicker() {
         setTouchUI(false);
       }
     };
+    document.addEventListener("click", handleClickOutside, true);
     window.addEventListener("resize", handleResize, true);
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
@@ -48,6 +50,22 @@ export default function DatePicker() {
     };
   }, []);
 
+  useEffect(() => {
+    const isToday =
+      Math.ceil(date.getTime() / (1000 * 3600 * 24)) ===
+      Math.ceil(new Date().getTime() / (1000 * 3600 * 24));
+
+    // The user should not be able to navigate to future dates
+    setDisableForward(isToday);
+
+    // Updates the date in the redux store
+    dispatch(selectDate({ date: date.toISOString().split("T")[0] }));
+  }, [date, dispatch]);
+
+  /**
+   * Helper method to increment the date by one day, also closes the calendar
+   * Used by the forward arrow element
+   */
   const handleIncrementDate = () => {
     if (!disableForward) {
       setDate(moment(date).add(1, "days").toDate());
@@ -55,6 +73,10 @@ export default function DatePicker() {
     }
   };
 
+  /**
+   * Helper method to decrement the date by one day, also closes the calendar
+   * Used by the backward arrow element
+   */
   const handleDecrementDate = () => {
     setDate(moment(date).subtract(1, "days").toDate());
     setShowCalendar(false);
@@ -85,6 +107,7 @@ export default function DatePicker() {
     "Lørdag"
   ];
 
+  // Adds the norwegian locale to the calendar
   addLocale("no", {
     firstDayOfWeek: 1,
     dayNamesMin: ["S", "M", "T", "O", "T", "F", "L"],
@@ -105,18 +128,10 @@ export default function DatePicker() {
     ]
   });
 
-  useEffect(() => {
-    const isToday =
-      Math.ceil(date.getTime() / (1000 * 3600 * 24)) ===
-      Math.ceil(new Date().getTime() / (1000 * 3600 * 24));
-
-    // The user should not be able to navigate to future dates
-    setDisableForward(isToday);
-
-    // Updates the date in the redux store
-    dispatch(selectDate({ date: date.toISOString().split("T")[0] }));
-  }, [date, dispatch]);
-
+  /**
+   * Fires when the user selects a date from the calendar
+   * @param event The change event from the calendar
+   */
   function handleDatePickerChange(
     event: FormEvent<Date, SyntheticEvent<Element, Event>>
   ): void {
