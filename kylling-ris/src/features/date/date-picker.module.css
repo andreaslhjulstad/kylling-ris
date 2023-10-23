@@ -55,12 +55,16 @@
 
 .calendarContainer {
   position: absolute;
-  top: 18.8vh;
+  top: 20vh;
 }
 
 @media only screen and (max-width: 1170px) {
   .dateInfo {
     margin-top: 3vh;
+  }
+
+  .calendarContainer {
+    top: 100vh;
   }
 }
 
