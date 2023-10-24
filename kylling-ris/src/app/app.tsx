@@ -6,8 +6,8 @@ import ErrorPage from "../pages/errorpage/errorpage.tsx";
 
 export default function App() {
   const routes = useRoutes([
-    { path: "/project2", element: <Mainpage /> },
-    { path: "project2/login", element: <LoginPage /> },
+    { path: "/", element: <Mainpage /> },
+    { path: "/login", element: <LoginPage /> },
     { path: "*", element: <ErrorPage /> }
   ]);
   return routes;

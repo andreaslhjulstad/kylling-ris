@@ -4,7 +4,7 @@ import styles from "./title-logo.module.css";
 export default function TitleAndLogo() {
   return (
     <div className={styles.pageTitleContainer}>
-      <Link className={styles.pageLink} to={"/project2"}>
+      <Link className={styles.pageLink} to={"/"}>
         <h1 className={styles.pageTitleBlue}>
           Kylling<span className={styles.pageTitleRed}>&</span>Ris
         </h1>

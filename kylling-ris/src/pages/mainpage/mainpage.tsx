@@ -8,7 +8,9 @@ export default function Mainpage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.searchAndLogoCard}>
-        <TitleAndLogo />
+        <div className={styles.titleAndLogoContainer}>
+          <TitleAndLogo />
+        </div>
         <div className={styles.search}>
           <FoodSearch />
         </div>

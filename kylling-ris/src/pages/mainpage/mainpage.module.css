@@ -27,31 +27,6 @@
   margin-top: 3vh;
 }
 
-.pageTitleContainer {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  margin-left: 3vw;
-  margin-right: auto;
-  margin-top: 5vh;
-}
-
-.pageTitleBlue {
-  color: #2275c3;
-}
-
-.pageTitleRed {
-  color: #c2242b;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 0.5vh;
-}
-
 .tableWrapper {
   width: 80%;
   margin: 0 auto 0 auto;
@@ -78,8 +53,9 @@
     height: auto;
   }
 
-  .pageTitleContainer {
+  .titleAndLogoContainer {
     margin-left: auto;
+    margin-right: auto;
   }
 }
 
