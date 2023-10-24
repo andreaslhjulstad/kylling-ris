@@ -47,14 +47,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: whitesmoke;
+  background: lightgray;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: lightgray;
+  background: darkgray;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: darkgray;
+  background: #7a7878;
 }
