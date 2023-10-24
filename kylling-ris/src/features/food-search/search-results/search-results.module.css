@@ -33,11 +33,28 @@
 }
 
 /* Chrome, Safari and Opera */
-.invisibleScrollbar::-webkit-scrollbar {
+.invisibleScrollbar:not(:hover)::-webkit-scrollbar {
   display: none;
 }
 
-.invisibleScrollbar {
+.invisibleScrollbar:not(:hover) {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: whitesmoke;
+}
+
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: darkgray;
 }
