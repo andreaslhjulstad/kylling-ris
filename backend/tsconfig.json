@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "rootDirs": ["src"],
+        "outDir": "lib",
+        "lib": ["es2022"],
+        "module": "es2022",
+        "target": "ES2020",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "types": ["node"],
+        "removeComments": true,
+        "alwaysStrict": true,
+        "allowUnreachableCode": false,
+        "noImplicitAny": true,
+        "strictNullChecks": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules/**/*"]
+}
