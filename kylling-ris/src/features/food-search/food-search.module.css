@@ -29,7 +29,13 @@
   user-select: none;
 }
 
-.cogwheel {
+.filterImage {
   height: 1.3em;
   cursor: pointer;
+}
+
+.filterButton {
+  padding: 0;
+  border: none;
+  background: none;
 }

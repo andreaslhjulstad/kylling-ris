@@ -35,7 +35,7 @@ export default function FilterOptionPopup() {
   return (
     <div>
       <div className={styles.filterContent}>
-        <div className={styles.title}>Filter</div>
+        <div className={styles.title}>Filters</div>
 
         <select
           className={styles.dropdown}
