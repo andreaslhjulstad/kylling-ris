@@ -148,17 +148,19 @@ export default function DatePicker() {
   }
 
   return (
-    <div className={styles.dateInfo}>
+    <div className={styles.dateInfo} data-testid="date-picker">
       <div className={styles.weekdayNavigation}>
         <FiChevronLeft
           className={styles.navigationArrow}
           size={30}
           onClick={handleDecrementDate}
+          data-testid="backward-arrow"
         />
         <h1
           ref={weekdayRef}
           className={styles.weekday}
           onClick={() => setShowCalendar(true)}
+          data-testid="weekday"
         >
           {weekdays[date.getDay()]}
         </h1>
@@ -170,13 +172,14 @@ export default function DatePicker() {
           }
           size={30}
           onClick={handleIncrementDate}
+          data-testid="forward-arrow"
         />
       </div>
-      <p className={styles.date}>{`${date.getDate()}. ${
+      <p className={styles.date} data-testid="full-date">{`${date.getDate()}. ${
         months[date.getMonth()]
       } ${date.getFullYear()}`}</p>
       {showCalendar && (
-        <div ref={calendarRef} className={styles.calendarContainer}>
+        <div ref={calendarRef} className={styles.calendarContainer} data-testid="calendar-container">
           <Calendar
             inline
             locale="no"
@@ -185,6 +188,7 @@ export default function DatePicker() {
             maxDate={new Date()}
             onChange={handleDatePickerChange}
             value={date}
+            data-testid="calendar"
           />
         </div>
       )}
