@@ -2,6 +2,7 @@ import FoodLogTable from "../../features/food-log/food-log-table";
 import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
 import DatePicker from "../../features/date/date-picker";
+import logo from "../../assets/logo.svg";
 
 export default function Mainpage() {
   return (
@@ -11,7 +12,7 @@ export default function Mainpage() {
           <h1 className={styles.pageTitleBlue}>
             Kylling<span className={styles.pageTitleRed}>&</span>Ris
           </h1>
-          <img className={styles.logo} src="../../../public/logo.svg"></img>
+          <img className={styles.logo} src={logo}></img>
         </div>
         <div className={styles.search}>
           <FoodSearch />
