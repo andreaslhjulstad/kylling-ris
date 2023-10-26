@@ -3,10 +3,11 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  width: 24em;
+  width: 29vw;
   height: 10em;
   border: solid;
-  transform: translate(-24em);
+  left: 0.5vw;
+
 }
 
 .title {
@@ -35,13 +36,6 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 1350px) {
-  .filterContent {
-    transform: translate(-20.5em);
-    width: 20em;
-  }
-}
-
 @media only screen and (max-width: 1170px) {
   .filterContent {
     position: absolute;
@@ -50,13 +44,12 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
-    width: 50%;
-    transform: translate(0);
+    width: 50vw;
   }
 }
 
-@media only screen and (max-width: 775px) {
+@media only screen and (max-width: 480px) {
   .filterContent {
-    min-width: 60%;
+    min-width: 80%;
   }
 }

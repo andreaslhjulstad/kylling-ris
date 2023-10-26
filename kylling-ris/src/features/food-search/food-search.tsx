@@ -6,7 +6,7 @@ import searchIcon from "../../assets/search-icon.png";
 import filter from "../../assets/filter.png";
 import FilterOptionPopup from "./search-options/search-option-popup";
 
-import { Popover } from "@headlessui/react";
+import { Popover, Transition } from "@headlessui/react";
 
 export default function FoodSearch() {
   //What the user has entered in the search field.
@@ -31,9 +31,18 @@ export default function FoodSearch() {
           <Popover.Button className={styles.filterButton}>
             <img src={filter} className={styles.filterImage} />
           </Popover.Button>
-          <Popover.Panel>
+          <Transition
+            enter={styles.enter}
+            enterFrom={styles.enterFrom}
+            enterTo={styles.enterTo}
+            leave={styles.leave}
+            leaveFrom={styles.leaveFrom}
+            leaveTo={styles.leaveTo}
+          >
+            <Popover.Panel>
               <FilterOptionPopup />
-          </Popover.Panel>
+            </Popover.Panel>
+          </Transition>
         </Popover>
       </div>
       <SearchResults searchQuery={searchInput} />

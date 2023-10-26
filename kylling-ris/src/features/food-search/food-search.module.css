@@ -30,7 +30,7 @@
 }
 
 .filterImage {
-  height: 1.3em;
+  height: 1.6em;
   cursor: pointer;
 }
 
@@ -38,4 +38,28 @@
   padding: 0;
   border: none;
   background: none;
+}
+
+.enter {
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.enterFrom{
+  opacity: 0;
+}
+
+.enterTo {
+  opacity: 100;
+}
+
+.leave {
+  transition: opacity 150ms ease-in, transform 150ms ease-in;
+}
+
+.leaveFrom{
+  opacity: 100;
+}
+
+.leaveTo {
+  opacity: 0;
 }
