@@ -1,7 +1,6 @@
 import FoodInfo from "./food-info";
 import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
-import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -75,7 +74,6 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               data-testid={`food-search-result-${food.id}`}
             >
               <AddFoodPopup
-                trigger={<img className={styles.addImage} src={addImage} />}
                 food={food}
               />
               <div className={styles.foodInfo}>

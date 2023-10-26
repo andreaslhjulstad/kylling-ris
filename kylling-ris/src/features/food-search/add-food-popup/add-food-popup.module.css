@@ -66,6 +66,46 @@
   background-color: #ebebeb;
 }
 
-.addFoodPopup h1 {
+.title {
   margin-top: 0;
+  font-size: 2em;
+}
+
+.addImage {
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.enter {
+  transition: opacity 300ms ease-out, transform 200ms ease-out;
+}
+
+.enterFrom {
+  opacity: 0;
+}
+
+.enterTo {
+  opacity: 100;
+}
+
+.leave {
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+
+.leaveFrom {
+  opacity: 100;
+}
+
+.leaveTo {
+  opacity: 0;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
