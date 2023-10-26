@@ -1,22 +1,21 @@
-import { personTypeDef } from "./person/person.js";
+import { foodInfoTypeDef, foodInfos } from "./food-info/food-info.js";
 
 export const rootTypeDef = `#graphql
     type Query {
-        people: [Person]
+        foodInfos(
+            offset: Int,
+            limit: Int,
+            sort: String,
+            allergens: [String!],
+            searchQuery: String
+        ): [FoodInfo!]!
     }
 `;
 
-export const typeDefs = [rootTypeDef, personTypeDef];
-
-const people = [
-    { id: "1", name: "Ole" },
-    { id: "2", name: "Li" },
-    { id: "3", name: "Rune" },
-    { id: "4", name: "Andreas" }
-];
+export const typeDefs = [rootTypeDef, foodInfoTypeDef];
 
 export const resolvers = {
     Query: {
-        people: () => people
+        foodInfos
     }
 };
