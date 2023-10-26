@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./title-logo.module.css";
+import logo from "../../assets/logo.svg";
 
 export default function TitleAndLogo() {
   return (
@@ -8,7 +9,7 @@ export default function TitleAndLogo() {
         <h1 className={styles.pageTitleBlue}>
           Kylling<span className={styles.pageTitleRed}>&</span>Ris
         </h1>
-        <img className={styles.logo} src="../../../public/logo.svg"></img>
+        <img className={styles.logo} src={logo}></img>
       </Link>
     </div>
   );
