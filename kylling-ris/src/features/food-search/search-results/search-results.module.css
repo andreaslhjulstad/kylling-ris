@@ -42,12 +42,21 @@
   scrollbar-width: none; /* Firefox */
 }
 
+/* Firefox */
+.invisibleScrollbar {
+  scrollbar-width: thin; /* Removes button from track */
+  scrollbar-color: darkgray lightgray;
+}
+
+/* Chromium browsers only below */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
 ::-webkit-scrollbar-track {
   background: lightgray;
+  margin-top: 1px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
