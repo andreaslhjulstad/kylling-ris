@@ -33,11 +33,37 @@
 }
 
 /* Chrome, Safari and Opera */
-.invisibleScrollbar::-webkit-scrollbar {
+.invisibleScrollbar:not(:hover)::-webkit-scrollbar {
   display: none;
 }
 
-.invisibleScrollbar {
+.invisibleScrollbar:not(:hover) {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* Firefox */
+.invisibleScrollbar {
+  scrollbar-width: thin; /* Removes button from track */
+  scrollbar-color: darkgray lightgray;
+}
+
+/* Chromium browsers only below */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: lightgray;
+  margin-top: 1px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7a7878;
 }

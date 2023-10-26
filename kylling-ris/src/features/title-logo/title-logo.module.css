@@ -1,0 +1,32 @@
+.pageLink {
+  padding: 0;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  width: auto;
+}
+
+.pageTitleContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin-left: 3vw;
+  margin-right: auto;
+  margin-top: 5vh;
+}
+
+.pageTitleBlue {
+  color: #2275c3;
+}
+
+.pageTitleRed {
+  color: #c2242b;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0.5vh;
+}
