@@ -33,6 +33,38 @@
   min-height: 53.7vh;
 }
 
+/* Global styles to target PrimeReact classes */
+
+/* Spacing between logo and title */
+:global(.p-tabview-title) {
+  margin-left: 5px;
+}
+
+/* Highlight selected tab */
+:global(.p-tabview-selected) {
+  border-bottom: 2px solid #4e8dc9;
+}
+
+/* Align tab bar */
+:global(.p-tabview-nav) {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1vh;
+}
+
+/* Make tabs fill screen width, and center them */
+:global(.p-tabview-nav-link) {
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Makes direct children grow and take available space */
+:global(.p-tabview-nav > *) {
+  flex: 1;
+}
+
 @media only screen and (max-width: 1170px) {
   .wrapper {
     flex-direction: column;
@@ -42,7 +74,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    height: auto;
+    min-height: 100vh;
   }
 
   .searchAndLogoCard {
