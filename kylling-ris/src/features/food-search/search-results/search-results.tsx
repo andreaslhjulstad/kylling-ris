@@ -8,6 +8,7 @@ import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
 import { useEffect, useRef, useState } from "react";
+import FoodInfoPopup from "../food-info-popup/food-info.popup";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -25,6 +26,9 @@ const appropriateUnit = (x: number, standardUnit: string) => {
 };
 
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
+  const [foodInfoPopupOpen, setFoodInfoPopupOpen] = useState<boolean>(false);
+  const [selectedFood, setSelectedFood] = useState<FoodInfo | null>(null);
+
   const searchOptions = useSelector((state: RootState) => state.searchOption);
 
   const { foods, hasMoreFoodItems, loadMoreFoodItems } = useSearchResults(
@@ -52,6 +56,11 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
   }, []);
   const scrollHeight = height > breakpoint ? height * 1 : height * 0.75;
 
+  function foodInfoClicked(food: FoodInfo) {
+    setSelectedFood(food);
+    setFoodInfoPopupOpen(true);
+  }
+
   return (
     <div className={styles.searchResults} ref={parentRef}>
       <InfiniteScroll
@@ -78,7 +87,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                 trigger={<img className={styles.addImage} src={addImage} />}
                 food={food}
               />
-              <div className={styles.foodInfo}>
+              <div className={styles.foodInfo} onClick={() => foodInfoClicked(food)}>
                 <h1>{food.name}</h1>
                 <h2>
                   {
@@ -97,6 +106,13 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
             </div>
           );
         })}
+        {selectedFood && (
+          <FoodInfoPopup
+            food={selectedFood}
+            open={foodInfoPopupOpen}
+            onClose={() => setFoodInfoPopupOpen(false)}
+          />
+        )}
       </InfiniteScroll>
     </div>
   );
