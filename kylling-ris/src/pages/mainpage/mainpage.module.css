@@ -38,6 +38,8 @@
 /* Spacing between logo and title */
 :global(.p-tabview-title) {
   margin-left: 5px;
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
 }
 
 /* Highlight selected tab */
@@ -86,8 +88,13 @@
   }
 
   .titleAndLogoContainer {
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  :global(.p-tabview-nav-link):hover {
+    background-color: #c8e2fa;
   }
 }
 

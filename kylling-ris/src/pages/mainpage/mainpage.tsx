@@ -25,26 +25,28 @@ export default function Mainpage() {
   return (
     <div className={styles.wrapper}>
       {isMobile ? (
-        <TabView className={styles.tabView}>
-          <TabPanel header="Søk" leftIcon="pi pi-search-plus">
-            <div className={styles.searchAndLogoCard}>
-              <div className={styles.titleAndLogoContainer}>
-                <TitleAndLogo />
+        <div>
+          <div className={styles.titleAndLogoContainer}>
+            <TitleAndLogo />
+          </div>
+          <DatePicker />
+          <TabView className={styles.tabView}>
+            <TabPanel header="Søk" leftIcon="pi pi-search-plus">
+              <div className={styles.searchAndLogoCard}>
+                <div className={styles.search}>
+                  <FoodSearch />
+                </div>
               </div>
-              <div className={styles.search}>
-                <FoodSearch />
+            </TabPanel>
+            <TabPanel header="Logg" leftIcon="pi pi-list">
+              <div className={styles.logAndDateCard}>
+                <div className={styles.tableWrapper}>
+                  <FoodLogTable />
+                </div>
               </div>
-            </div>
-          </TabPanel>
-          <TabPanel header="Logg" leftIcon="pi pi-list">
-            <div className={styles.logAndDateCard}>
-              <DatePicker />
-              <div className={styles.tableWrapper}>
-                <FoodLogTable />
-              </div>
-            </div>
-          </TabPanel>
-        </TabView>
+            </TabPanel>
+          </TabView>
+        </div>
       ) : (
         <>
           <div className={styles.searchAndLogoCard}>
