@@ -29,7 +29,7 @@ export default function Mainpage() {
           <div className={styles.titleAndLogoContainer}>
             <TitleAndLogo />
           </div>
-          <TabView className={styles.tabView} data-testid="tabs">
+          <TabView>
             <TabPanel header="Søk" leftIcon="pi pi-search-plus">
               <div className={styles.searchAndLogoCard}>
                 <div className={styles.search}>

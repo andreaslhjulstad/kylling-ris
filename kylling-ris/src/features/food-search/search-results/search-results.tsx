@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
-import { useEffect, useRef, useState } from "react";
 
 interface SearchResultsProps {
   searchQuery: string;
