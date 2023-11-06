@@ -29,8 +29,7 @@ export default function Mainpage() {
           <div className={styles.titleAndLogoContainer}>
             <TitleAndLogo />
           </div>
-          <DatePicker />
-          <TabView className={styles.tabView}>
+          <TabView className={styles.tabView} data-testid="tabs">
             <TabPanel header="Søk" leftIcon="pi pi-search-plus">
               <div className={styles.searchAndLogoCard}>
                 <div className={styles.search}>
@@ -40,6 +39,7 @@ export default function Mainpage() {
             </TabPanel>
             <TabPanel header="Logg" leftIcon="pi pi-list">
               <div className={styles.logAndDateCard}>
+                <DatePicker />
                 <div className={styles.tableWrapper}>
                   <FoodLogTable />
                 </div>

@@ -8,7 +8,7 @@
   background-color: #2275c3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: calc(5vh + 14px);
   width: 66%;
   flex-grow: 2;
 }
@@ -42,6 +42,10 @@
   border-radius: 50%;
 }
 
+:global(.p-tabview-nav-content) {
+  background-color: white;
+}
+
 /* Highlight selected tab */
 :global(.p-tabview-selected) {
   border-bottom: 2px solid #4e8dc9;
@@ -70,13 +74,17 @@
 @media only screen and (max-width: 1170px) {
   .wrapper {
     flex-direction: column;
+    height: auto;
+    background-color: #2275c3;
   }
 
   .logAndDateCard {
     margin-left: auto;
     margin-right: auto;
+    padding-top: 0;
+    justify-content: center;
     width: 100%;
-    min-height: 100vh;
+    margin-bottom: 20px;
   }
 
   .searchAndLogoCard {
@@ -85,12 +93,15 @@
     width: 100%;
     align-items: center;
     height: auto;
+    background-color: white;
   }
 
   .titleAndLogoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    padding-top: 1em;
+    padding-bottom: 2.5em;
+    background-color: white;
   }
 
   :global(.p-tabview-nav-link):hover {
@@ -99,11 +110,25 @@
 }
 
 @media only screen and (max-width: 775px) {
+  body {
+    overscroll-behavior-y: auto;
+  }
+
+  .wrapper {
+    height: 100%;
+    background-color: white;
+  }
+
   .tableWrapper {
     width: 100%;
   }
 
   .logAndDateCard {
     background-color: white;
+  }
+
+  .titleAndLogoContainer {
+    display: flex;
+    justify-content: center;
   }
 }

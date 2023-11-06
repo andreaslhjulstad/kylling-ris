@@ -65,27 +65,19 @@
   }
 
   .weekday {
-    background-color: white;
-    color: black;
     margin-top: 3vh;
   }
 
   .navigationArrow {
-    color: black;
     margin-top: 3.5vh;
   }
 
   .navigationArrow:hover {
-    background-color: #c8e2fa;
     border-radius: 50%;
   }
 
   .disabledNaviagtionArrow {
     margin-top: 3.5vh;
-  }
-
-  .dateinfo {
-    background-color: white;
   }
 }
 
