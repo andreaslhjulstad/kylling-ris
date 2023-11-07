@@ -122,7 +122,7 @@ const searchQueryQueryFormat = (searchQuery: string) => ({
     searchQuery === ""
       ? null
       : {
-          name: {
+          foodSearch: {
             // "~" applies fuzzy search
             phrase: searchQuery + "~"
           }

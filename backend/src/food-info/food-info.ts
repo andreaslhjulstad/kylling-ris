@@ -5,7 +5,7 @@
 export const foodInfoTypeDef = `#graphql
     type FoodInfo
     @fulltext(
-        indexes: [{ indexName: "name", fields: ["name"] }]
+        indexes: [{ indexName: "foodSearch", fields: ["name", "brand"] }]
     )
     @query(read: true, aggregate: false)
     @mutation(operations: [])
