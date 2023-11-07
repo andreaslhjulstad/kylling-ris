@@ -73,6 +73,10 @@
   background-color: #0056b3;
 }
 
+.closeButton:focus {
+  outline: none;
+}
+
 .closeButton {
   width: 30px;
   height: 30px;
