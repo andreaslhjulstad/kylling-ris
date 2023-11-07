@@ -62,6 +62,11 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
             <div className={styles.background} />
           </Transition.Child>
           <Dialog.Panel className={styles.addFoodPopup}>
+            <button
+              className={styles.closeButton}
+              onClick={() => setIsOpen(false)}
+            >
+            </button>
             <Dialog.Title className={styles.title}>{food.name}</Dialog.Title>
             <div className={styles.bottom}>
               <div className={styles.weightInput}>
@@ -76,6 +81,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
                 <div>{food.weightUnit}</div>
               </div>
               <button
+                className={styles.submitButton}
                 onClick={() => {
                   submitFood();
                 }}

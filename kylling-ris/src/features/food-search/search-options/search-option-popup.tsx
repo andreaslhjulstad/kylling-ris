@@ -45,8 +45,8 @@ export default function FilterOptionPopup() {
             dispatch(changeSort(sort));
           }}
         >
-          <option value="name-ascending">Navn a-z</option>
-          <option value="name-descending">Navn z-a</option>
+          <option value="name-ascending">Navn a-å</option>
+          <option value="name-descending">Navn å-a</option>
           <option value="protein-ascending">
             Proteiner pr. 100g/ml (stigende)
           </option>
@@ -58,7 +58,7 @@ export default function FilterOptionPopup() {
           </option>
           <option value="kcal-descending">
             Kalorier pr. 100g/ml (synkende)
-          </option>
+          </option> 
         </select>
 
         <div className={styles.labelCheckboxContainer}>

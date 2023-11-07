@@ -1,9 +1,8 @@
 .addFoodPopup {
   width: 50vw;
-  height: 30vh;
+  height: 35vh;
   border-radius: 5px;
   border: solid;
-  border-color: #0056b3;
   padding: 40px;
   background-color: white;
   position: absolute;
@@ -35,6 +34,7 @@
 
 .weightInput > input {
   width: 5em;
+  max-width: 50vw;
   font-size: larger;
   text-align: right;
   border: none;
@@ -54,7 +54,7 @@
   font-size: larger;
 }
 
-.addFoodPopup button {
+.submitButton {
   padding: 10px 40px;
   font-weight: 400;
   font-size: 1rem;
@@ -69,8 +69,40 @@
   transition: background-color 0.3s ease;
 }
 
-.addFoodPopup button:hover {
+.submitButton:hover {
   background-color: #0056b3;
+}
+
+.closeButton {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  border: none;
+  background-color: transparent;
+}
+
+/* The X for the close button */
+.closeButton::before,
+.closeButton::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background-color: black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.closeButton::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.closeButton::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .title {
@@ -115,4 +147,27 @@
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width: 1170px) {
+  .addFoodPopup {
+    width: 60vw;
+    height: 25vh;
+    padding: 20px;
+  }
+  .title {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .title {
+    font-size: 1em;
+  }
+
+  .addFoodPopup {
+    width: 90vw;
+    height: 25vh;
+    padding: 20px;
+  }
 }
