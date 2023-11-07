@@ -18,22 +18,14 @@ export default function useSearchResults(
   // Avoids fetching on every single key input from the user.
   const searchQueryAfterInactivity = useUpdateOnInactivity(300, searchQuery);
 
-  const { data, fetchMore } = useQuery(
+  const { data, fetchMore, refetch } = useQuery(
     gql`
-      query FoodInfoQuery(
-        $offset: Int
-        $limit: Int
-        $sort: String
-        $allergens: [String!]
-        $searchQuery: String
+      query FoodInfos(
+        $options: FoodInfoOptions
+        $where: FoodInfoWhere
+        $fulltext: FoodInfoFulltext
       ) {
-        foodInfos(
-          offset: $offset
-          limit: $limit
-          sort: $sort
-          allergens: $allergens
-          searchQuery: $searchQuery
-        ) {
+        foodInfos(options: $options, where: $where, fulltext: $fulltext) {
           id
           name
           brand
@@ -47,28 +39,36 @@ export default function useSearchResults(
     `,
     {
       variables: {
-        offset: 0,
-        limit: searchResultsPerLoad,
-        sort: searchOptions.sortOption,
-        searchQuery: searchQueryAfterInactivity,
-        allergens: searchOptions.allergens
+        options: {
+          limit: searchResultsPerLoad,
+          offset: 0,
+          sort: [
+            sortOptionQueryFormat[searchOptions.sortOption] ?? { name: "ASC" }
+          ]
+        },
+        ...allergensQueryFormat(searchOptions.allergens),
+        ...searchQueryQueryFormat(searchQueryAfterInactivity)
       }
     }
   );
 
-  const foods: FoodInfo[] = data === undefined ? [] : data.foodInfos;
-
+  // Refetching on updated parameters.
   useEffect(() => {
-    // Even if there aren't any more food items,
-    // loadMoreFoodItems will correct that.
-    setHasMoreFoodItems(true);
-  }, [searchQueryAfterInactivity, searchOptions]);
+    refetch().then((response) => {
+      // There can't be more foods if we don't receive all the foods we asked for.
+      setHasMoreFoodItems(
+        response.data.foodInfos.length >= searchResultsPerLoad
+      );
+    });
+  }, [searchQueryAfterInactivity, searchOptions, refetch]);
+
+  const foods: FoodInfo[] = data === undefined ? [] : data.foodInfos;
 
   return {
     foods,
     hasMoreFoodItems,
     loadMoreFoodItems: () => {
-      // Avoids some unnecessary fetches.
+      // Safety guard
       if (foods.length < searchResultsPerLoad) {
         setHasMoreFoodItems(false);
         return;
@@ -76,10 +76,16 @@ export default function useSearchResults(
 
       fetchMore({
         variables: {
-          offset: foods.length
+          options: {
+            limit: searchResultsPerLoad,
+            offset: foods.length,
+            sort: [
+              sortOptionQueryFormat[searchOptions.sortOption] ?? { name: "ASC" }
+            ]
+          }
         }
       }).then((response) => {
-        // Determine if there are more foods to be loaded.
+        // Determines if there are more foods to be loaded.
         const incomingFoodInfos = response.data.foodInfos;
         setHasMoreFoodItems(incomingFoodInfos.length >= searchResultsPerLoad);
         return response;
@@ -88,7 +94,42 @@ export default function useSearchResults(
   };
 }
 
-// Only updates the returned value after not having updated the original value for a while.
+const sortOptionQueryFormat: {
+  [sortOption: string]: {
+    [field: string]: string;
+  };
+} = {
+  "name-ascending": { name: "ASC" },
+  "name-descending": { name: "DESC" },
+  "protein-ascending": { relativeProtein: "ASC" },
+  "protein-descending": { relativeProtein: "DESC" },
+  "kcal-ascending": { relativeCalories: "ASC" },
+  "kcal-descending": { relativeCalories: "DESC" }
+};
+
+const allergensQueryFormat = (allergens: string[]) => ({
+  where: {
+    AND: allergens.map((allergen) => ({
+      NOT: {
+        allergens_INCLUDES: allergen
+      }
+    }))
+  }
+});
+
+const searchQueryQueryFormat = (searchQuery: string) => ({
+  fulltext:
+    searchQuery === ""
+      ? null
+      : {
+          name: {
+            // "~" applies fuzzy search
+            phrase: searchQuery + "~"
+          }
+        }
+});
+
+// Only updates the returned value after the input value has not been updated for a time specified.
 function useUpdateOnInactivity<T>(
   timeInactiveBeforeUpdate: number,
   value: T
