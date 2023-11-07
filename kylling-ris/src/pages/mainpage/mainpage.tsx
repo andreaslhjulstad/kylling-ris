@@ -3,10 +3,12 @@ import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
 import DatePicker from "../../features/date/date-picker";
 import TitleAndLogo from "../../features/title-logo/title-logo";
+import UserMenu from "../../features/user-menu/user-menu";
 
 export default function Mainpage() {
   return (
     <div className={styles.wrapper}>
+      <UserMenu />
       <div className={styles.searchAndLogoCard}>
         <div className={styles.titleAndLogoContainer}>
           <TitleAndLogo />
