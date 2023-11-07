@@ -1,5 +1,5 @@
 export default interface FoodInfo {
-  id: number;
+  id: string;
   name: string;
   brand: string;
   defaultWeight: number;

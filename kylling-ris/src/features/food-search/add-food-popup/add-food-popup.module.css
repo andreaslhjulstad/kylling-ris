@@ -3,6 +3,7 @@
   height: 30vh;
   border-radius: 5px;
   border: solid;
+  border-color: #0056b3;
   padding: 40px;
   background-color: white;
   position: absolute;
@@ -54,16 +55,22 @@
 }
 
 .addFoodPopup button {
-  font-size: large;
-  background-color: white;
-  border: 2px solid black;
-  padding: 5px;
-  margin: 15px 5px 40px 5px;
+  padding: 10px 40px;
+  font-weight: 400;
+  font-size: 1rem;
+  background-color: #2275c3;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  align-self: center;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  transition: background-color 0.3s ease;
 }
 
 .addFoodPopup button:hover {
-  background-color: #ebebeb;
+  background-color: #0056b3;
 }
 
 .title {

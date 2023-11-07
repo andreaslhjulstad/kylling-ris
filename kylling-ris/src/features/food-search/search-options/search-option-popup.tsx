@@ -62,7 +62,6 @@ export default function FilterOptionPopup() {
         </select>
 
         <div className={styles.labelCheckboxContainer}>
-          <label>Vis Gluten</label>
           <input
             className={styles.checkbox}
             type="checkbox"
@@ -76,10 +75,10 @@ export default function FilterOptionPopup() {
               }))
             }
           />
+          <label>Vis Gluten</label>
         </div>
 
         <div className={styles.labelCheckboxContainer}>
-          <label>Vis Melk</label>
           <input
             className={styles.checkbox}
             type="checkbox"
@@ -93,10 +92,10 @@ export default function FilterOptionPopup() {
               }))
             }
           />
+          <label>Vis Melk</label>
         </div>
 
         <div className={styles.labelCheckboxContainer}>
-          <label>Vis Soya</label>
           <input
             className={styles.checkbox}
             type="checkbox"
@@ -110,6 +109,7 @@ export default function FilterOptionPopup() {
               }))
             }
           />
+          <label>Vis Soya</label>
         </div>
       </div>
     </div>
