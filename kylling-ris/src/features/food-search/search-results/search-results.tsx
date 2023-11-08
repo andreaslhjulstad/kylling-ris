@@ -24,6 +24,9 @@ const appropriateUnit = (x: number, standardUnit: string) => {
   return `${x}${standardUnit}`;
 };
 
+const maxTextWidth = (chars: number, text: string): string =>
+  text.substring(0, chars).trimEnd() + (chars < text.length ? "..." : "");
+
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
   const searchOptions = useSelector((state: RootState) => state.searchOption);
 
@@ -79,7 +82,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                 food={food}
               />
               <div className={styles.foodInfo}>
-                <h1>{food.name}</h1>
+                <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>
                   {
                     //Only puts " - " between the fields that are present.
@@ -89,7 +92,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                       `Protein: ${defaultWeightFoodItem.protein}g`,
                       `${defaultWeightFoodItem.calories}kcal`
                     ]
-                      .filter((text) => text.length > 0)
+                      .filter((text) => text !== null && text.length > 0)
                       .join(" - ")
                   }
                 </h2>

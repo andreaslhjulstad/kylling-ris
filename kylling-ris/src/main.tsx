@@ -16,11 +16,18 @@ const client = new ApolloClient({
           foodInfos: {
             // Only differences in these arguments
             // are to cause a new value to be stored.
-            keyArgs: ["searchQuery", "sort", "allergens"],
-            // If, instead, $offset changes with fetchMore, merge
+            keyArgs: ["where", "options", ["sort"]],
+            // If, instead, $options.offset changes with fetchMore, merge
             // existing foods with the incoming foods.
             // This implementation assumes incoming foods are always
             // appended to the end. useSearchResults always does this.
+            merge(existing = [], incoming) {
+              console.log(incoming);
+              return [...existing, ...incoming];
+            }
+          },
+          foodInfosFulltextFoodSearch: {
+            keyArgs: ["phrase", "sort", "where"],
             merge(existing = [], incoming) {
               return [...existing, ...incoming];
             }

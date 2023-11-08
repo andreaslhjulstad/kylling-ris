@@ -13,9 +13,9 @@ export const foodInfoTypeDef = `#graphql
         id: ID! @id 
         name: String!
         image: String!
-        brand: String!
+        brand: String
         defaultWeight: Float!
-        ingredients: String!
+        ingredients: String
         weightUnit: String!
         allergens: [String!]!
         relativeCalories: Float!

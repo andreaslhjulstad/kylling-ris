@@ -11,7 +11,7 @@ export default function useSearchResults(
 ): {
   foods: FoodInfo[];
   hasMoreFoodItems: boolean;
-  loadMoreFoodItems: () => void;
+  loadMoreFoodItems: () => Promise<void>;
 } {
   const [hasMoreFoodItems, setHasMoreFoodItems] = useState<boolean>(true);
 
@@ -20,34 +20,48 @@ export default function useSearchResults(
 
   const { data, fetchMore, refetch } = useQuery(
     gql`
-      query FoodInfos(
-        $options: FoodInfoOptions
-        $where: FoodInfoWhere
-        $fulltext: FoodInfoFulltext
+      query FoodInfosFulltextFoodSearch(
+        $phrase: String!
+        $sort: [FoodInfoFulltextSort!]
+        $where: FoodInfoFulltextWhere
+        $limit: Int
+        $offset: Int
       ) {
-        foodInfos(options: $options, where: $where, fulltext: $fulltext) {
-          id
-          name
-          brand
-          defaultWeight
-          weightUnit
-          allergens
-          relativeCalories
-          relativeProtein
+        foodInfosFulltextFoodSearch(
+          phrase: $phrase
+          sort: $sort
+          where: $where
+          limit: $limit
+          offset: $offset
+        ) {
+          foodInfo {
+            id
+            name
+            brand
+            defaultWeight
+            weightUnit
+            allergens
+            relativeCalories
+            relativeProtein
+          }
         }
       }
     `,
     {
       variables: {
-        options: {
-          limit: searchResultsPerLoad,
-          offset: 0,
-          sort: [
-            sortOptionQueryFormat[searchOptions.sortOption] ?? { name: "ASC" }
-          ]
-        },
+        limit: searchResultsPerLoad,
+        offset: 0,
+        sort: [
+          { score: "DESC" },
+          {
+            foodInfo: sortOptionQueryFormat[searchOptions.sortOption] ?? {
+              name: "ASC"
+            }
+          },
+          { foodInfo: { id: "DESC" } }
+        ],
         ...allergensQueryFormat(searchOptions.allergens),
-        ...searchQueryQueryFormat(searchQueryAfterInactivity)
+        phrase: searchQueryQueryFormat(searchQueryAfterInactivity)
       }
     }
   );
@@ -56,37 +70,40 @@ export default function useSearchResults(
   useEffect(() => {
     refetch().then((response) => {
       // There can't be more foods if we don't receive all the foods we asked for.
+      if (response.data === undefined) return;
       setHasMoreFoodItems(
-        response.data.foodInfos.length >= searchResultsPerLoad
+        response.data.foodInfosFulltextFoodSearch.length >= searchResultsPerLoad
       );
     });
   }, [searchQueryAfterInactivity, searchOptions, refetch]);
 
-  const foods: FoodInfo[] = data === undefined ? [] : data.foodInfos;
+  const foods: FoodInfo[] =
+    data === undefined
+      ? []
+      : data.foodInfosFulltextFoodSearch.map(
+          (data: { foodInfo: FoodInfo }) => data.foodInfo
+        );
 
   return {
     foods,
     hasMoreFoodItems,
-    loadMoreFoodItems: () => {
+    loadMoreFoodItems: async () => {
       // Safety guard
       if (foods.length < searchResultsPerLoad) {
         setHasMoreFoodItems(false);
         return;
       }
 
-      fetchMore({
+      await fetchMore({
         variables: {
-          options: {
-            limit: searchResultsPerLoad,
-            offset: foods.length,
-            sort: [
-              sortOptionQueryFormat[searchOptions.sortOption] ?? { name: "ASC" }
-            ]
-          }
+          offset: foods.length
         }
       }).then((response) => {
         // Determines if there are more foods to be loaded.
-        const incomingFoodInfos = response.data.foodInfos;
+        const incomingFoodInfos =
+          response.data === undefined
+            ? []
+            : response.data.foodInfosFulltextFoodSearch;
         setHasMoreFoodItems(incomingFoodInfos.length >= searchResultsPerLoad);
         return response;
       });
@@ -109,25 +126,20 @@ const sortOptionQueryFormat: {
 
 const allergensQueryFormat = (allergens: string[]) => ({
   where: {
-    AND: allergens.map((allergen) => ({
-      NOT: {
-        allergens_INCLUDES: allergen
-      }
-    }))
+    foodInfo: {
+      AND: allergens.map((allergen) => ({
+        NOT: {
+          allergens_INCLUDES: allergen
+        }
+      }))
+    }
   }
 });
 
-const searchQueryQueryFormat = (searchQuery: string) => ({
-  fulltext:
-    searchQuery === ""
-      ? null
-      : {
-          foodSearch: {
-            // "~" applies fuzzy search
-            phrase: searchQuery + "~"
-          }
-        }
-});
+const searchQueryQueryFormat = (searchQuery: string) =>
+  // "~" applies fuzzy search
+  // "*" seems to match everything
+  searchQuery === "" ? "*" : searchQuery + "~";
 
 // Only updates the returned value after the input value has not been updated for a time specified.
 function useUpdateOnInactivity<T>(
