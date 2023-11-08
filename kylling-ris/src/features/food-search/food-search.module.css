@@ -29,7 +29,40 @@
   user-select: none;
 }
 
-.cogwheel {
-  height: 1.3em;
+.filterImage {
+  height: 1.6em;
   cursor: pointer;
+}
+
+.filterButton {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.filterButton:focus {
+  outline: none;
+}
+.enter {
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.enterFrom{
+  opacity: 0;
+}
+
+.enterTo {
+  opacity: 100;
+}
+
+.leave {
+  transition: opacity 150ms ease-in, transform 150ms ease-in;
+}
+
+.leaveFrom{
+  opacity: 100;
+}
+
+.leaveTo {
+  opacity: 0;
 }

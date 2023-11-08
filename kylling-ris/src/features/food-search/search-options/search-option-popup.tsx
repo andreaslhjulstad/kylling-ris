@@ -35,7 +35,7 @@ export default function FilterOptionPopup() {
   return (
     <div>
       <div className={styles.filterContent}>
-        <div className={styles.title}>Filter</div>
+        <div className={styles.title}>Filters</div>
 
         <select
           className={styles.dropdown}
@@ -45,8 +45,8 @@ export default function FilterOptionPopup() {
             dispatch(changeSort(sort));
           }}
         >
-          <option value="name-ascending">Navn a-z</option>
-          <option value="name-descending">Navn z-a</option>
+          <option value="name-ascending">Navn a-å</option>
+          <option value="name-descending">Navn å-a</option>
           <option value="protein-ascending">
             Proteiner pr. 100g/ml (stigende)
           </option>
@@ -58,11 +58,10 @@ export default function FilterOptionPopup() {
           </option>
           <option value="kcal-descending">
             Kalorier pr. 100g/ml (synkende)
-          </option>
+          </option> 
         </select>
 
         <div className={styles.labelCheckboxContainer}>
-          <label>Vis Gluten</label>
           <input
             className={styles.checkbox}
             type="checkbox"
@@ -76,10 +75,10 @@ export default function FilterOptionPopup() {
               }))
             }
           />
+          <label>Vis Gluten</label>
         </div>
 
         <div className={styles.labelCheckboxContainer}>
-          <label>Vis Melk</label>
           <input
             className={styles.checkbox}
             type="checkbox"
@@ -93,10 +92,10 @@ export default function FilterOptionPopup() {
               }))
             }
           />
+          <label>Vis Melk</label>
         </div>
 
         <div className={styles.labelCheckboxContainer}>
-          <label>Vis Soya</label>
           <input
             className={styles.checkbox}
             type="checkbox"
@@ -110,6 +109,7 @@ export default function FilterOptionPopup() {
               }))
             }
           />
+          <label>Vis Soya</label>
         </div>
       </div>
     </div>
