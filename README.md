@@ -9,7 +9,7 @@ For å starte nettsiden, naviger til rotmappen, og kjør med npm:
 `npm install`  
 `npm run dev` 
 
-For å starte serveren må man enten være på Eduroam eller hå på VPN. Naviger deretter til rotmappen, og kjør med npm:  
+For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger deretter til rotmappen, og kjør med npm:  
 `cd .\backend`  
 `npm install`  
 `npm run dev`
@@ -32,22 +32,27 @@ For å starte serveren må man enten være på Eduroam eller hå på VPN. Navige
 - Applikasjonen er implementert gjennom bruk av React, Vite og Typescript.
 - State managment ved hjelp av redux.
 - Bruker importerte tredjepartskomponenter (f.eks. datapicker kalender og infinite-scroll-elementene).
-- Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer.
+- Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer. Ca. 9000 ulike matobjekter ligger i databasen.
 - Prettier har (stort sett) blitt benyttet underveis for å formatere koden. Det har blitt kjørt gjennom repoet med eslint og prettier før innlevering.
-- Kun testing av "date-picker" har blitt implementert så langt.
+- Testing av "date-picker" og login/registrasjon sidene har blitt implementert så langt. 
 - Kommentarer har blitt benyttet underveis for å utdype koden.
 
 ### Spesifikt for andre underveisinnlevering
-- Det er laget en login og registrering side, men dette er ikke koblet opp med backenden enda.
+- Det er laget en login og registrering side med litt frontend logikk, men dette er ikke koblet opp med backenden enda. Alle brukere behandles for øyeblikket som gjester.
 
 ## Planen fremover
 
 - Koble opp brukerside med databasen slik at hver bruker har egen logg. Da kan brukeren ha samme logg på forskjellige enheter/nettlesere.
-- Implementere tester for de ulike komponetene og sidene på applikasjonen.
-- flytte lagring av matobjekter brukeren legger til over på databasen.
+- Implementere tester for de ulike Komponentene og sidene på applikasjonen.
+- Flytte lagring av matobjekter brukeren legger til over på databasen.
 - Støtte for QR-scanning av strekkoder på matvarer, for å enkelt kunne legge til mat i applikasjonen.
 - Gi brukeren mulighet til å legge til egendefinerte måltider (f.eks. brødskive med ost og skinke).
 
 ## Testing
+
+For å kjøre testene, naviger til rotmappen og kjør med npm:  
+`cd .\kylling-ris`  
+`npm test` 
+
 
 Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Dette var et bevisst valg for å spare tid. Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. Vi har ikke fått testet på andre enheter, ettersom nettsiden ikke er satt opp på VM enda, men vi har testet utseendet på mobil vha. devtools på PC
