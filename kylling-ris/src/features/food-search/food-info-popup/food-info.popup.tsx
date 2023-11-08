@@ -1,5 +1,4 @@
 import appropriateUnit from "../../misc/appropriate-unit";
-import FoodInfoExpanded from "./food-info-expanded";
 import styles from "./food-info-popup.module.css";
 import { Dialog } from "primereact/dialog";
 import { useExpandedFoodInfo } from "./use-expanded-food-info";
