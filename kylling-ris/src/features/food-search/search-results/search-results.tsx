@@ -6,32 +6,52 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
+import { useEffect, useRef, useState } from "react";
+import FoodInfoPopup from "../food-info-popup/food-info.popup";
+import appropriateUnit from "../../misc/appropriate-unit";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
 
-// g to kg and ml to L conversion for display.
-const appropriateUnit = (x: number, standardUnit: string) => {
-  if (x > 999 && standardUnit === "g") {
-    return `${x / 1000}kg`;
-  }
-  if (x > 999 && standardUnit === "ml") {
-    return `${x / 1000}l`;
-  }
-  return `${x}${standardUnit}`;
-};
-
 const maxTextWidth = (chars: number, text: string): string =>
   text.substring(0, chars).trimEnd() + (chars < text.length ? "..." : "");
 
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
+  const [foodInfoPopupOpen, setFoodInfoPopupOpen] = useState<boolean>(false);
+  const [selectedFood, setSelectedFood] = useState<FoodInfo | null>(null);
+
   const searchOptions = useSelector((state: RootState) => state.searchOption);
 
   const { foods, hasMoreFoodItems, loadMoreFoodItems } = useSearchResults(
     searchQuery,
     searchOptions
   );
+
+  /* 
+  Update height of scroll element when window is resized.
+  Include breakpoint to prevent too large of a difference
+  in starting height between scroll element and table element
+  */
+  const parentRef = useRef(null);
+  const [height, setHeight] = useState(window.innerHeight);
+  const breakpoint = 1200;
+
+  useEffect(() => {
+    const handleResizeWindow = () => setHeight(window.innerHeight);
+    // Listen to window resize event
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      // "Unlisten" to resize event
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
+  const scrollHeight = height > breakpoint ? height * 1 : height * 0.75;
+
+  function foodInfoClicked(food: FoodInfo) {
+    setSelectedFood(food);
+    setFoodInfoPopupOpen(true);
+  }
 
   return (
     <div className={styles.searchResults}>
@@ -55,8 +75,10 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <AddFoodPopup food={food} />
-              <div className={styles.foodInfo}>
+              <AddFoodPopup
+                food={food}
+              />
+              <div className={styles.foodInfo} onClick={() => foodInfoClicked(food)}>
                 <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>
                   {
@@ -75,6 +97,13 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
             </div>
           );
         })}
+        {selectedFood && (
+          <FoodInfoPopup
+            food={selectedFood}
+            open={foodInfoPopupOpen}
+            onClose={() => setFoodInfoPopupOpen(false)}
+          />
+        )}
       </InfiniteScroll>
     </div>
   );

@@ -11,6 +11,10 @@
   height: 50px;
 }
 
+.foodInfo {
+  cursor: pointer;
+}
+
 .foodInfo > h1 {
   font-size: 1em;
   font-weight: medium;
