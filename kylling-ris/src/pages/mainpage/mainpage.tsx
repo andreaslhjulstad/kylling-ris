@@ -4,6 +4,7 @@ import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
 import DatePicker from "../../features/date/date-picker";
 import TitleAndLogo from "../../features/title-logo/title-logo";
+import UserMenu from "../../features/user-menu/user-menu";
 import { TabView, TabPanel } from "primereact/tabview";
 import "primeicons/primeicons.css";
 
@@ -24,6 +25,8 @@ export default function Mainpage() {
 
   return (
     <div className={styles.wrapper}>
+      <UserMenu />
+
       {isMobile ? (
         <div>
           <div className={styles.titleAndLogoContainer}>
