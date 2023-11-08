@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import FoodInfoPopup from "../food-info-popup/food-info.popup";
 import appropriateUnit from "../../misc/appropriate-unit";
 
@@ -27,26 +27,6 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchQuery,
     searchOptions
   );
-
-  /* 
-  Update height of scroll element when window is resized.
-  Include breakpoint to prevent too large of a difference
-  in starting height between scroll element and table element
-  */
-  const parentRef = useRef(null);
-  const [height, setHeight] = useState(window.innerHeight);
-  const breakpoint = 1200;
-
-  useEffect(() => {
-    const handleResizeWindow = () => setHeight(window.innerHeight);
-    // Listen to window resize event
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      // "Unlisten" to resize event
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-  }, []);
-  const scrollHeight = height > breakpoint ? height * 1 : height * 0.75;
 
   function foodInfoClicked(food: FoodInfo) {
     setSelectedFood(food);
@@ -75,10 +55,11 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <AddFoodPopup
-                food={food}
-              />
-              <div className={styles.foodInfo} onClick={() => foodInfoClicked(food)}>
+              <AddFoodPopup food={food} />
+              <div
+                className={styles.foodInfo}
+                onClick={() => foodInfoClicked(food)}
+              >
                 <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>
                   {

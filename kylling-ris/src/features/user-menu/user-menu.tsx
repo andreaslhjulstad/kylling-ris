@@ -64,10 +64,7 @@ export default function UserMenu() {
   ];
 
   // Handle alert confirming user logout
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
+  const handleClose = (_?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
