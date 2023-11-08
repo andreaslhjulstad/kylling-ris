@@ -4,15 +4,14 @@ Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og reg
 
 ## Oppsett
 
-For å starte nettsiden, naviger til rotmappen, og kjør med npm:
+For å starte nettsiden, naviger til rotmappen, og kjør med npm:  
+`cd .\kylling-ris`  
+`npm install`  
+`npm run dev` 
 
-`cd .\kylling-ris`
-`npm install`
-`npm run dev`
-
-For å starte serveren må man enten være på Eduroam eller hå på VPN. Naviger deretter til rotmappen, og kjør med npm:
-`cd .\backend`
-`npm install`
+For å starte serveren må man enten være på Eduroam eller hå på VPN. Naviger deretter til rotmappen, og kjør med npm:  
+`cd .\backend`  
+`npm install`  
 `npm run dev`
 
 
@@ -24,7 +23,7 @@ For å starte serveren må man enten være på Eduroam eller hå på VPN. Navige
 - Listebasert presentasjon av søk med dynamisk lasting av flere resultater ved scrolling.
 - Relevant info om matobjekt vises ved søk eller i tabellen. Man kan klikke seg innpå hvert matobjekt for å få mer informasjon.
 - Mulighet for sortering og filtrering av resultatsettet (allergener, proteininnhold o.l.).
-- Brukergenererte data lagres via redux i form av matobjekter brukeren legger til på ulike datoer. Dataene presenteres igjennom en såkalt "food log table". For denne innleveringen så lagres dette lokalt, dette skal bli flyttet over på databaseserveren til neste innlevering.
+- Brukergenererte data lagres via redux i form av matobjekter brukeren legger til på ulike datoer. Dataene presenteres i mattabellen. For denne innleveringen så lagres dette lokalt, dette skal bli flyttet over på databaseserveren til neste innlevering.
 - Applikasjonen har et pent og responsivt design.
 - Database og backend er satt opp på gruppas virtuelle maskin.
 
@@ -33,7 +32,7 @@ For å starte serveren må man enten være på Eduroam eller hå på VPN. Navige
 - Applikasjonen er implementert gjennom bruk av React, Vite og Typescript.
 - State managment ved hjelp av redux.
 - Bruker importerte tredjepartskomponenter (f.eks. datapicker kalender og infinite-scroll-elementene).
--Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer.
+- Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer.
 - Prettier har (stort sett) blitt benyttet underveis for å formatere koden. Det har blitt kjørt gjennom repoet med eslint og prettier før innlevering.
 - Kun testing av "date-picker" har blitt implementert så langt.
 - Kommentarer har blitt benyttet underveis for å utdype koden.
@@ -43,7 +42,7 @@ For å starte serveren må man enten være på Eduroam eller hå på VPN. Navige
 
 ## Planen fremover
 
-- Koble opp brukerside med databasen slik at vær bruker har egen logg. Brukeren kan derfor også ha samme logg på forskjellige enheter/nettlesere.
+- Koble opp brukerside med databasen slik at hver bruker har egen logg. Da kan brukeren ha samme logg på forskjellige enheter/nettlesere.
 - Implementere tester for de ulike komponetene og sidene på applikasjonen.
 - flytte lagring av matobjekter brukeren legger til over på databasen.
 - Støtte for QR-scanning av strekkoder på matvarer, for å enkelt kunne legge til mat i applikasjonen.
