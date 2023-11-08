@@ -42,7 +42,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
-        height={0.8 * window.innerHeight}
+        height={700}
       >
         {foods.map((food: FoodInfo) => {
           const defaultWeightFoodItem: FoodItem = foodItem(
@@ -55,9 +55,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <AddFoodPopup
-                food={food}
-              />
+              <AddFoodPopup food={food} />
               <div className={styles.foodInfo}>
                 <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>
