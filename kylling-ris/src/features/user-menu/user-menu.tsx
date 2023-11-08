@@ -25,7 +25,7 @@ export default function UserMenu() {
   };
 
   const logIn = () => {
-    navigate("/login");
+    navigate("/project2/login");
   };
 
   // Menu items when logged in
