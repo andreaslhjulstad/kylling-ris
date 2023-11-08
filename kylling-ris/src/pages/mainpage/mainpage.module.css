@@ -8,7 +8,7 @@
   background-color: #2275c3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: calc(5vh + 14px);
   width: 66%;
   flex-grow: 2;
 }
@@ -36,17 +36,57 @@
 .titleAndLogoContainer {
   margin-left: 3vw;
 }
+/* Global styles to target PrimeReact classes */
+
+/* Spacing between logo and title */
+:global(.p-tabview-title) {
+  margin-left: 5px;
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+:global(.p-tabview-nav-content) {
+  background-color: white;
+}
+
+/* Highlight selected tab */
+:global(.p-tabview-selected) {
+  border-bottom: 2px solid #4e8dc9;
+}
+
+/* Align tab bar */
+:global(.p-tabview-nav) {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1vh;
+}
+
+/* Make tabs fill screen width, and center them */
+:global(.p-tabview-nav-link) {
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Makes direct children grow and take available space */
+:global(.p-tabview-nav > *) {
+  flex: 1;
+}
 
 @media only screen and (max-width: 1170px) {
   .wrapper {
     flex-direction: column;
+    height: auto;
+    background-color: #2275c3;
   }
 
   .logAndDateCard {
     margin-left: auto;
     margin-right: auto;
+    padding-top: 0;
     width: 100%;
-    height: auto;
+    margin-bottom: 20px;
   }
 
   .searchAndLogoCard {
@@ -55,20 +95,44 @@
     width: 100%;
     align-items: center;
     height: auto;
+    background-color: white;
   }
 
   .titleAndLogoContainer {
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    padding-top: 1em;
+    padding-bottom: 2.5em;
+    background-color: white;
+    margin-left: 0;
+  }
+
+  :global(.p-tabview-nav-link):hover {
+    background-color: #c8e2fa;
+    transition: 0.3s ease;
   }
 }
 
 @media only screen and (max-width: 775px) {
+  body {
+    overscroll-behavior-y: auto;
+  }
+
+  .wrapper {
+    height: 100%;
+    background-color: white;
+  }
+
   .tableWrapper {
     width: 100%;
   }
 
   .logAndDateCard {
     background-color: white;
+  }
+
+  .titleAndLogoContainer {
+    display: flex;
+    justify-content: center;
   }
 }

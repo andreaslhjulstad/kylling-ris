@@ -3,7 +3,6 @@
   text-decoration: none;
   display: flex;
   flex-direction: row;
-  width: auto;
 }
 
 .pageTitleContainer {
@@ -28,4 +27,16 @@
   margin-top: auto;
   margin-bottom: auto;
   margin-left: 0.5vh;
+}
+
+@media only screen and (max-width: 1170px) {
+  .pageLink {
+    justify-content: center;
+    align-content: center;
+  }
+
+  .pageTitleContainer {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

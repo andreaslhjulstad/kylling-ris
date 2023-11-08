@@ -3,7 +3,7 @@ import { TableStyles } from "react-data-table-component";
 export const foodLogTableStyles: TableStyles = {
   table: {
     style: {
-      minHeight: "53.7vh",
+      minHeight: "34em",
       margin: "auto"
     }
   },

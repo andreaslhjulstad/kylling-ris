@@ -1,13 +1,11 @@
 import FoodInfo from "./food-info";
 import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
-import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
-import { useEffect, useRef, useState } from "react";
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -24,6 +22,9 @@ const appropriateUnit = (x: number, standardUnit: string) => {
   return `${x}${standardUnit}`;
 };
 
+const maxTextWidth = (chars: number, text: string): string =>
+  text.substring(0, chars).trimEnd() + (chars < text.length ? "..." : "");
+
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
   const searchOptions = useSelector((state: RootState) => state.searchOption);
 
@@ -32,28 +33,8 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     searchOptions
   );
 
-  /* 
-  Update height of scroll element when window is resized.
-  Include breakpoint to prevent too large of a difference
-  in starting height between scroll element and table element
-  */
-  const parentRef = useRef(null);
-  const [height, setHeight] = useState(window.innerHeight);
-  const breakpoint = 1200;
-
-  useEffect(() => {
-    const handleResizeWindow = () => setHeight(window.innerHeight);
-    // Listen to window resize event
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      // "Unlisten" to resize event
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-  }, []);
-  const scrollHeight = height > breakpoint ? height * 1 : height * 0.75;
-
   return (
-    <div className={styles.searchResults} ref={parentRef}>
+    <div className={styles.searchResults}>
       <InfiniteScroll
         initialScrollY={0}
         dataLength={foods.length}
@@ -61,7 +42,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
-        height={scrollHeight}
+        height={700}
       >
         {foods.map((food: FoodInfo) => {
           const defaultWeightFoodItem: FoodItem = foodItem(
@@ -74,12 +55,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <AddFoodPopup
-                trigger={<img className={styles.addImage} src={addImage} />}
-                food={food}
-              />
+              <AddFoodPopup food={food} />
               <div className={styles.foodInfo}>
-                <h1>{food.name}</h1>
+                <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>
                   {
                     //Only puts " - " between the fields that are present.
@@ -89,7 +67,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                       `Protein: ${defaultWeightFoodItem.protein}g`,
                       `${defaultWeightFoodItem.calories}kcal`
                     ]
-                      .filter((text) => text.length > 0)
+                      .filter((text) => text !== null && text.length > 0)
                       .join(" - ")
                   }
                 </h2>

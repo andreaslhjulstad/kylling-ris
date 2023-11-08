@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
+    "@headlessui/react": "^1.7.17",
     "@reduxjs/toolkit": "^1.9.6",
     "formik": "^2.4.5",
     "moment": "^2.29.4",

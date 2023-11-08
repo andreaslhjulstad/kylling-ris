@@ -36,7 +36,7 @@
 }
 
 .weekday:hover {
-  text-shadow: rgba(0, 0, 0, .5) 0 0 5px;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 0 5px;
 }
 
 .navigationArrow {
@@ -61,6 +61,26 @@
 
 @media only screen and (max-width: 1170px) {
   .dateInfo {
+    margin-top: 3vh;
+  }
+
+  .weekday {
+    margin-top: 3vh;
+  }
+
+  .navigationArrow {
+    margin-top: 3.5vh;
+  }
+
+  .navigationArrow:hover {
+    border-radius: 50%;
+  }
+
+  .disabledNaviagtionArrow {
+    margin-top: 3.5vh;
+  }
+
+  .calendarContainer {
     margin-top: 3vh;
   }
 }
