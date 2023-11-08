@@ -111,10 +111,7 @@ export default function RegisterPage() {
   };
 
   /* Success alert closed either manually or after 3500ms wait */
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
+  const handleClose = (_?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }

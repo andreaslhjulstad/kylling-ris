@@ -3,7 +3,7 @@ import FoodInfo from "../food-search/search-results/food-info";
 export default interface FoodItem {
   id: number;
   name: string;
-  brand: string;
+  brand: string | null;
   weight: number;
   weightUnit: string;
   allergens: string[];
