@@ -8,21 +8,11 @@ import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
 import { useEffect, useRef, useState } from "react";
 import FoodInfoPopup from "../food-info-popup/food-info.popup";
+import appropriateUnit from "../../misc/appropriate-unit";
 
 interface SearchResultsProps {
   searchQuery: string;
 }
-
-// g to kg and ml to L conversion for display.
-const appropriateUnit = (x: number, standardUnit: string) => {
-  if (x > 999 && standardUnit === "g") {
-    return `${x / 1000}kg`;
-  }
-  if (x > 999 && standardUnit === "ml") {
-    return `${x / 1000}l`;
-  }
-  return `${x}${standardUnit}`;
-};
 
 const maxTextWidth = (chars: number, text: string): string =>
   text.substring(0, chars).trimEnd() + (chars < text.length ? "..." : "");
