@@ -1,7 +1,6 @@
 import FoodInfo from "./food-info";
 import useSearchResults from "./use-search-results";
 import styles from "./search-results.module.css";
-import addImage from "../../../assets/add.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -24,6 +23,9 @@ const appropriateUnit = (x: number, standardUnit: string) => {
   }
   return `${x}${standardUnit}`;
 };
+
+const maxTextWidth = (chars: number, text: string): string =>
+  text.substring(0, chars).trimEnd() + (chars < text.length ? "..." : "");
 
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
   const [foodInfoPopupOpen, setFoodInfoPopupOpen] = useState<boolean>(false);
@@ -62,7 +64,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
   }
 
   return (
-    <div className={styles.searchResults} ref={parentRef}>
+    <div className={styles.searchResults}>
       <InfiniteScroll
         initialScrollY={0}
         dataLength={foods.length}
@@ -70,7 +72,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         loader={<p className={styles.loadingFoodItemsMessage}>Loading...</p>}
         hasMore={hasMoreFoodItems}
         className={styles.invisibleScrollbar}
-        height={scrollHeight}
+        height={0.8 * window.innerHeight}
       >
         {foods.map((food: FoodInfo) => {
           const defaultWeightFoodItem: FoodItem = foodItem(
@@ -84,11 +86,10 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               data-testid={`food-search-result-${food.id}`}
             >
               <AddFoodPopup
-                trigger={<img className={styles.addImage} src={addImage} />}
                 food={food}
               />
               <div className={styles.foodInfo} onClick={() => foodInfoClicked(food)}>
-                <h1>{food.name}</h1>
+                <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>
                   {
                     //Only puts " - " between the fields that are present.
@@ -98,7 +99,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                       `Protein: ${defaultWeightFoodItem.protein}g`,
                       `${defaultWeightFoodItem.calories}kcal`
                     ]
-                      .filter((text) => text.length > 0)
+                      .filter((text) => text !== null && text.length > 0)
                       .join(" - ")
                   }
                 </h2>

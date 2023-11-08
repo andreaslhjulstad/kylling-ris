@@ -1,17 +1,13 @@
-import FoodInfo from "../search-results/food-info";
-
-export default interface FoodInfoExpanded extends FoodInfo {
+export default interface FoodInfoExpanded {
   id: string;
   name: string;
   image: string;
-  brand: string;
-  ingredients: string;
+  brand: string | null;
+  ingredients: string | null;
   defaultWeight: number;
   weightUnit: string;
   allergens: string[];
   // per 100units
-
-  // Kanskje vi skal endre til a bruke en nutrition-array i stedet?
   relativeCalories: number;
   relativeProtein: number;
   relativeCarbs: number;

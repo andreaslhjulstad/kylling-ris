@@ -11,76 +11,99 @@ export default function useSearchResults(
 ): {
   foods: FoodInfo[];
   hasMoreFoodItems: boolean;
-  loadMoreFoodItems: () => void;
+  loadMoreFoodItems: () => Promise<void>;
 } {
   const [hasMoreFoodItems, setHasMoreFoodItems] = useState<boolean>(true);
 
   // Avoids fetching on every single key input from the user.
   const searchQueryAfterInactivity = useUpdateOnInactivity(300, searchQuery);
 
-  const { data, fetchMore } = useQuery(
+  const { data, fetchMore, refetch } = useQuery(
     gql`
-      query FoodInfoQuery(
-        $offset: Int
+      query FoodInfosFulltextFoodSearch(
+        $phrase: String!
+        $sort: [FoodInfoFulltextSort!]
+        $where: FoodInfoFulltextWhere
         $limit: Int
-        $sort: String
-        $allergens: [String!]
-        $searchQuery: String
+        $offset: Int
       ) {
-        foodInfos(
-          offset: $offset
-          limit: $limit
+        foodInfosFulltextFoodSearch(
+          phrase: $phrase
           sort: $sort
-          allergens: $allergens
-          searchQuery: $searchQuery
+          where: $where
+          limit: $limit
+          offset: $offset
         ) {
-          id
-          name
-          brand
-          defaultWeight
-          weightUnit
-          allergens
-          relativeCalories
-          relativeProtein
+          foodInfo {
+            id
+            name
+            brand
+            defaultWeight
+            weightUnit
+            allergens
+            relativeCalories
+            relativeProtein
+          }
         }
       }
     `,
     {
       variables: {
-        offset: 0,
         limit: searchResultsPerLoad,
-        sort: searchOptions.sortOption,
-        searchQuery: searchQueryAfterInactivity,
-        allergens: searchOptions.allergens
+        offset: 0,
+        sort: [
+          { score: "DESC" },
+          {
+            foodInfo: sortOptionQueryFormat[searchOptions.sortOption] ?? {
+              name: "ASC"
+            }
+          },
+          { foodInfo: { id: "DESC" } }
+        ],
+        ...allergensQueryFormat(searchOptions.allergens),
+        phrase: searchQueryQueryFormat(searchQueryAfterInactivity)
       }
     }
   );
 
-  const foods: FoodInfo[] = data === undefined ? [] : data.foodInfos;
-
+  // Refetching on updated parameters.
   useEffect(() => {
-    // Even if there aren't any more food items,
-    // loadMoreFoodItems will correct that.
-    setHasMoreFoodItems(true);
-  }, [searchQueryAfterInactivity, searchOptions]);
+    refetch().then((response) => {
+      // There can't be more foods if we don't receive all the foods we asked for.
+      if (response.data === undefined) return;
+      setHasMoreFoodItems(
+        response.data.foodInfosFulltextFoodSearch.length >= searchResultsPerLoad
+      );
+    });
+  }, [searchQueryAfterInactivity, searchOptions, refetch]);
+
+  const foods: FoodInfo[] =
+    data === undefined
+      ? []
+      : data.foodInfosFulltextFoodSearch.map(
+          (data: { foodInfo: FoodInfo }) => data.foodInfo
+        );
 
   return {
     foods,
     hasMoreFoodItems,
-    loadMoreFoodItems: () => {
-      // Avoids some unnecessary fetches.
+    loadMoreFoodItems: async () => {
+      // Safety guard
       if (foods.length < searchResultsPerLoad) {
         setHasMoreFoodItems(false);
         return;
       }
 
-      fetchMore({
+      await fetchMore({
         variables: {
           offset: foods.length
         }
       }).then((response) => {
-        // Determine if there are more foods to be loaded.
-        const incomingFoodInfos = response.data.foodInfos;
+        // Determines if there are more foods to be loaded.
+        const incomingFoodInfos =
+          response.data === undefined
+            ? []
+            : response.data.foodInfosFulltextFoodSearch;
         setHasMoreFoodItems(incomingFoodInfos.length >= searchResultsPerLoad);
         return response;
       });
@@ -88,7 +111,37 @@ export default function useSearchResults(
   };
 }
 
-// Only updates the returned value after not having updated the original value for a while.
+const sortOptionQueryFormat: {
+  [sortOption: string]: {
+    [field: string]: string;
+  };
+} = {
+  "name-ascending": { name: "ASC" },
+  "name-descending": { name: "DESC" },
+  "protein-ascending": { relativeProtein: "ASC" },
+  "protein-descending": { relativeProtein: "DESC" },
+  "kcal-ascending": { relativeCalories: "ASC" },
+  "kcal-descending": { relativeCalories: "DESC" }
+};
+
+const allergensQueryFormat = (allergens: string[]) => ({
+  where: {
+    foodInfo: {
+      AND: allergens.map((allergen) => ({
+        NOT: {
+          allergens_INCLUDES: allergen
+        }
+      }))
+    }
+  }
+});
+
+const searchQueryQueryFormat = (searchQuery: string) =>
+  // "~" applies fuzzy search
+  // "*" seems to match everything
+  searchQuery === "" ? "*" : searchQuery + "~";
+
+// Only updates the returned value after the input value has not been updated for a time specified.
 function useUpdateOnInactivity<T>(
   timeInactiveBeforeUpdate: number,
   value: T
