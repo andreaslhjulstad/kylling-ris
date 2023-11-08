@@ -58,6 +58,7 @@ export default function LoginPage() {
           value={currentEmail}
           onChange={(e) => setCurrentEmail(e.target.value)}
           maxLength={255} // Max length for email addresses
+          data-testid="e-mail"
         />
         <label htmlFor="password">Passord</label>
         <span className={styles.password}>
@@ -68,6 +69,7 @@ export default function LoginPage() {
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             keyfilter={/^\S*$/}
+            data-testid="password"
           />
           <Button
             type="button"
@@ -75,6 +77,7 @@ export default function LoginPage() {
             link
             icon={eyeIcon}
             onClick={toggleVisibility}
+            data-testid="toggle"
           />
         </span>
         <button
@@ -82,6 +85,7 @@ export default function LoginPage() {
           className={`${styles.inputField} ${styles.submitButton}`}
           name="submitButton"
           disabled={!currentEmail || !currentPassword}
+          data-testid="submit"
         >
           Logg inn
         </button>
@@ -89,12 +93,20 @@ export default function LoginPage() {
       <span className={styles.registerLink}>
         <p className={styles.guest}>Har du ikke en bruker?</p>
         <div className={styles.guest}>
-          <Link className={styles.pageLink} to={"/register"}>
+          <Link
+            data-testid="navigate-register"
+            className={styles.pageLink}
+            to={"/register"}
+          >
             <p>Opprett en ny bruker</p>
           </Link>
         </div>
         <div>
-          <Link className={styles.pageLink} to={"/"}>
+          <Link
+            data-testid="navigate-mainpage"
+            className={styles.pageLink}
+            to={"/"}
+          >
             <p>Fortsett som gjest</p>
           </Link>
         </div>

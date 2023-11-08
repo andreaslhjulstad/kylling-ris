@@ -141,6 +141,7 @@ export default function RegisterPage() {
           keyfilter={/^\S*$/}
           onChange={(e) => setUsername(e.target.value)}
           maxLength={24} // Currently limiting usernames to 24 characters
+          data-testid="username"
         />
         {errors.username && (
           <small className="p-error">{errors.username}</small>
@@ -153,6 +154,7 @@ export default function RegisterPage() {
           keyfilter={/^\S*$/}
           onChange={(e) => setCurrentEmail(e.target.value)}
           maxLength={255} // Max length for email addresses
+          data-testid="e-mail"
         />
         {errors.email && <small className="p-error">{errors.email}</small>}
         <label htmlFor="password">Passord</label>
@@ -164,6 +166,7 @@ export default function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             keyfilter={/^\S*$/}
+            data-testid="password"
           />
           <Button
             type="button"
@@ -171,6 +174,7 @@ export default function RegisterPage() {
             link
             icon={eyeIcon.password}
             onClick={() => toggleVisibility("password")}
+            data-testid="toggle-1"
           />
         </span>
         {errors.password && (
@@ -185,6 +189,7 @@ export default function RegisterPage() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             keyfilter={/^\S*$/}
+            data-testid="confirm-password"
           />
           <Button
             type="button"
@@ -192,6 +197,7 @@ export default function RegisterPage() {
             link
             icon={eyeIcon.confirmPassword}
             onClick={() => toggleVisibility("confirmPassword")}
+            data-testid="toggle-2"
           />
         </span>
         {errors.confirmPassword && (
@@ -202,6 +208,7 @@ export default function RegisterPage() {
           className={`${styles.inputField} ${styles.submitButton}`}
           name="submitButton"
           disabled={!password || !confirmPassword || !currentEmail || !username}
+          data-testid="submit"
         >
           Opprett bruker
         </button>
@@ -209,12 +216,20 @@ export default function RegisterPage() {
       <span className={styles.registerLink}>
         <p className={styles.guest}>Har du allerede en bruker?</p>
         <div className={styles.guest}>
-          <Link className={styles.pageLink} to={"/login"}>
+          <Link
+            data-testid="navigate-login"
+            className={styles.pageLink}
+            to={"/login"}
+          >
             <p>Tilbake til innloggingssiden</p>
           </Link>
         </div>
         <div>
-          <Link className={styles.pageLink} to={"/"}>
+          <Link
+            data-testid="navigate-mainpage"
+            className={styles.pageLink}
+            to={"/"}
+          >
             <p>Fortsett som gjest</p>
           </Link>
         </div>
