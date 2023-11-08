@@ -29,7 +29,7 @@ export default function UserMenu() {
   };
 
   // Menu items when logged in
-  let loggedInItems: MenuItem[] = [
+  const loggedInItems: MenuItem[] = [
     {
       label: email
         ? email.length > 24
@@ -53,7 +53,7 @@ export default function UserMenu() {
   ];
 
   // Menu items when not logged in
-  let notLoggedInItems: MenuItem[] = [
+  const notLoggedInItems: MenuItem[] = [
     {
       label: "Logg inn",
       icon: "pi pi-user-plus",

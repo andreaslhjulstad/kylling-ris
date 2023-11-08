@@ -41,10 +41,6 @@ export default function RegisterPage() {
   const upperCaseRegex = /(?=.*[A-Z])/;
   const digitRegex = /(?=.*\d)/;
   const symbolRegex = /(?=.*[^\da-zA-Z])/;
-  const [visibility, setVisibility] = useState({
-    password: false,
-    confirmPassword: false
-  });
   const [type, setType] = useState({
     password: "password",
     confirmPassword: "password"
@@ -56,7 +52,7 @@ export default function RegisterPage() {
   type VisibilityField = "password" | "confirmPassword";
 
   const validateForm = () => {
-    let formErrors: FormErrors = {};
+    const formErrors: FormErrors = {};
     let isValid = true;
 
     if (!username.trim() || username.length < 3) {
@@ -73,16 +69,16 @@ export default function RegisterPage() {
       formErrors.password = "Passordet må inneholde minst 8 tegn.";
     } else if (!lowerCaseRegex.test(password)) {
       isValid = false;
-      formErrors.password = "Passordet må inneholdet minst én liten bokstav.";
+      formErrors.password = "Passordet må inneholde minst én liten bokstav.";
     } else if (!upperCaseRegex.test(password)) {
       isValid = false;
-      formErrors.password = "Passordet må inneholdet minst én stor bokstav.";
+      formErrors.password = "Passordet må inneholde minst én stor bokstav.";
     } else if (!digitRegex.test(password)) {
       isValid = false;
-      formErrors.password = "Passordet må inneholdet minst ett tall.";
+      formErrors.password = "Passordet må inneholde minst ett tall.";
     } else if (!symbolRegex.test(password)) {
       isValid = false;
-      formErrors.password = "Passordet må inneholdet minst ett symbol.";
+      formErrors.password = "Passordet må inneholde minst ett symbol.";
     }
     if (password !== confirmPassword) {
       isValid = false;
@@ -103,14 +99,14 @@ export default function RegisterPage() {
   };
 
   const toggleVisibility = (field: VisibilityField) => {
-    setVisibility((prevVisibility) => {
-      const newVisibility = !prevVisibility[field];
-      const newType = newVisibility ? "text" : "password";
-      const newEyeIcon = newVisibility ? "pi pi-eye-slash" : "pi pi-eye";
-      setType({ ...type, [field]: newType });
-      setEyeIcon({ ...eyeIcon, [field]: newEyeIcon });
-
-      return { ...prevVisibility, [field]: newVisibility };
+    setType((prevType) => {
+      const newType = prevType[field] === "password" ? "text" : "password";
+      return { ...prevType, [field]: newType };
+    });
+    setEyeIcon((prevIcon) => {
+      const newEyeIcon =
+        prevIcon[field] === "pi pi-eye" ? "pi pi-eye-slash" : "pi pi-eye";
+      return { ...prevIcon, [field]: newEyeIcon };
     });
   };
 

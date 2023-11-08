@@ -136,7 +136,7 @@ describe("Register page", () => {
 
     expect(getByText("E-postadresse må være gyldig.")).toBeInTheDocument();
     expect(
-      getByText("Passordet må inneholdet minst én stor bokstav.")
+      getByText("Passordet må inneholde minst én stor bokstav.")
     ).toBeInTheDocument();
     expect(queryByText("Passordene må være like.")).not.toBeInTheDocument();
 
@@ -152,7 +152,7 @@ describe("Register page", () => {
       queryByText("E-postadresse må være gyldig.")
     ).not.toBeInTheDocument();
     expect(
-      getByText("Passordet må inneholdet minst én liten bokstav.")
+      getByText("Passordet må inneholde minst én liten bokstav.")
     ).toBeInTheDocument();
 
     // Illegal password (number)
@@ -163,10 +163,10 @@ describe("Register page", () => {
     await userEvent.click(submit);
 
     expect(
-      getByText("Passordet må inneholdet minst ett tall.")
+      getByText("Passordet må inneholde minst ett tall.")
     ).toBeInTheDocument();
     expect(
-      queryByText("Passordet må inneholdet minst én liten bokstav.")
+      queryByText("Passordet må inneholde minst én liten bokstav.")
     ).not.toBeInTheDocument();
 
     // Illegal password (symbol)
@@ -177,10 +177,10 @@ describe("Register page", () => {
     await userEvent.click(submit);
 
     expect(
-      getByText("Passordet må inneholdet minst ett symbol.")
+      getByText("Passordet må inneholde minst ett symbol.")
     ).toBeInTheDocument();
     expect(
-      queryByText("Passordet må inneholdet minst ett tall.")
+      queryByText("Passordet må inneholde minst ett tall.")
     ).not.toBeInTheDocument();
 
     // All fields legal
@@ -191,7 +191,7 @@ describe("Register page", () => {
     await userEvent.click(submit);
 
     expect(
-      queryByText("Passordet må inneholdet minst ett symbol.")
+      queryByText("Passordet må inneholde minst ett symbol.")
     ).not.toBeInTheDocument();
   }, 15000);
 });

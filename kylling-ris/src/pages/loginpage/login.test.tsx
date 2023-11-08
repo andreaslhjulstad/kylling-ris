@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { describe, expect } from "vitest";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../redux/store";
 import LoginPage from "./loginpage";
