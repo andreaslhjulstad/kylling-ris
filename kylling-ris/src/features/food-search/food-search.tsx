@@ -21,7 +21,7 @@ export default function FoodSearch() {
           data-testid="search-bar"
         />
         <input
-          placeholder="Search"
+          placeholder="Søk"
           value={searchInput}
           onChange={({ target: { value: searchInput } }) => {
             setSearchInput(searchInput);

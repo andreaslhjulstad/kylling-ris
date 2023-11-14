@@ -35,7 +35,7 @@ export default function FilterOptionPopup() {
   return (
     <div>
       <div className={styles.filterContent}>
-        <div className={styles.title}>Filters</div>
+        <div className={styles.title}>Filtrer og sorter</div>
 
         <select
           className={styles.dropdown}
@@ -58,7 +58,7 @@ export default function FilterOptionPopup() {
           </option>
           <option value="kcal-descending">
             Kalorier pr. 100g/ml (synkende)
-          </option> 
+          </option>
         </select>
 
         <div className={styles.labelCheckboxContainer}>
