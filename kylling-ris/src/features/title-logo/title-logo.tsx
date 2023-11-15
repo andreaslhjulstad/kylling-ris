@@ -6,7 +6,7 @@ export default function TitleAndLogo() {
   return (
     <div className={styles.titleAndSubtitle}>
       <div className={styles.pageTitleContainer}>
-        <Link className={styles.pageLink} to={"/"}>
+        <Link className={styles.pageLink} to={"/project2"}>
           <h1 className={styles.pageTitleBlue}>
             Kylling<span className={styles.pageTitleRed}>&</span>Ris
           </h1>

@@ -6,7 +6,7 @@ import logo from "../../assets/logo.svg";
 export default function TitleAndLogoMainpage() {
   return (
     <div className={styles.titleAndSubtitle}>
-      <Link className={styles.pageLink} to={"/"}>
+      <Link className={styles.pageLink} to={"/project2"}>
         <div className={mainPageStyles.linkContainer}>
           <div className={mainPageStyles.imageContainer}>
             <img

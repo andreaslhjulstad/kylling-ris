@@ -21,7 +21,7 @@ export default function LoginPage() {
   function handleUserLogin(event: React.FormEvent) {
     event.preventDefault(); // Prevent default re-routing
     dispatch(loginUser(currentEmail));
-    navigate("/"); // Return to main page
+    navigate("/project2"); // Return to main page
     /* 
     In the future this has to be linked to the backend to check if the given
     combination of password and email are correct, or even registered.
@@ -96,7 +96,7 @@ export default function LoginPage() {
           <Link
             data-testid="navigate-register"
             className={styles.pageLink}
-            to={"/register"}
+            to={"/project2/register"}
           >
             <p>Opprett en ny bruker</p>
           </Link>
@@ -105,7 +105,7 @@ export default function LoginPage() {
           <Link
             data-testid="navigate-mainpage"
             className={styles.pageLink}
-            to={"/"}
+            to={"/project2"}
           >
             <p>Fortsett som gjest</p>
           </Link>
