@@ -112,8 +112,9 @@ export default function FoodLogTable() {
         responsive
         noDataComponent={
           <p className={styles.placeholder}>
-            Du har ikke lagt til noe mat enda, gjør et søk og trykk på
-            '+'-knappen for å legge til noe
+            Du har ikke loggført noe i dag. Gjør et søk og trykk på ‘+’-knappen
+            for å registrere en matvare, og få oversikt over kalori- og
+            proteininntaket ditt.
           </p>
         }
       />

@@ -75,7 +75,7 @@ export default function FilterOptionPopup() {
               }))
             }
           />
-          <label>Vis Gluten</label>
+          <label>Inneholder gluten</label>
         </div>
 
         <div className={styles.labelCheckboxContainer}>
@@ -92,7 +92,7 @@ export default function FilterOptionPopup() {
               }))
             }
           />
-          <label>Vis Melk</label>
+          <label>Inneholder melk</label>
         </div>
 
         <div className={styles.labelCheckboxContainer}>
@@ -109,7 +109,7 @@ export default function FilterOptionPopup() {
               }))
             }
           />
-          <label>Vis Soya</label>
+          <label>Inneholder soya</label>
         </div>
       </div>
     </div>
