@@ -116,7 +116,7 @@ export default function RegisterPage() {
       return;
     }
     setOpen(false);
-    navigate("/"); // Return to main page
+    navigate("/project2"); // Return to main page
   };
 
   return (
@@ -212,7 +212,7 @@ export default function RegisterPage() {
           <Link
             data-testid="navigate-login"
             className={styles.pageLink}
-            to={"/login"}
+            to={"/project2/login"}
           >
             <p>Tilbake til innloggingssiden</p>
           </Link>
@@ -221,7 +221,7 @@ export default function RegisterPage() {
           <Link
             data-testid="navigate-mainpage"
             className={styles.pageLink}
-            to={"/"}
+            to={"/project2"}
           >
             <p>Fortsett som gjest</p>
           </Link>
