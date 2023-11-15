@@ -1,6 +1,7 @@
 import moment from "moment";
+import "moment/locale/nb";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./date-picker.module.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { selectDate } from "../food-log/food-log-reducer";
@@ -8,6 +9,7 @@ import { Calendar } from "primereact/calendar";
 import "./primereact-theme.css";
 import { addLocale } from "primereact/api";
 import { FormEvent } from "primereact/ts-helpers";
+import { RootState } from "../../redux/store";
 
 export default function DatePicker() {
   const [date, setDate] = useState(new Date());
@@ -18,6 +20,10 @@ export default function DatePicker() {
   const weekdayRef = useRef<HTMLHeadingElement>(null);
 
   const dispatch = useDispatch();
+  const selectedDate = useSelector(
+    (state: RootState) => state.foodLog.selectedDate
+  );
+  moment.locale("nb");
 
   // UseEffect that adds event listeners to the document, and removes them when the component unmounts
   useEffect(() => {
@@ -51,16 +57,11 @@ export default function DatePicker() {
   }, []);
 
   useEffect(() => {
-    const isToday =
-      Math.ceil(date.getTime() / (1000 * 3600 * 24)) ===
-      Math.ceil(new Date().getTime() / (1000 * 3600 * 24));
+    const isToday = moment(selectedDate).isSame(moment(), "day");
 
     // The user should not be able to navigate to future dates
     setDisableForward(isToday);
-
-    // Updates the date in the redux store
-    dispatch(selectDate({ date: date.toISOString().split("T")[0] }));
-  }, [date, dispatch]);
+  }, [selectedDate]);
 
   /**
    * Helper method to increment the date by one day, also closes the calendar
@@ -68,7 +69,11 @@ export default function DatePicker() {
    */
   const handleIncrementDate = () => {
     if (!disableForward) {
-      setDate(moment(date).add(1, "days").toDate());
+      const nextDay = moment(selectedDate).add(1, "days").toDate();
+      nextDay?.setHours(new Date().getHours());
+      nextDay?.setMinutes(new Date().getMinutes());
+      nextDay?.setSeconds(new Date().getSeconds());
+      dispatch(selectDate({ date: nextDay.toISOString().split("T")[0] }));
       setShowCalendar(false);
     }
   };
@@ -78,7 +83,11 @@ export default function DatePicker() {
    * Used by the backward arrow element
    */
   const handleDecrementDate = () => {
-    setDate(moment(date).subtract(1, "days").toDate());
+    const previousDay = moment(selectedDate).subtract(1, "days").toDate();
+    previousDay?.setHours(new Date().getHours());
+    previousDay?.setMinutes(new Date().getMinutes());
+    previousDay?.setSeconds(new Date().getSeconds());
+    dispatch(selectDate({ date: previousDay.toISOString().split("T")[0] }));
     setShowCalendar(false);
   };
 
@@ -142,10 +151,24 @@ export default function DatePicker() {
     dateFromCalendar?.setMinutes(new Date().getMinutes());
     dateFromCalendar?.setSeconds(new Date().getSeconds());
     if (dateFromCalendar) {
-      setDate(dateFromCalendar);
+      dispatch(
+        selectDate({ date: dateFromCalendar.toISOString().split("T")[0] })
+      );
       setShowCalendar(false);
     }
   }
+
+  // Using Intl.DateTimeFormat to format the date in Norwegian
+  const formatDate = (dateString: string | number | Date) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("nb-NO", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(date);
+  };
+  const displayDate = formatDate(selectedDate);
+  const displayWeekday = weekdays[moment(selectedDate).day()];
 
   return (
     <div className={styles.dateInfo} data-testid="date-picker">
@@ -162,7 +185,7 @@ export default function DatePicker() {
           onClick={() => setShowCalendar(true)}
           data-testid="weekday"
         >
-          {weekdays[date.getDay()]}
+          {displayWeekday}
         </h1>
         <FiChevronRight
           className={
@@ -175,11 +198,15 @@ export default function DatePicker() {
           data-testid="forward-arrow"
         />
       </div>
-      <p className={styles.date} data-testid="full-date">{`${date.getDate()}. ${
-        months[date.getMonth()]
-      } ${date.getFullYear()}`}</p>
+      <p className={styles.date} data-testid="full-date">
+        {displayDate}
+      </p>
       {showCalendar && (
-        <div ref={calendarRef} className={styles.calendarContainer} data-testid="calendar-container">
+        <div
+          ref={calendarRef}
+          className={styles.calendarContainer}
+          data-testid="calendar-container"
+        >
           <Calendar
             inline
             locale="no"
@@ -187,7 +214,7 @@ export default function DatePicker() {
             touchUI={touchUI}
             maxDate={new Date()}
             onChange={handleDatePickerChange}
-            value={date}
+            value={new Date(selectedDate)}
             data-testid="calendar"
           />
         </div>
