@@ -21,7 +21,7 @@ export default function LoginPage() {
   function handleUserLogin(event: React.FormEvent) {
     event.preventDefault(); // Prevent default re-routing
     dispatch(loginUser(currentEmail));
-    navigate("/project2/"); // Return to main page
+    navigate("/project2"); // Return to main page
     /* 
     In the future this has to be linked to the backend to check if the given
     combination of password and email are correct, or even registered.
