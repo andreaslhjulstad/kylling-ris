@@ -3,11 +3,24 @@ import ReactDOM from "react-dom/client";
 import App from "./app/app";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink
+} from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
+import { setContext } from "@apollo/client/link/context";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
+  link: setContext((_, { headers }) => {
+    return {
+      headers: {
+        ...headers,
+        authorization: localStorage.getItem("userId") ?? "1337"
+      }
+    };
+  }).concat(createHttpLink({ uri: "http://localhost:3000/graphql" })),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
