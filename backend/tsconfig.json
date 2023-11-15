@@ -15,6 +15,6 @@
         "strictNullChecks": true,
         "resolveJsonModule": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "../kylling-ris/src/auth"],
     "exclude": ["node_modules/**/*"]
 }

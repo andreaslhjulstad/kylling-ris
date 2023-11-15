@@ -13,14 +13,16 @@ import { BrowserRouter } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 
 const client = new ApolloClient({
+  // sends userId from local storage along with every request
   link: setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authorization: localStorage.getItem("userId") ?? "1337"
+        authorization: localStorage.getItem("userId")
       }
     };
   }).concat(createHttpLink({ uri: "http://localhost:3000/graphql" })),
+
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

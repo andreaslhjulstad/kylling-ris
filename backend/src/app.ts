@@ -25,9 +25,9 @@ const server = new ApolloServer({
     schema: await neoSchema.getSchema()
 });
 const { url } = await startStandaloneServer(server, {
-    context: async ({ req }) => ({
-        cypherParams: { userId: Number(req.headers.authorization) }
-    }),
+    context: async ({ req }) => {
+        return { cypherParams: { userId: Number(req.headers.authorization) } };
+    },
     listen: { port: port }
 });
 console.log(url);

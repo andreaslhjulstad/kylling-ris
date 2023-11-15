@@ -1,6 +1,4 @@
 import { forwardRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "./current-user-reducer";
 import { Link, useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import styles from "./login.module.css";
@@ -8,6 +6,7 @@ import TitleAndLogo from "../../features/title-logo/title-logo";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Button } from "primereact/button";
+import { useSignup } from "../../features/auth/use-signup";
 
 /*
 Currently accepting username, email and password, but email is the only
@@ -29,12 +28,12 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export default function RegisterPage() {
+  const signUp = useSignup();
   const [currentEmail, setCurrentEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const lowerCaseRegex = /(?=.*[a-z])/;
@@ -93,8 +92,16 @@ export default function RegisterPage() {
     const isValid = validateForm(); // Check validity of inputs
 
     if (isValid) {
-      dispatch(loginUser(currentEmail)); // Log in with email after registering user
-      setOpen(true); // Opens success alert
+      signUp(username, currentEmail, password).then((signupWasSuccessful) => {
+        if (signupWasSuccessful) {
+          setOpen(true); // Opens success alert
+        } else {
+          setErrors((previous) => ({
+            ...previous,
+            email: "E-postadressen er tatt."
+          }));
+        }
+      });
     }
   };
 
