@@ -27,7 +27,7 @@ export default function FoodSearch() {
             setSearchInput(searchInput);
           }}
         />
-        <Popover>
+        <Popover className={styles.filterWrapper}>
           <Popover.Button className={styles.filterButton}>
             <img src={filter} className={styles.filterImage} />
           </Popover.Button>

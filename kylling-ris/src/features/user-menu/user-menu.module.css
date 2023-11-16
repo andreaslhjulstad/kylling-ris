@@ -1,7 +1,14 @@
+.label {
+  position: absolute;
+  color: white;
+  right: 60px;
+  top: 32px;
+}
+
 .userMenu {
   position: absolute;
-  right: 1em;
-  top: 1em;
+  right: 12px;
+  top: 25px;
   background-color: #2275c3;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -51,5 +58,9 @@
 @media only screen and (max-width: 1170px) {
   .userMenu {
     background-color: white;
+  }
+
+  .label {
+    color: #2275c3;
   }
 }
