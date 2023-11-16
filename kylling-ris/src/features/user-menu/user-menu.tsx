@@ -1,7 +1,4 @@
 import styles from "./user-menu.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../pages/loginpage/current-user-reducer";
-import { RootState } from "../../redux/store";
 import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { MenuItem } from "primereact/menuitem";
@@ -9,20 +6,14 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "primeicons/primeicons.css";
 import { Alert, Snackbar } from "@mui/material";
+import { useUser } from "../auth/use-user";
 
 export default function UserMenu() {
+  const { user, logOut } = useUser();
+
   const menu = useRef<Menu>(null);
-  const dispatch = useDispatch();
-  const { email } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
-  const logOut = () => {
-    if (email) {
-      dispatch(logoutUser());
-    }
-    setOpen(true);
-  };
 
   const logIn = () => {
     navigate("/project2/login");
@@ -31,10 +22,10 @@ export default function UserMenu() {
   // Menu items when logged in
   const loggedInItems: MenuItem[] = [
     {
-      label: email
-        ? email.length > 24
-          ? `${email.substring(0, 21)}...`
-          : email
+      label: user?.name
+        ? user.name.length > 24
+          ? `${user.name.substring(0, 21)}...`
+          : user.name
         : "",
       items: [
         {
@@ -46,6 +37,7 @@ export default function UserMenu() {
           icon: "pi pi-user-minus",
           command: () => {
             logOut();
+            setOpen(true);
           }
         }
       ]
@@ -89,8 +81,8 @@ export default function UserMenu() {
             onClick={(event) => menu.current?.toggle(event)}
             aria-controls="popup_menu_right"
             aria-haspopup
-            label={email ? email[0] : ""}
-            icon={!email ? "pi pi-user" : ""}
+            label={user?.email ? user.name[0] : ""}
+            icon={user?.email ? "" : "pi pi-user"}
             style={
               compact
                 ? {
@@ -106,15 +98,14 @@ export default function UserMenu() {
             }
             shape="circle"
           />
-          {email && (
+          {user?.email ? (
             <Menu
               ref={menu}
               popup
               model={loggedInItems}
               popupAlignment="right"
             />
-          )}
-          {!email && (
+          ) : (
             <Menu
               ref={menu}
               popup

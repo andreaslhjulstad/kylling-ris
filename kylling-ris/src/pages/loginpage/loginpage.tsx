@@ -2,33 +2,29 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./login.module.css";
 import TitleAndLogo from "../../features/title-logo/title-logo";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "./current-user-reducer";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { useLogin } from "../../features/auth/use-login";
 
 export default function LoginPage() {
-  const [currentEmail, setCurrentEmail] = useState("");
-  // Updating password currently has no effect, only used to determine if password not null
-  const [currentPassword, setCurrentPassword] = useState("");
   const [visibility, setVisibility] = useState(false);
   const [type, setType] = useState("password");
   const [eyeIcon, setEyeIcon] = useState("pi pi-eye");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [currentEmail, setCurrentEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const logIn = useLogin();
+  const [loginError, setLoginError] = useState<string>("");
 
-  /* Saves currently logged in email in redux */
   function handleUserLogin(event: React.FormEvent) {
     event.preventDefault(); // Prevent default re-routing
-    dispatch(loginUser(currentEmail));
-    navigate("/project2"); // Return to main page
-    /* 
-    In the future this has to be linked to the backend to check if the given
-    combination of password and email are correct, or even registered.
-    Currently, a user is logged in as a guest regardless of input.
-    The only difference is that the user's email will be displayed
-    in the top right corner along with the option to log out (clear email redux).
-    */
+    logIn(currentEmail, currentPassword).then((loginWasSuccessful) => {
+      if (loginWasSuccessful) {
+        navigate("/project2");
+      } else {
+        setLoginError("Fant ingen bruker med gitt e-postadresse.");
+      }
+    });
   }
 
   const toggleVisibility = () => {
@@ -49,6 +45,7 @@ export default function LoginPage() {
         <TitleAndLogo />
       </div>
       <h2 className={styles.loginHeader}>Logg inn</h2>
+      <small className="p-error">{loginError}</small>
       <form onSubmit={handleUserLogin} className={styles.inputForm}>
         <label htmlFor="email">E-postadresse</label>
         <InputText

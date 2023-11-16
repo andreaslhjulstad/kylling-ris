@@ -6,6 +6,7 @@ import store from "../../redux/store";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import RegisterPage from "./registerpage";
+import { MockedProvider } from "@apollo/client/testing";
 
 describe("Register page", () => {
   test("Register page renders correctly", () => {
@@ -94,9 +95,11 @@ describe("Register page", () => {
   test("User inputs", async () => {
     const { getByTestId, getByText, queryByText } = render(
       <Provider store={store}>
-        <BrowserRouter>
-          <RegisterPage />
-        </BrowserRouter>
+        <MockedProvider>
+          <BrowserRouter>
+            <RegisterPage />
+          </BrowserRouter>
+        </MockedProvider>
       </Provider>
     );
 
