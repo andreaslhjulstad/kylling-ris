@@ -1,14 +1,13 @@
 import FoodInfo from "../search-results/food-info";
 import styles from "./add-food-popup.module.css";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFood, selectDate } from "../../food-log/food-log-reducer";
-import useOnKeyDown from "../../misc/use-on-key-down";
 import addImage from "../../../assets/add.png";
 import { Dialog, Transition } from "@headlessui/react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
+import { registerLocale } from "react-datepicker";
 import nb from "date-fns/locale/nb";
 import { RootState } from "../../../redux/store";
 registerLocale("nb", nb);
@@ -20,6 +19,7 @@ interface AddFoodPopupProps {
 export default function AddFoodPopup({ food }: AddFoodPopupProps) {
   const [weightInputColor, setWeightInputColor] = useState<string>("black");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [datePickerOpen, setDatePickerOpen] = useState<boolean>(false);
   const [weightInput, setWeightInput] = useState<string>(
     `${food.defaultWeight}`
   );
@@ -35,24 +35,16 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
   }
 
   const submitFood = () => {
-    const weight = Number(weightInput);
-    if (isNaN(weight) || weight <= 0) {
-      setWeightInputColor("red");
-      return;
-    }
-    dispatch(addFood({ foodInfo: food, weight }));
-    setIsOpen(false);
-  };
-
-  useOnKeyDown(
-    () => {
-      if (isOpen) {
-        submitFood();
+    if (!datePickerOpen) {
+      const weight = Number(weightInput);
+      if (isNaN(weight) || weight <= 0) {
+        setWeightInputColor("red");
+        return;
       }
-    },
-    ["Enter"],
-    [weightInput, isOpen]
-  );
+      dispatch(addFood({ foodInfo: food, weight }));
+      setIsOpen(false);
+    }
+  };
 
   const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -71,7 +63,15 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
     <>
       <img src={addImage} onClick={openModal} className={styles.addImage} />
       <Transition appear show={isOpen}>
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+        <Dialog
+          open={isOpen}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !datePickerOpen) {
+              submitFood();
+            }
+          }}
+          onClose={() => setIsOpen(false)}
+        >
           <Transition.Child
             enter={styles.enter}
             enterFrom={styles.enterFrom}
@@ -91,14 +91,23 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
             <div className={styles.bottom}>
               <div
                 ref={calendarRef}
-                className="card flex justify-content-center"
+                className={`${
+                  styles.datePickerWrapper
+                } ${"card flex justify-content-center"}`}
               >
+                <label className={styles.datePickerLabel} htmlFor="datepicker">
+                  Velg en dato
+                </label>
                 <DatePicker
                   selected={new Date(selectedDate)}
                   onChange={(date) => handleDateChosen(date)}
                   dateFormat="dd/MM/yy"
                   maxDate={new Date()}
                   locale="nb"
+                  className={styles.datePicker}
+                  name="datepicker"
+                  onCalendarOpen={() => setDatePickerOpen(true)}
+                  onCalendarClose={() => setDatePickerOpen(false)}
                 />
               </div>
               <div className={styles.weightInput}>

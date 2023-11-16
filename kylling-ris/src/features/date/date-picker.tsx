@@ -12,7 +12,6 @@ import { FormEvent } from "primereact/ts-helpers";
 import { RootState } from "../../redux/store";
 
 export default function DatePicker() {
-  const [date, setDate] = useState(new Date());
   const [disableForward, setDisableForward] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [touchUI, setTouchUI] = useState(window.innerWidth <= 775);
@@ -70,9 +69,7 @@ export default function DatePicker() {
   const handleIncrementDate = () => {
     if (!disableForward) {
       const nextDay = moment(selectedDate).add(1, "days").toDate();
-      nextDay?.setHours(new Date().getHours());
-      nextDay?.setMinutes(new Date().getMinutes());
-      nextDay?.setSeconds(new Date().getSeconds());
+      formatTime(nextDay);
       dispatch(selectDate({ date: nextDay.toISOString().split("T")[0] }));
       setShowCalendar(false);
     }
@@ -84,9 +81,7 @@ export default function DatePicker() {
    */
   const handleDecrementDate = () => {
     const previousDay = moment(selectedDate).subtract(1, "days").toDate();
-    previousDay?.setHours(new Date().getHours());
-    previousDay?.setMinutes(new Date().getMinutes());
-    previousDay?.setSeconds(new Date().getSeconds());
+    formatTime(previousDay);
     dispatch(selectDate({ date: previousDay.toISOString().split("T")[0] }));
     setShowCalendar(false);
   };
@@ -145,17 +140,21 @@ export default function DatePicker() {
     event: FormEvent<Date, SyntheticEvent<Element, Event>>
   ): void {
     const dateFromCalendar = event.value;
-    // This code handles a bug where the date would be set to the previous day if the user selected a date from the calendar.
-    // It sets the hours, minutes and seconds to the current time to avoid this issue.
-    dateFromCalendar?.setHours(new Date().getHours());
-    dateFromCalendar?.setMinutes(new Date().getMinutes());
-    dateFromCalendar?.setSeconds(new Date().getSeconds());
     if (dateFromCalendar) {
+      formatTime(dateFromCalendar);
       dispatch(
         selectDate({ date: dateFromCalendar.toISOString().split("T")[0] })
       );
       setShowCalendar(false);
     }
+  }
+
+  // This code handles a bug where the date would be set to the previous day if the user selected a date from the calendar.
+  // It sets the hours, minutes and seconds to the current time to avoid this issue.
+  function formatTime(date: Date) {
+    date?.setHours(new Date().getHours());
+    date?.setMinutes(new Date().getMinutes());
+    date?.setSeconds(new Date().getSeconds());
   }
 
   // Using Intl.DateTimeFormat to format the date in Norwegian

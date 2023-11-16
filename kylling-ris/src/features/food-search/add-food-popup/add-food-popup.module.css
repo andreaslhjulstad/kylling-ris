@@ -1,9 +1,10 @@
 .addFoodPopup {
   width: 50vw;
-  height: 35vh;
+  height: auto;
+  min-height: 300px;
   border-radius: 5px;
   border: solid;
-  padding: 40px;
+  padding: 30px;
   background-color: white;
   position: absolute;
   top: 50%;
@@ -21,8 +22,11 @@
 }
 
 .bottom {
-  position: absolute;
-  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  padding: 20px;
+  padding-bottom: 0;
 }
 
 .weightInput {
@@ -64,8 +68,8 @@
   border-radius: 5px;
   cursor: pointer;
   align-self: center;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+  margin-top: 20px;
+  margin-bottom: 20px;
   transition: background-color 0.3s ease;
 }
 
@@ -113,6 +117,8 @@
   margin-top: 0;
   font-size: 2em;
   max-width: 90%;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .addImage {
@@ -154,10 +160,33 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.datePicker {
+  font-size: large;
+  width: 80%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.datePickerWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.datePickerLabel {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  width: 80%;
+
+  font-weight: bold;
+}
+
 @media only screen and (max-width: 1170px) {
   .addFoodPopup {
     width: 60vw;
-    height: 25vh;
     padding: 20px;
   }
   .title {
@@ -172,7 +201,6 @@
 
   .addFoodPopup {
     width: 90vw;
-    height: 25vh;
     padding: 20px;
   }
 }
