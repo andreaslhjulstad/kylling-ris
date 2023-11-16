@@ -34,8 +34,12 @@
 }
 
 .titleAndLogoContainer {
+  display: flex;
+  justify-content: flex-start;
   margin-left: 3vw;
+  padding-top: 1em;
 }
+
 /* Global styles to target PrimeReact classes */
 
 /* Spacing between logo and title */
@@ -101,7 +105,6 @@
   .titleAndLogoContainer {
     padding-left: 3vw;
     padding-right: 3vw;
-    padding-top: 1em;
     padding-bottom: 2.5em;
     background-color: white;
     margin-left: 0;
