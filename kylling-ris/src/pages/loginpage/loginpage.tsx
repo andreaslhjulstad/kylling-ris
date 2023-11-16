@@ -7,25 +7,22 @@ import { Button } from "primereact/button";
 import { useLogin } from "../../features/auth/use-login";
 
 export default function LoginPage() {
-  const [currentEmail, setCurrentEmail] = useState("");
-  // Updating password currently has no effect, only used to determine if password not null
-  const [currentPassword, setCurrentPassword] = useState("");
   const [visibility, setVisibility] = useState(false);
   const [type, setType] = useState("password");
   const [eyeIcon, setEyeIcon] = useState("pi pi-eye");
-  const [loginError, setLoginError] = useState<string>("");
   const navigate = useNavigate();
-
+  const [currentEmail, setCurrentEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const logIn = useLogin();
+  const [loginError, setLoginError] = useState<string>("");
 
-  /* Saves currently logged in email in redux */
   function handleUserLogin(event: React.FormEvent) {
     event.preventDefault(); // Prevent default re-routing
     logIn(currentEmail, currentPassword).then((loginWasSuccessful) => {
       if (loginWasSuccessful) {
         navigate("/project2");
       } else {
-        setLoginError("Fant ingen bruker");
+        setLoginError("Fant ingen bruker med gitt e-postadresse.");
       }
     });
   }

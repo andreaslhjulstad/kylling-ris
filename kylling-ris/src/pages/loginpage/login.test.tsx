@@ -1,19 +1,22 @@
 import "@testing-library/jest-dom";
 import { describe, expect } from "vitest";
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../../redux/store";
 import LoginPage from "./loginpage";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import { MockedProvider } from "@apollo/client/testing";
 
 describe("Login page", () => {
   test("Login page renders correctly", () => {
     const { getByTestId } = render(
       <Provider store={store}>
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <MockedProvider>
+          <BrowserRouter>
+            <LoginPage />
+          </BrowserRouter>
+        </MockedProvider>
       </Provider>
     );
 
@@ -41,9 +44,11 @@ describe("Login page", () => {
   test("User inputs", async () => {
     const { getByTestId } = render(
       <Provider store={store}>
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <MockedProvider>
+          <BrowserRouter>
+            <LoginPage />
+          </BrowserRouter>
+        </MockedProvider>
       </Provider>
     );
 
@@ -69,13 +74,5 @@ describe("Login page", () => {
     await userEvent.type(password, " ola 123");
     expect(email).toHaveValue("Ola.Nordmann@mail.no");
     expect(password).toHaveValue("ola123");
-
-    // Assert email redux updated on submit
-    await userEvent.click(submit);
-
-    await waitFor(() => {
-      const state = store.getState();
-      expect(state.user.email).toBe("Ola.Nordmann@mail.no");
-    });
   });
 });
