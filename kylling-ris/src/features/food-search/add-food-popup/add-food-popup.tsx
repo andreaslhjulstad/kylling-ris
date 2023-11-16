@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { addFood } from "../../food-log/food-log-reducer";
 import useOnKeyDown from "../../misc/use-on-key-down";
 import addImage from "../../../assets/add.png";
+import { CiCirclePlus } from "react-icons/ci";
 
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -48,7 +49,9 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
 
   return (
     <>
-      <img src={addImage} onClick={openModal} className={styles.addImage} />
+      <button className={styles.addButton} onClick={openModal}>
+        <CiCirclePlus size={40} strokeWidth={0.25} />
+      </button>
       <Transition appear show={isOpen}>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
           <Transition.Child

@@ -8,6 +8,8 @@ import { Calendar } from "primereact/calendar";
 import "./primereact-theme.css";
 import { addLocale } from "primereact/api";
 import { FormEvent } from "primereact/ts-helpers";
+import { Tooltip } from 'react-tooltip'
+import { FaRegCalendarAlt } from "react-icons/fa"
 
 export default function DatePicker() {
   const [date, setDate] = useState(new Date());
@@ -161,9 +163,12 @@ export default function DatePicker() {
           className={styles.weekday}
           onClick={() => setShowCalendar(true)}
           data-testid="weekday"
+          data-tooltip-id="weekday-tooltip" 
+          data-tooltip-content="Trykk for å åpne kalenderen" 
         >
-          {weekdays[date.getDay()]}
+          {weekdays[date.getDay()]} <FaRegCalendarAlt size={25}/>
         </h1>
+        <Tooltip id="weekday-tooltip" style={ { backgroundColor: "#3f3f40", color: "white" } } />
         <FiChevronRight
           className={
             disableForward

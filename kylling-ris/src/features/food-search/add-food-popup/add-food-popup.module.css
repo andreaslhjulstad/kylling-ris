@@ -115,10 +115,17 @@
   max-width: 90%;
 }
 
-.addImage {
-  height: 100%;
+.addButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  border-radius: 50%;
   cursor: pointer;
-  user-select: none;
+}
+
+.addButton:hover {
+  background-color: #C8E2FA;
 }
 
 .enter {
