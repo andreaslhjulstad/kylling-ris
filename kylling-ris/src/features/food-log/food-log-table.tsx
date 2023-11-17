@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFood } from "./food-log-reducer";
 import FoodItem from "./food-item";
 import { RootState } from "../../redux/store";
+import appropriateUnit from "../misc/appropriate-unit";
 
 export default function FoodLogTable() {
   const selectedFoodLog = useSelector(
@@ -49,7 +50,7 @@ export default function FoodLogTable() {
   const additionalColumns: TableColumn<FoodItem>[] = [
     {
       name: "Vekt",
-      selector: (row) => `${row.weight} ${row.weightUnit}`
+      selector: (row) => appropriateUnit(row.weight, row.weightUnit)
     },
     {
       name: "Kalorier (kcal)",
@@ -108,7 +109,6 @@ export default function FoodLogTable() {
         expandOnRowClicked
         expandableRowsComponent={ExpandedRowComponent}
         paginationComponentOptions={{ noRowsPerPage: true }}
-        highlightOnHover
         responsive
         noDataComponent={
           <p className={styles.placeholder}>
