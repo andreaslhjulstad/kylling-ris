@@ -68,8 +68,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
             <button
               className={styles.closeButton}
               onClick={() => setIsOpen(false)}
-            >
-            </button>
+            ></button>
             <Dialog.Title className={styles.title}>{food.name}</Dialog.Title>
             <div className={styles.bottom}>
               <div className={styles.weightInput}>

@@ -55,7 +55,6 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <AddFoodPopup food={food} />
               <div
                 className={styles.foodInfo}
                 onClick={() => foodInfoClicked(food)}
@@ -74,6 +73,9 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                       .join(" - ")
                   }
                 </h2>
+              </div>
+              <div className={styles.addFoodPopup}>
+                <AddFoodPopup food={food} />
               </div>
             </div>
           );
