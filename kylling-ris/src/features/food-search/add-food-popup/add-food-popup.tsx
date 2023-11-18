@@ -1,12 +1,13 @@
 import FoodInfo from "../search-results/food-info";
 import styles from "./add-food-popup.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addFood } from "../../food-log/food-log-reducer";
 import useOnKeyDown from "../../misc/use-on-key-down";
 import addImage from "../../../assets/add.png";
 
 import { Dialog, Transition } from "@headlessui/react";
+import { useAddFoodToLog } from "../../food-log/use-food-log";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface AddFoodPopupProps {
   food: FoodInfo;
@@ -18,7 +19,10 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
   const [weightInput, setWeightInput] = useState<string>(
     `${food.defaultWeight}`
   );
-  const dispatch = useDispatch();
+  const selectedDate = useSelector(
+    (state: RootState) => state.foodLog.selectedDate
+  );
+  const addFoodToLog = useAddFoodToLog();
 
   function openModal() {
     setIsOpen(true);
@@ -32,7 +36,8 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
       setWeightInputColor("red");
       return;
     }
-    dispatch(addFood({ foodInfo: food, weight }));
+    addFoodToLog(food.id, weight, selectedDate);
+
     setIsOpen(false);
   };
 
@@ -65,8 +70,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
             <button
               className={styles.closeButton}
               onClick={() => setIsOpen(false)}
-            >
-            </button>
+            ></button>
             <Dialog.Title className={styles.title}>{food.name}</Dialog.Title>
             <div className={styles.bottom}>
               <div className={styles.weightInput}>
