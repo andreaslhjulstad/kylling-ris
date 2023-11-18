@@ -6,5 +6,6 @@ export const userTypeDef = `#graphql
         name: String
         email: String
         password: String
+        foodLog: [FoodItem!]! @relationship(type: "LOGGED_FOOD", direction: OUT)
     }
 `;
