@@ -12,7 +12,7 @@ export default function FoodLogTable() {
   const selectedDate = useSelector(
     (state: RootState) => state.foodLog.selectedDate
   );
-  const foodLog = useFoodLog(selectedDate);
+  const { foodLog, loading } = useFoodLog(selectedDate);
   const deleteFoodFromLog = useDeleteFoodFromLog();
 
   // 775px is the breakpoint for the compact version.
@@ -110,11 +110,15 @@ export default function FoodLogTable() {
         highlightOnHover
         responsive
         noDataComponent={
-          <p className={styles.placeholder}>
-            Du har ikke loggført noe i dag. Gjør et søk og trykk på ‘+’-knappen
-            for å registrere en matvare, og få oversikt over kalori- og
-            proteininntaket ditt.
-          </p>
+          loading ? (
+            <></>
+          ) : (
+            <p className={styles.placeholder}>
+              Du har ikke loggført noe i dag. Gjør et søk og trykk på
+              ‘+’-knappen for å registrere en matvare, og få oversikt over
+              kalori- og proteininntaket ditt.
+            </p>
+          )
         }
       />
     </div>

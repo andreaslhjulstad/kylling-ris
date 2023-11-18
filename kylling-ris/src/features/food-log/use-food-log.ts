@@ -1,8 +1,11 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import FoodItem from "./food-item";
 
-export function useFoodLog(date: string): FoodItem[] {
-  const { data } = useQuery(
+export function useFoodLog(date: string): {
+  foodLog: FoodItem[];
+  loading: boolean;
+} {
+  const { data, loading } = useQuery(
     gql`
       query FoodLog($where: FoodItemWhere, $options: FoodItemOptions) {
         user {
@@ -36,24 +39,26 @@ export function useFoodLog(date: string): FoodItem[] {
     }
   );
 
-  //Convert to a nicer object (FoodItem[]).
-  return (
-    data?.user?.foodLog?.map(
-      (foodItem: {
-        id: number;
-        weight: number;
-        protein: number;
-        calories: number;
-        food: {
-          name: string;
-          weightUnit: string;
-        };
-      }): FoodItem => ({
-        ...foodItem,
-        ...foodItem.food
-      })
-    ) ?? []
-  );
+  return {
+    foodLog:
+      //Convert to a nicer object (FoodItem[]).
+      data?.user?.foodLog?.map(
+        (foodItem: {
+          id: number;
+          weight: number;
+          protein: number;
+          calories: number;
+          food: {
+            name: string;
+            weightUnit: string;
+          };
+        }): FoodItem => ({
+          ...foodItem,
+          ...foodItem.food
+        })
+      ) ?? [],
+    loading
+  };
 }
 
 export function useAddFoodToLog(): (
