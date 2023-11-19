@@ -17,10 +17,6 @@ export const foodLogTableStyles: TableStyles = {
     style: {
       color: "#1E1E1E",
       fontSize: "1rem"
-    },
-    highlightOnHoverStyle: {
-      color: "#1E1E1E",
-      backgroundColor: "#C8E2FA"
     }
   },
   pagination: {

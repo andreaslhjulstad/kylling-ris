@@ -108,7 +108,6 @@ export default function FoodLogTable() {
         expandOnRowClicked
         expandableRowsComponent={ExpandedRowComponent}
         paginationComponentOptions={{ noRowsPerPage: true }}
-        highlightOnHover
         responsive
         noDataComponent={
           <p className={styles.placeholder}>
