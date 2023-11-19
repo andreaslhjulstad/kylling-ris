@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFood } from "../../food-log/food-log-reducer";
 import useOnKeyDown from "../../misc/use-on-key-down";
-import addImage from "../../../assets/add.png";
 import { CiCirclePlus } from "react-icons/ci";
 
 import { Dialog, Transition } from "@headlessui/react";
