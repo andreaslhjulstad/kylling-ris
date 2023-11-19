@@ -84,3 +84,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #7a7878;
 }
+
+/* Hides scrollbar on mobile devices, while still keeping functionality  */
+@media only screen and (max-width: 1170px) {
+
+  /* Chromium */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .invisibleScrollbar {
+    /* Firefox */
+    scrollbar-width: none;
+    /* Safari, IE and Edge */
+    -ms-overflow-style: none
+  }
+}
