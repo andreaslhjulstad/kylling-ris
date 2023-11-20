@@ -1,9 +1,9 @@
 import SearchResults from "./search-results/search-results";
 import { useState } from "react";
 import styles from "./food-search.module.css";
-import searchIcon from "../../assets/search-icon.png";
+import { IoSearch } from "react-icons/io5";
 
-import filter from "../../assets/filter.png";
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import FilterOptionPopup from "./search-options/search-option-popup";
 
 import { Popover, Transition } from "@headlessui/react";
@@ -15,8 +15,8 @@ export default function FoodSearch() {
   return (
     <div className={styles.foodSearch}>
       <div className={styles.searchBar}>
-        <img
-          src={searchIcon}
+        <IoSearch
+          size={40}
           className={styles.searchIcon}
           data-testid="search-bar"
         />
@@ -29,7 +29,10 @@ export default function FoodSearch() {
         />
         <Popover>
           <Popover.Button className={styles.filterButton}>
-            <img src={filter} className={styles.filterImage} />
+            <HiOutlineAdjustmentsHorizontal
+              className={styles.filterImage}
+              size={40}
+            />
           </Popover.Button>
           <Transition
             enter={styles.enter}
