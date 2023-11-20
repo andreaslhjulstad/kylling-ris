@@ -19,5 +19,29 @@ export const mutationTypeDef = `#graphql
             """,
             columnName: "id"
         )
+
+        addFoodToLog(foodInfoId: ID!, weight: Float!, date: String!): FoodItem @cypher(
+            statement: """
+                MATCH 
+                    (user:User),
+                    (foodInfo:FoodInfo {id: $foodInfoId})
+                WHERE (id(user) = $userId)
+                CREATE (user)
+                    -[:LOGGED_FOOD]->(foodItem: FoodItem {weight: $weight, date: $date})
+                    -[:FOOD_ITEM_INFO]->(foodInfo)
+                SET foodItem.id = id(foodItem)
+                RETURN foodItem
+            """,
+            columnName: "foodItem"
+        )
+
+        deleteFoodFromLog(id: Float!): Float @cypher(
+            statement: """
+                MATCH (foodItem:FoodItem {id: $id})
+                DETACH DELETE foodItem 
+                RETURN $id as id
+            """,
+            columnName:  "id"
+        )
     }
 `;
