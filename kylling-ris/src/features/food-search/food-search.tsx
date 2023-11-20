@@ -22,13 +22,14 @@ export default function FoodSearch() {
         />
         <input
           placeholder="Søk"
+          aria-label="Søk"
           value={searchInput}
           onChange={({ target: { value: searchInput } }) => {
             setSearchInput(searchInput);
           }}
         />
         <Popover>
-          <Popover.Button className={styles.filterButton}>
+          <Popover.Button className={styles.filterButton} aria-label="Filter">
             <HiOutlineAdjustmentsHorizontal
               className={styles.filterImage}
               size={40}

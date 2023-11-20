@@ -56,6 +56,7 @@ export default function LoginPage() {
           onChange={(e) => setCurrentEmail(e.target.value)}
           maxLength={255} // Max length for email addresses
           data-testid="e-mail"
+          aria-label="E-postadresse"
         />
         <label htmlFor="password">Passord</label>
         <span className={styles.password}>
@@ -67,6 +68,7 @@ export default function LoginPage() {
             onChange={(e) => setCurrentPassword(e.target.value)}
             keyfilter={/^\S*$/}
             data-testid="password"
+            aria-label="Passord"
           />
           <Button
             type="button"
@@ -75,6 +77,7 @@ export default function LoginPage() {
             icon={eyeIcon}
             onClick={toggleVisibility}
             data-testid="toggle"
+            aria-label="Veksle synlighet"
           />
         </span>
         <button

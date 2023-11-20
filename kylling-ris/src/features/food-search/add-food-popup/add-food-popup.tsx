@@ -53,7 +53,11 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
 
   return (
     <>
-      <button className={styles.addButton} onClick={openModal}>
+      <button
+        className={styles.addButton}
+        onClick={openModal}
+        aria-label="Legg til mat"
+      >
         <CiCirclePlus size={40} strokeWidth={0.25} />
       </button>
       <Transition appear show={isOpen}>
