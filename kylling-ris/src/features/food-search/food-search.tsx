@@ -21,13 +21,13 @@ export default function FoodSearch() {
           data-testid="search-bar"
         />
         <input
-          placeholder="Search"
+          placeholder="Søk"
           value={searchInput}
           onChange={({ target: { value: searchInput } }) => {
             setSearchInput(searchInput);
           }}
         />
-        <Popover>
+        <Popover className={styles.filterWrapper}>
           <Popover.Button className={styles.filterButton}>
             <img src={filter} className={styles.filterImage} />
           </Popover.Button>

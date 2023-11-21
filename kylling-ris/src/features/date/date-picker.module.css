@@ -33,14 +33,17 @@
   font-weight: 400;
   user-select: none;
   cursor: pointer;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .weekday:hover {
-  text-shadow: rgba(0, 0, 0, 0.5) 0 0 5px;
+  transform: scale(0.975);
 }
 
 .navigationArrow {
-  margin-top: 5px;
   cursor: pointer;
 }
 
@@ -50,7 +53,6 @@
 }
 
 .disabledNaviagtionArrow {
-  margin-top: 5px;
   color: #b0b0b0;
 }
 
@@ -61,7 +63,7 @@
 
 @media only screen and (max-width: 1170px) {
   .dateInfo {
-    margin-top: 3vh;
+    margin-top: 0;
   }
 
   .weekday {

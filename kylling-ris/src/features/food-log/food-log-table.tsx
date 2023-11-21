@@ -3,19 +3,20 @@ import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 import styles from "./food-log-table.module.css";
 import { foodLogTableStyles } from "./food-log-table-styles";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFood } from "./food-log-reducer";
+import { useSelector } from "react-redux";
 import FoodItem from "./food-item";
 import { RootState } from "../../redux/store";
+import { useDeleteFoodFromLog, useFoodLog } from "./use-food-log";
 
 export default function FoodLogTable() {
-  const selectedFoodLog = useSelector(
-    (state: RootState) => state.foodLog.selectedFoodLog
+  const selectedDate = useSelector(
+    (state: RootState) => state.foodLog.selectedDate
   );
+  const { foodLog, loading } = useFoodLog(selectedDate);
+  const deleteFoodFromLog = useDeleteFoodFromLog();
+
   // 775px is the breakpoint for the compact version.
   const [compact, setCompact] = useState<boolean>(window.innerWidth <= 775);
-
-  const dispatch = useDispatch();
 
   // Set the 'compact' state based on the window width
   window.addEventListener("resize", () => {
@@ -37,7 +38,7 @@ export default function FoodLogTable() {
       <button
         className={styles.deleteButton}
         onClick={() => {
-          dispatch(removeFood({ id: row.id }));
+          deleteFoodFromLog(row.id);
         }}
       >
         <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
@@ -85,36 +86,38 @@ export default function FoodLogTable() {
         <h2 className={styles.totalCalories}>
           Kalorier:{" "}
           {Math.round(
-            selectedFoodLog.reduce((total, food) => total + food.calories, 0) *
-              10
+            foodLog.reduce((total, food) => total + food.calories, 0) * 10
           ) / 10}
           kcal
         </h2>
         <h2 className={styles.totalProtein}>
           Protein:{" "}
           {Math.round(
-            selectedFoodLog.reduce((total, food) => total + food.protein, 0) *
-              10
+            foodLog.reduce((total, food) => total + food.protein, 0) * 10
           ) / 10}
           g
         </h2>
       </div>
       <DataTable
         columns={columns}
-        data={selectedFoodLog}
+        data={foodLog}
         customStyles={foodLogTableStyles}
         pagination
         expandableRows={compact}
         expandOnRowClicked
         expandableRowsComponent={ExpandedRowComponent}
         paginationComponentOptions={{ noRowsPerPage: true }}
-        highlightOnHover
         responsive
         noDataComponent={
-          <p className={styles.placeholder}>
-            Du har ikke lagt til noe mat enda, gjør et søk og trykk på
-            '+'-knappen for å legge til noe
-          </p>
+          loading ? (
+            <></>
+          ) : (
+            <p className={styles.placeholder}>
+              Du har ikke loggført noe i dag. Gjør et søk og trykk på
+              ‘+’-knappen for å registrere en matvare, og få oversikt over
+              kalori- og proteininntaket ditt.
+            </p>
+          )
         }
       />
     </div>

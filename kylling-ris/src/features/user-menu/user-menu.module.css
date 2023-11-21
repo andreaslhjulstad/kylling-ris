@@ -1,7 +1,14 @@
+.label {
+  position: absolute;
+  color: white;
+  right: 60px;
+  top: 32px;
+}
+
 .userMenu {
   position: absolute;
-  right: 1em;
-  top: 1em;
+  right: 12px;
+  top: 25px;
   background-color: #2275c3;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -13,15 +20,14 @@
   border: 1px solid black;
 }
 
-:global(.p-menuitem) {
-  padding: 0.5rem 1rem;
-}
-
 :global(.p-menuitem-link) {
   display: flex;
   align-items: center;
   text-decoration: none; /* Remove underline from links */
   color: black;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 1rem;
 }
 
 :global(.p-menuitem-text) {
@@ -51,5 +57,29 @@
 @media only screen and (max-width: 1170px) {
   .userMenu {
     background-color: white;
+  }
+
+  .label {
+    color: #2275c3;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .userMenu {
+    top: 32px;
+  }
+
+  .label {
+    top: 40px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .userMenu {
+    top: 2px;
+  }
+
+  .label {
+    top: 10px;
   }
 }

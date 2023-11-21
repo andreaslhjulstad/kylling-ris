@@ -3,10 +3,11 @@ import FoodLogTable from "../../features/food-log/food-log-table";
 import FoodSearch from "../../features/food-search/food-search";
 import styles from "./mainpage.module.css";
 import DatePicker from "../../features/date/date-picker";
-import TitleAndLogo from "../../features/title-logo/title-logo";
+import TitleAndLogoMainpage from "../../features/title-logo/title-logo-mainpage";
 import UserMenu from "../../features/user-menu/user-menu";
 import { TabView, TabPanel } from "primereact/tabview";
 import "primeicons/primeicons.css";
+import TitleAndLogo from "../../features/title-logo/title-logo";
 
 export default function Mainpage() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -22,6 +23,7 @@ export default function Mainpage() {
     };
   }, []);
   const isMobile = screenWidth < 1170;
+  const isSmallMobile = screenWidth < 775;
 
   return (
     <div className={styles.wrapper}>
@@ -30,7 +32,7 @@ export default function Mainpage() {
       {isMobile ? (
         <div>
           <div className={styles.titleAndLogoContainer}>
-            <TitleAndLogo />
+            {isSmallMobile ? <TitleAndLogo /> : <TitleAndLogoMainpage />}
           </div>
           <TabView>
             <TabPanel header="Søk" leftIcon="pi pi-search-plus">
@@ -54,7 +56,7 @@ export default function Mainpage() {
         <>
           <div className={styles.searchAndLogoCard}>
             <div className={styles.titleAndLogoContainer}>
-              <TitleAndLogo />
+              <TitleAndLogoMainpage />
             </div>
             <div className={styles.search}>
               <FoodSearch />
