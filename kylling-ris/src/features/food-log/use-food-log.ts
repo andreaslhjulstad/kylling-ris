@@ -100,3 +100,20 @@ export function useDeleteFoodFromLog(): (foodItemId: number) => void {
     });
   };
 }
+
+export const EDIT_FOOD_MUTATION = gql`
+  mutation EditFood($foodItemId: Float!, $weight: Float!) {
+    editFood(id: $foodItemId, weight: $weight) {
+      id
+      weight
+    }
+  }
+`;
+
+export function useEditFood(): (foodItemId: number, weight: number) => void {
+  const [editFood] = useMutation(EDIT_FOOD_MUTATION);
+
+  return (foodItemId, weight) => {
+    editFood({ variables: { foodItemId, weight } });
+  };
+}
