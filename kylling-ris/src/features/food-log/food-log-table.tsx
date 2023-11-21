@@ -1,18 +1,24 @@
 import DataTable, { TableColumn } from "react-data-table-component";
 import { useState } from "react";
-import { HiTrash } from "react-icons/hi";
+import { HiTrash, HiPencilAlt } from "react-icons/hi";
 import styles from "./food-log-table.module.css";
 import { foodLogTableStyles } from "./food-log-table-styles";
 import { useSelector } from "react-redux";
 import FoodItem from "./food-item";
 import { RootState } from "../../redux/store";
-import { useDeleteFoodFromLog, useFoodLog } from "./use-food-log";
+import { useDeleteFoodFromLog, useEditFood, useFoodLog } from "./use-food-log";
+import appropriateUnit from "../misc/appropriate-unit";
+import EditWeightPopup from "./edit-weight-popup";
 
 export default function FoodLogTable() {
   const selectedDate = useSelector(
     (state: RootState) => state.foodLog.selectedDate
   );
   const { foodLog, loading } = useFoodLog(selectedDate);
+  const [editWeightPopupOpen, setEditWeightPopupOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(-1);
+  const [selectedWeight, setSelectedWeight] = useState(0);
+  const [selectedWeightUnit, setSelectedWeightUnit] = useState("");
   const deleteFoodFromLog = useDeleteFoodFromLog();
 
   // 775px is the breakpoint for the compact version.
@@ -32,17 +38,34 @@ export default function FoodLogTable() {
     selector: (row) => row.name
   };
 
-  const deleteButtonColumn: TableColumn<FoodItem> = {
+  const buttonsColumn: TableColumn<FoodItem> = {
     button: true,
     cell: (row) => (
-      <button
-        className={styles.deleteButton}
-        onClick={() => {
-          deleteFoodFromLog(row.id);
-        }}
-      >
-        <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
-      </button>
+      <div className={styles.buttons}>
+        <button
+          className={styles.deleteButton}
+          onClick={() => {
+            deleteFoodFromLog(row.id);
+          }}
+        >
+          <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
+        </button>
+        <button
+          className={styles.editButton}
+          onClick={() => {
+            setSelectedId(row.id);
+            setSelectedWeightUnit(row.weightUnit);
+            setSelectedWeight(row.weight);
+            setEditWeightPopupOpen(true);
+          }}
+        >
+          <HiPencilAlt
+            className={styles.deleteIcon}
+            strokeWidth={0}
+            size={19}
+          />
+        </button>
+      </div>
     )
   };
 
@@ -50,15 +73,15 @@ export default function FoodLogTable() {
   const additionalColumns: TableColumn<FoodItem>[] = [
     {
       name: "Vekt",
-      selector: (row) => `${row.weight} ${row.weightUnit}`
+      selector: (row) => appropriateUnit(row.weight, row.weightUnit)
     },
     {
       name: "Kalorier (kcal)",
-      selector: (row) => row.calories
+      selector: (row) => Math.round(row.calories * 100) / 100
     },
     {
       name: "Protein (g)",
-      selector: (row) => row.protein
+      selector: (row) => Math.round(row.protein * 100) / 100
     }
   ];
 
@@ -66,8 +89,8 @@ export default function FoodLogTable() {
   // If compact, only use the name and delete button columns
   // Otherwise, include the additional columns as well
   const columns: TableColumn<FoodItem>[] = compact
-    ? [nameColumn, deleteButtonColumn]
-    : [nameColumn, ...additionalColumns, deleteButtonColumn];
+    ? [nameColumn, buttonsColumn]
+    : [nameColumn, ...additionalColumns, buttonsColumn];
 
   const ExpandedRowComponent = ({ data: food }: { data: FoodItem }) => (
     <div className={styles.expandedRow}>
@@ -119,6 +142,13 @@ export default function FoodLogTable() {
             </p>
           )
         }
+      />
+      <EditWeightPopup
+        id={selectedId}
+        weight={selectedWeight}
+        weightUnit={selectedWeightUnit}
+        open={editWeightPopupOpen}
+        onClose={() => setEditWeightPopupOpen(false)}
       />
     </div>
   );
