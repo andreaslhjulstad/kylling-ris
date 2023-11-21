@@ -28,10 +28,6 @@ export default function UserMenu() {
         : "",
       items: [
         {
-          label: "Profil",
-          icon: "pi pi-id-card"
-        },
-        {
           label: "Logg ut",
           icon: "pi pi-user-minus",
           command: () => {

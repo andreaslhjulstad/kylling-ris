@@ -64,3 +64,23 @@
     color: #2275c3;
   }
 }
+
+@media only screen and (max-width: 775px) {
+  .userMenu {
+    top: 32px;
+  }
+
+  .label {
+    top: 40px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .userMenu {
+    top: 2px;
+  }
+
+  .label {
+    top: 10px;
+  }
+}
