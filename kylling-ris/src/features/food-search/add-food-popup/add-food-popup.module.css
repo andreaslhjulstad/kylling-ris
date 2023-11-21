@@ -71,6 +71,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   transition: background-color 0.3s ease;
+  width: 80%;
 }
 
 .submitButton:hover {
@@ -180,8 +181,16 @@
   margin-right: auto;
   text-align: left;
   width: 80%;
-
   font-weight: bold;
+}
+
+:global(.react-datepicker) {
+  margin-left: -12px;
+}
+
+:global(.react-datepicker__triangle)::before,
+:global(.react-datepicker__triangle)::after {
+  transform: translate(calc(12px)) !important;
 }
 
 @media only screen and (max-width: 1170px) {

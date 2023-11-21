@@ -66,7 +66,10 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
         <Dialog
           open={isOpen}
           onKeyDown={(event) => {
-            if (event.key === "Enter" && !datePickerOpen) {
+            if (
+              (event.key === "Enter" || event.key === "13") &&
+              !datePickerOpen
+            ) {
               submitFood();
             }
           }}
@@ -108,6 +111,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
                   name="datepicker"
                   onCalendarOpen={() => setDatePickerOpen(true)}
                   onCalendarClose={() => setDatePickerOpen(false)}
+                  wrapperClassName="datePickerPopup"
                 />
               </div>
               <div className={styles.weightInput}>
@@ -127,7 +131,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
                   submitFood();
                 }}
               >
-                Add to Log
+                Legg til
               </button>
             </div>
           </Dialog.Panel>
