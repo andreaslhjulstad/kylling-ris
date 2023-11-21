@@ -15,17 +15,14 @@ export default function FoodSearch() {
   return (
     <div className={styles.foodSearch}>
       <div className={styles.searchBar}>
-        <img
-          src={searchIcon}
-          className={styles.searchIcon}
-          data-testid="search-bar"
-        />
+        <img src={searchIcon} className={styles.searchIcon} />
         <input
           placeholder="Søk"
           value={searchInput}
           onChange={({ target: { value: searchInput } }) => {
             setSearchInput(searchInput);
           }}
+          data-testid="search-bar"
         />
         <Popover>
           <Popover.Button className={styles.filterButton}>

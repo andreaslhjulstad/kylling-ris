@@ -11,11 +11,13 @@ import { MockedProvider } from "@apollo/client/testing";
 describe("Register page", () => {
   test("Register page renders correctly", () => {
     const { getByTestId } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <RegisterPage />
-        </BrowserRouter>
-      </Provider>
+      <MockedProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <RegisterPage />
+          </BrowserRouter>
+        </Provider>
+      </MockedProvider>
     );
 
     const username = getByTestId("username");
@@ -49,11 +51,13 @@ describe("Register page", () => {
 
   test("Submit button enabling", async () => {
     const { getByTestId } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <RegisterPage />
-        </BrowserRouter>
-      </Provider>
+      <MockedProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <RegisterPage />
+          </BrowserRouter>
+        </Provider>
+      </MockedProvider>
     );
 
     const username = getByTestId("username");

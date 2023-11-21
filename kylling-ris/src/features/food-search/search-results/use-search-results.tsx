@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { SearchOption } from "../search-options/search-option-reducer";
 import { gql, useQuery } from "@apollo/client";
 
-const searchResultsPerLoad: number = 12;
+export const searchResultsPerLoad: number = 12;
+export const searchInactivityTime: number = 300;
 
 export default function useSearchResults(
   searchQuery: string,
@@ -16,7 +17,10 @@ export default function useSearchResults(
   const [hasMoreFoodItems, setHasMoreFoodItems] = useState<boolean>(true);
 
   // Avoids fetching on every single key input from the user.
-  const searchQueryAfterInactivity = useUpdateOnInactivity(300, searchQuery);
+  const searchQueryAfterInactivity = useUpdateOnInactivity(
+    searchInactivityTime,
+    searchQuery
+  );
 
   const { data, fetchMore, refetch } = useQuery(
     gql`
