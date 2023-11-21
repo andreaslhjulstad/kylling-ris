@@ -10,7 +10,8 @@ export const foodInfoTypeDef = `#graphql
     @query(read: true, aggregate: false)
     @mutation(operations: [])
     {
-        id: ID! @id 
+        id: ID!
+        ean: String!
         name: String!
         image: String!
         brand: String

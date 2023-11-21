@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { typeDefs } from "./type-defs.js";
+import { resolvers, typeDefs } from "./type-defs.js";
 import neo4j from "neo4j-driver";
 import { Neo4jGraphQL } from "@neo4j/graphql";
 
@@ -18,7 +18,7 @@ const driver = neo4j.driver(
     neo4jUri,
     neo4j.auth.basic(neo4jUser, neo4jPassword)
 );
-const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
+const neoSchema = new Neo4jGraphQL({ typeDefs, resolvers, driver });
 
 // Apollo Server
 const server = new ApolloServer({

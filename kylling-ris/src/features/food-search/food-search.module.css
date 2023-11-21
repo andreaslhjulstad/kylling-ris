@@ -30,9 +30,11 @@
 }
 
 .filterImage {
+  height: 1.9em;
   margin-top: 3px;
   height: 2em;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .filterButton {
@@ -46,6 +48,10 @@
   display: flex;
   align-content: center;
   padding: 0;
+}
+
+.filterImage:hover {
+  transform: scale(0.9);
 }
 
 .filterButton:focus {

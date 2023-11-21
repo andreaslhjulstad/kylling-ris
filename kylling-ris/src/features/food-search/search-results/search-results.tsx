@@ -4,7 +4,6 @@ import styles from "./search-results.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import FoodItem, { foodItem } from "../../food-log/food-item";
 import AddFoodPopup from "../add-food-popup/add-food-popup";
 import { useState } from "react";
 import FoodInfoPopup from "../food-info-popup/food-info.popup";
@@ -45,17 +44,12 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
         height={700}
       >
         {foods.map((food: FoodInfo) => {
-          const defaultWeightFoodItem: FoodItem = foodItem(
-            food,
-            food.defaultWeight
-          )!;
           return (
             <div
               className={styles.foodItem}
               key={food.id}
               data-testid={`food-search-result-${food.id}`}
             >
-              <AddFoodPopup food={food} />
               <div
                 className={styles.foodInfo}
                 onClick={() => foodInfoClicked(food)}
@@ -67,13 +61,26 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
                     [
                       food.brand,
                       appropriateUnit(food.defaultWeight, food.weightUnit),
-                      `Protein: ${defaultWeightFoodItem.protein}g`,
-                      `${defaultWeightFoodItem.calories}kcal`
+                      `Protein: ${Number(
+                        (
+                          (food.defaultWeight * food.relativeProtein) /
+                          100
+                        ).toFixed(2)
+                      )}g`,
+                      `${Number(
+                        (
+                          (food.defaultWeight * food.relativeCalories) /
+                          100
+                        ).toFixed(2)
+                      )}kcal`
                     ]
                       .filter((text) => text !== null && text.length > 0)
                       .join(" - ")
                   }
                 </h2>
+              </div>
+              <div className={styles.addFoodPopup}>
+                <AddFoodPopup food={food} />
               </div>
             </div>
           );

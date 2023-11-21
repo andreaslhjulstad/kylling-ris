@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-.addFoodPopup > div {
+.addFoodPopup>div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +32,7 @@
   align-items: center;
 }
 
-.weightInput > input {
+.weightInput>input {
   width: 5em;
   max-width: 50vw;
   font-size: larger;
@@ -50,7 +50,7 @@
 }
 
 /* unit */
-.weightInput > div {
+.weightInput>div {
   font-size: larger;
 }
 
@@ -115,10 +115,18 @@
   max-width: 90%;
 }
 
-.addImage {
-  height: 100%;
+.addButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  border-radius: 50%;
   cursor: pointer;
-  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.addButton:hover {
+  transform: scale(0.9)
 }
 
 .enter {
@@ -160,6 +168,7 @@
     height: 25vh;
     padding: 20px;
   }
+
   .title {
     font-size: 1.5em;
   }
