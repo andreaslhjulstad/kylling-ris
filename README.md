@@ -60,12 +60,12 @@ Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Det
 ## Tilgjengelighet
 
 ### Mulighet til å oppfatte og betjene nettsiden
-- Lagt til aria-label for å støtte skjermlesere.
-- Passelig tekstavstand og valg av farger med tydelig kontrast slik at det er lettere å navigere nettsiden for mennesker med synsproblemer.
-- Lagt til tekstalternativer til ikke-tekstlig innhold
-- (skriv om navigering med tab og tilgjenlighet med tastatur)
+- Lagt til aria-labels for å støtte skjermlesere.
+- Passelig tekstavstand og valg av farger med tydelig kontrast slik at det er lettere å lese nettsiden for mennesker med synsproblemer.
+- Lagt til tekstalternativer til ikke-tekstlig innhold.
+- All funksjonalitet som er viktig er tilgjengelig med tastatur. Det er for eksemepel ikke mulig å komme seg til filter kanppen eller logg inn iconet med tastatur. Vi har gjort det på denne måten fordi brukeropplevelsen ville ha blitt mye dårligere hvis man kunne "tabbe" seg inn her. 
 - Det er lett å navigere nettsiden vår siden den består kun av tre sider.
-- unngått overbruk av div/span taggen
+- Vi har prøvd å unngå overbruk av div/span taggen.
 
 ### Forståelighet
 - Lagt til "Kaloriteller" som undertekst i logoen slik at bruker skjønner hensikten med nettsiden.
@@ -76,4 +76,4 @@ Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Det
 ## Bærekraft
 
 - Vi bruker kun små bilder på SVG format. Noe som minker datatraffiken på nettsiden vår.
-- Vi er klar over at mørke farger sparer strøm, men vi har lyst at nettsiden skal ha akkurat dette fargepalettet.
+- Vi er klar over at mørke farger sparer strøm, men vi har lyst at nettsiden skal ha akkurat valgt fargepalettet.

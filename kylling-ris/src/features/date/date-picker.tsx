@@ -9,8 +9,8 @@ import { Calendar } from "primereact/calendar";
 import "./primereact-theme.css";
 import { addLocale } from "primereact/api";
 import { FormEvent } from "primereact/ts-helpers";
-import { Tooltip } from 'react-tooltip'
-import { FaRegCalendarAlt } from "react-icons/fa"
+import { Tooltip } from "react-tooltip";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { RootState } from "../../redux/store";
 
 export default function DatePicker() {
@@ -171,6 +171,12 @@ export default function DatePicker() {
   const displayDate = formatDate(selectedDate);
   const displayWeekday = weekdays[moment(selectedDate).day()];
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (event.key === 'Enter') {
+      setShowCalendar(true)
+    }
+  }
+
   return (
     <div className={styles.dateInfo} data-testid="date-picker">
       <div className={styles.weekdayNavigation}>
@@ -185,12 +191,17 @@ export default function DatePicker() {
           className={styles.weekday}
           onClick={() => setShowCalendar(true)}
           data-testid="weekday"
-          data-tooltip-id="weekday-tooltip" 
-          data-tooltip-content="Trykk for å åpne kalenderen" 
+          data-tooltip-id="weekday-tooltip"
+          data-tooltip-content="Trykk for å åpne kalenderen"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
         >
-          {displayWeekday} <FaRegCalendarAlt size={25}/>
+          {displayWeekday} <FaRegCalendarAlt size={25} />
         </h1>
-        <Tooltip id="weekday-tooltip" style={ { backgroundColor: "#3f3f40", color: "white" } } />
+        <Tooltip
+          id="weekday-tooltip"
+          style={{ backgroundColor: "#3f3f40", color: "white" }}
+        />
         <FiChevronRight
           className={
             disableForward

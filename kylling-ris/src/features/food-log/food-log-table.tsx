@@ -37,6 +37,7 @@ export default function FoodLogTable() {
     cell: (row) => (
       <button
         className={styles.deleteButton}
+        aria-label="Delete food"
         onClick={() => {
           deleteFoodFromLog(row.id);
         }}

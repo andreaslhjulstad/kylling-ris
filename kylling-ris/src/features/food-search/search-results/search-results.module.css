@@ -33,6 +33,10 @@
   background-color: #C8E2FA
 }
 
+.foodItem:focus{
+  background-color: black
+}
+
 .foodItem:hover .addFoodPopup {
   background-color: white;
 }

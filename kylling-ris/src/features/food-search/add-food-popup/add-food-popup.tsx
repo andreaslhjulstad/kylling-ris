@@ -32,6 +32,8 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
 
   const dispatch = useDispatch();
 
+  const initalFocus = useRef(null);
+
   function openModal() {
     setIsOpen(true);
     setWeightInputColor("black");
@@ -76,14 +78,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
       <Transition appear show={isOpen}>
         <Dialog
           open={isOpen}
-          onKeyDown={(event) => {
-            if (
-              (event.key === "Enter" || event.key === "13") &&
-              !datePickerOpen
-            ) {
-              submitFood();
-            }
-          }}
+          initialFocus={initalFocus}
           onClose={() => setIsOpen(false)}
         >
           <Transition.Child
@@ -100,6 +95,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
             <button
               className={styles.closeButton}
               onClick={() => setIsOpen(false)}
+              tabIndex={-1}
             ></button>
             <Dialog.Title className={styles.title}>{food.name}</Dialog.Title>
             <div className={styles.bottom}>
@@ -127,8 +123,8 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
               </div>
               <div className={styles.weightInput}>
                 <input
+                  ref={initalFocus}
                   style={{ color: weightInputColor }}
-                  autoFocus
                   value={weightInput}
                   onChange={({ target: { value: weightInput } }) =>
                     setWeightInput(weightInput)
