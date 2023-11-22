@@ -65,7 +65,7 @@ Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Det
 - Lagt til tekstalternativer til ikke-tekstlig innhold
 - (skriv om navigering med tab og tilgjenlighet med tastatur)
 - Det er lett å navigere nettsiden vår siden den består kun av tre sider.
-- unngå overbruk av div/span taggen
+- unngått overbruk av div/span taggen
 
 ### Forståelighet
 - Lagt til "Kaloriteller" som undertekst i logoen slik at bruker skjønner hensikten med nettsiden.

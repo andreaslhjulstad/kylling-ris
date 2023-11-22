@@ -10,7 +10,6 @@ import { useUser } from "../auth/use-user";
 
 export default function UserMenu() {
   const { user, logOut } = useUser();
-
   const menu = useRef<Menu>(null);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -28,10 +27,6 @@ export default function UserMenu() {
           : user.name
         : "",
       items: [
-        {
-          label: "Profil",
-          icon: "pi pi-id-card"
-        },
         {
           label: "Logg ut",
           icon: "pi pi-user-minus",
@@ -62,7 +57,7 @@ export default function UserMenu() {
     }
     setOpen(false);
   };
-  // Repurpused window resize listener from food log table
+  // Repurposed window resize listener from food log table
   const [compact, setCompact] = useState<boolean>(window.innerWidth <= 1170);
   // Set the 'compact' state based on the window width
   window.addEventListener("resize", () => {
@@ -74,7 +69,8 @@ export default function UserMenu() {
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div>
+      {!user?.email && <h3 className={styles.label}>Gjest</h3>}
       <div className={styles.userMenu}>
         <div className="card flex justify-content-center">
           <Avatar
@@ -88,12 +84,16 @@ export default function UserMenu() {
                 ? {
                     backgroundColor: "#2275c3",
                     color: "white",
-                    border: "1px solid black"
+                    border: "1px solid black",
+                    width: "40px",
+                    height: "40px"
                   }
                 : {
                     backgroundColor: "white",
                     color: "#2275c3",
-                    border: "1px solid black"
+                    border: "1px solid black",
+                    width: "40px",
+                    height: "40px"
                   }
             }
             shape="circle"

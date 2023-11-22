@@ -63,7 +63,7 @@
 
 @media only screen and (max-width: 1170px) {
   .dateInfo {
-    margin-top: 3vh;
+    margin-top: 0;
   }
 
   .weekday {
