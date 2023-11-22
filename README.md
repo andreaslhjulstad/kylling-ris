@@ -96,3 +96,7 @@ Vi bruker neo4j, som bruker lucene til søking. Den kunne vi ikke helt få til �
 
 Når det kommer til brukersikkerhet valgte gruppen å nedprioritere dette. Dette grunnet at applikasjonen kun skal brukes i prosjektsammenheng, og det ikke var spesifisert noe krav om dette. Derfor er passord lagret i klartekst i databasen. I en reell situasjon ville vi måttet "hashe" passordene, for å ikke lagre de i klartekst i databasen. Dette vil øke sikkerheten dersom databasen skulle blitt kompromittert, eller lekket på en annen måte.
 Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Dette var et bevisst valg for å spare tid. Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. Vi har ikke fått testet på andre enheter, ettersom nettsiden ikke er satt opp på VM enda, men vi har testet utseendet på mobil vha. devtools på PC
+
+### Allergener
+
+Vi har valgt å legge til funksjonalitet for at brukeren kan hake av for hvilke allergener som skal vises. Datasettet vi bruker har en array med allergener, men det er ikke alltid at den er like troverdig. F.eks. vil melkesjokoladecookies dukke opp selv om brukeren har valgt å ikke vise varer med melk, noe som skyldes at datasettet ikke har skrevet opp melk som allergen for denne varen.
