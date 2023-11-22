@@ -16,11 +16,6 @@
   text-align: center;
 }
 
-.divider {
-  margin-bottom: 10px;
-  color: black;
-}
-
 .dropdown {
   width: 100%;
   border: 2px solid black;
@@ -64,10 +59,6 @@
 
 .labelCheckboxContainer {
   margin-bottom: 5px;
-}
-
-#selectAll {
-  margin-top: 10px;
 }
 
 .checkbox {
