@@ -10,7 +10,7 @@ export default function TitleAndLogo() {
           <h1 className={styles.pageTitleBlue}>
             Kylling<span className={styles.pageTitleRed}>&</span>Ris
           </h1>
-          <img className={styles.logo} src={logo}></img>
+          <img className={styles.logo} src={logo} alt="Kylling&Ris logo"></img>
         </Link>
       </div>
       <h3 className={styles.subtitle}>Kaloriteller</h3>

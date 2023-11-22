@@ -12,6 +12,7 @@ export default function TitleAndLogoMainpage() {
             <img
               className={`${styles.logo} ${mainPageStyles.logo}`}
               src={logo}
+              alt="Kylling&Ris logo"
             ></img>
           </div>
           <div className={mainPageStyles.titleAndSubtitle}>

@@ -56,3 +56,24 @@ For å kjøre testene, naviger til rotmappen og kjør med npm:
 
 
 Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Dette var et bevisst valg for å spare tid. Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. Vi har ikke fått testet på andre enheter, ettersom nettsiden ikke er satt opp på VM enda, men vi har testet utseendet på mobil vha. devtools på PC
+
+## Tilgjengelighet
+
+### Mulighet til å oppfatte og betjene nettsiden
+- Lagt til aria-labels for å støtte skjermlesere.
+- Passelig tekstavstand og valg av farger med tydelig kontrast slik at det er lettere å lese nettsiden for mennesker med synsproblemer.
+- Lagt til tekstalternativer til ikke-tekstlig innhold.
+- All funksjonalitet som er viktig er tilgjengelig med tastatur. Det er for eksemepel ikke mulig å komme seg til filter knappen eller logg inn-ikonet med tastatur. Vi har gjort det på denne måten fordi brukeropplevelsen ville ha blitt mye dårligere hvis man kunne "tabbe" seg inn her.
+- Det er lett å navigere nettsiden vår siden den består kun av tre sider.
+- Vi har prøvd å unngå overbruk av div/span taggen.
+
+### Forståelighet
+- Lagt til "Kaloriteller" som undertekst i logoen slik at bruker skjønner hensikten med nettsiden.
+- Lagt til beskrivende hjelptekst i matloggen når brukeren ikke har lagt til noe mat for dagen.
+- Lagt til ulik styling når komponenter får fokus for å tydliggjøre at brukeren kan samhandle med den aktuelle komponenten. 
+- Nettsiden hjelper brukeren til å unngå feil. Det er for eksemepel umulig å legge til mat i fremtiden.
+
+## Bærekraft
+
+- Vi bruker kun små bilder på SVG format. Noe som minker datatraffiken på nettsiden vår.
+- Vi er klar over at mørke farger sparer strøm, men vi har lyst at nettsiden skal ha akkurat valgt fargepalettet.
