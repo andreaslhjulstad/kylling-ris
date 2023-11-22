@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { SearchOption } from "../search-options/search-option-reducer";
 import { gql, useQuery } from "@apollo/client";
 
-const searchResultsPerLoad: number = 12;
+export const searchResultsPerLoad: number = 12;
+export const searchInactivityTime: number = 300;
 
 export default function useSearchResults(
   searchQuery: string,
@@ -16,7 +17,10 @@ export default function useSearchResults(
   const [hasMoreFoodItems, setHasMoreFoodItems] = useState<boolean>(true);
 
   // Avoids fetching on every single key input from the user.
-  const searchQueryAfterInactivity = useUpdateOnInactivity(300, searchQuery);
+  const searchQueryAfterInactivity = useUpdateOnInactivity(
+    searchInactivityTime,
+    searchQuery
+  );
 
   const { data, fetchMore, refetch } = useQuery(
     gql`
@@ -139,10 +143,12 @@ const allergensQueryFormat = (allergens: string[]) => ({
 const searchQueryQueryFormat = (searchQuery: string) =>
   // "*" matches any suffix
   // special characters from https://lucene.apache.org/core/2_9_4/queryparsersyntax.html
-  searchQuery
-    .split("")
-    .filter((c) => !`[+-&|!(){}[]^"~*?:\\]`.includes(c))
-    .join("") + "*";
+  searchQuery === ""
+    ? "*"
+    : searchQuery
+        .split("")
+        .filter((c) => !`[+-&|!(){}[]^"~*?:\\]`.includes(c))
+        .join("") + "~";
 
 // Only updates the returned value after the input value has not been updated for a time specified.
 function useUpdateOnInactivity<T>(

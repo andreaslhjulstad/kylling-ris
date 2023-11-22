@@ -27,6 +27,7 @@ export default function FoodSearch() {
           onChange={({ target: { value: searchInput } }) => {
             setSearchInput(searchInput);
           }}
+          data-testid="search-bar"
         />
         <Popover className={styles.filterWrapper}>
           <Popover.Button
