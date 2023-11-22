@@ -1,22 +1,49 @@
 import "@testing-library/jest-dom";
-import { describe, expect } from "vitest";
+import { describe, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
-import store from "../../redux/store";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import RegisterPage from "./registerpage";
 import { MockedProvider } from "@apollo/client/testing";
+import { SIGNUP_MUTATION } from "../../features/auth/use-signup";
+
+const mockData = {
+  email: "test@test.com",
+  name: "petter",
+  password: "Test@t3st.com"
+};
+
+const mocks = [
+  {
+    request: {
+      query: SIGNUP_MUTATION,
+      variables: {
+        email: mockData.email,
+        name: mockData.name,
+        password: mockData.password
+      }
+    },
+    newData: vi.fn(() => ({
+      data: {
+        signUp: {
+          email: mockData.email,
+          name: mockData.name,
+          password: mockData.password
+        }
+      }
+    }))
+  }
+];
+
+const registerUserMock = mocks[0].newData;
 
 describe("Register page", () => {
   test("Register page renders correctly", () => {
     const { getByTestId } = render(
-      <MockedProvider>
-        <Provider store={store}>
-          <BrowserRouter>
-            <RegisterPage />
-          </BrowserRouter>
-        </Provider>
+      <MockedProvider mocks={mocks}>
+        <BrowserRouter>
+          <RegisterPage />
+        </BrowserRouter>
       </MockedProvider>
     );
 
@@ -51,12 +78,10 @@ describe("Register page", () => {
 
   test("Submit button enabling", async () => {
     const { getByTestId } = render(
-      <MockedProvider>
-        <Provider store={store}>
-          <BrowserRouter>
-            <RegisterPage />
-          </BrowserRouter>
-        </Provider>
+      <MockedProvider mocks={mocks}>
+        <BrowserRouter>
+          <RegisterPage />
+        </BrowserRouter>
       </MockedProvider>
     );
 
@@ -98,13 +123,11 @@ describe("Register page", () => {
 
   test("User inputs", async () => {
     const { getByTestId, getByText, queryByText } = render(
-      <Provider store={store}>
-        <MockedProvider>
-          <BrowserRouter>
-            <RegisterPage />
-          </BrowserRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider mocks={mocks}>
+        <BrowserRouter>
+          <RegisterPage />
+        </BrowserRouter>
+      </MockedProvider>
     );
 
     const username = getByTestId("username");
@@ -140,7 +163,6 @@ describe("Register page", () => {
     expect(
       queryByText("Brukernavn må inneholde minst 3 tegn.")
     ).not.toBeInTheDocument();
-
     expect(getByText("E-postadresse må være gyldig.")).toBeInTheDocument();
     expect(
       getByText("Passordet må inneholde minst én stor bokstav.")
@@ -188,6 +210,22 @@ describe("Register page", () => {
     ).toBeInTheDocument();
     expect(
       queryByText("Passordet må inneholde minst ett tall.")
+    ).not.toBeInTheDocument();
+
+    // All fields legal
+    await userEvent.clear(password);
+    await userEvent.clear(confirmPassword);
+    await userEvent.clear(username);
+    await userEvent.clear(email);
+    await userEvent.type(password, mockData.password);
+    await userEvent.type(confirmPassword, mockData.password);
+    await userEvent.type(email, mockData.email);
+    await userEvent.type(username, mockData.name);
+    await userEvent.click(submit);
+
+    expect(registerUserMock).toHaveBeenCalled();
+    expect(
+      queryByText("Passordet må inneholde minst ett symbol.")
     ).not.toBeInTheDocument();
   }, 15000);
 });
