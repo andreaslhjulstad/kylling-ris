@@ -75,6 +75,12 @@ export default function UserMenu() {
         <div className="card flex justify-content-center">
           <Avatar
             onClick={(event) => menu.current?.toggle(event)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                menu.current?.toggle(event);
+              }
+            }}
+            tabIndex={0}
             aria-controls="popup_menu_right"
             aria-haspopup
             label={user?.email ? user.name[0] : ""}

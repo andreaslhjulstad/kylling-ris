@@ -53,9 +53,6 @@
   transform: scale(0.9);
 }
 
-.filterButton:focus {
-  outline: none;
-}
 .enter {
   transition: opacity 200ms ease-out, transform 200ms ease-out;
 }

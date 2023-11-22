@@ -33,7 +33,6 @@ export default function FoodSearch() {
           <Popover.Button
             className={styles.filterButton}
             aria-label="Filter"
-            tabIndex={-1}
           >
             <HiOutlineAdjustmentsHorizontal
               className={styles.filterImage}

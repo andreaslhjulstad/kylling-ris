@@ -66,7 +66,7 @@ Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. Vi har ikke f
 - Lagt til aria-labels for å støtte skjermlesere.
 - Passelig tekstavstand og valg av farger med tydelig kontrast slik at det er lettere å lese nettsiden for mennesker med synsproblemer.
 - Lagt til tekstalternativer til ikke-tekstlig innhold.
-- All funksjonalitet som er viktig er tilgjengelig med tastatur. Det er for eksemepel ikke mulig å komme seg til filter knappen eller logg inn-ikonet med tastatur. Vi har gjort det på denne måten fordi brukeropplevelsen ville ha blitt mye dårligere hvis man kunne "tabbe" seg inn her.
+- All funksjonalitet som er viktig er tilgjengelig med tastatur.
 - Det er lett å navigere nettsiden vår siden den består kun av tre sider.
 - Vi har prøvd å unngå overbruk av div/span taggen.
 
