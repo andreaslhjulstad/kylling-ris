@@ -7,13 +7,12 @@ Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og reg
 For å starte nettsiden, naviger til rotmappen, og kjør med npm:  
 `cd .\kylling-ris`  
 `npm install`  
-`npm run dev` 
+`npm run dev`
 
 For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger deretter til rotmappen, og kjør med npm:  
 `cd .\backend`  
 `npm install`  
 `npm run dev`
-
 
 ## Krav
 
@@ -23,22 +22,24 @@ For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger
 - Listebasert presentasjon av søk med dynamisk lasting av flere resultater ved scrolling.
 - Relevant info om matobjekt vises ved søk eller i tabellen. Man kan klikke seg innpå hvert matobjekt for å få mer informasjon.
 - Mulighet for sortering og filtrering av resultatsettet (allergener, proteininnhold o.l.).
-- Brukergenererte data lagres via redux i form av matobjekter brukeren legger til på ulike datoer. Dataene presenteres i mattabellen. For denne innleveringen så lagres dette lokalt, dette skal bli flyttet over på databaseserveren til neste innlevering.
-- Applikasjonen har et pent og responsivt design.
+- Matloggen og brukeren den hører til er vår brukergenert data. Dataen lagres på server. Hvis du ikke har laget bruker, får du tildelt en gjestebruker, sånn at dataen uansett blir lagret på server.
+- Applikasjonen har et pent og responsivt design. TODO: "Løsningen skal demonstrere aspekter ved universell utforming / web accessibility (tilgjengelighet)."
+- TODO: Løsningen skal demonstrere aspekter ved bærekraftig webutvikling (gjennom valg som gjøres i design)
 - Database og backend er satt opp på gruppas virtuelle maskin.
 
 ### Tekniske krav
 
-- Applikasjonen er implementert gjennom bruk av React, Vite og Typescript.
-- State managment ved hjelp av redux.
+- Applikasjonen er laget med React, Typescript, og satt opp med Vite.
+- State managment ved hjelp av redux. Vi lagrer søkeinnstillinger og datoen matloggen er på. Vi hadde også matloggen i redux, men så flyttet vi den til server.
 - Bruker importerte tredjepartskomponenter (f.eks. datapicker kalender og infinite-scroll-elementene).
-- Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer. Ca. 9000 ulike matobjekter ligger i databasen.
+- Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer. Ca. 7500 ulike matobjekter ligger i databasen.
 - Prettier har (stort sett) blitt benyttet underveis for å formatere koden. Det har blitt kjørt gjennom repoet med eslint og prettier før innlevering.
-- Testing av "date-picker" og login/registrasjon sidene har blitt implementert så langt. 
+- Vi har tester for login- og registereringsside, datepicker, mat popup, matsøk med end-to-end testing.
 - Kommentarer har blitt benyttet underveis for å utdype koden.
 
 ### Spesifikt for andre underveisinnlevering
-- Det er laget en login og registrering side med litt frontend logikk, men dette er ikke koblet opp med backenden enda. Alle brukere behandles for øyeblikket som gjester.
+
+- Det er laget en login- og registreringsside med litt frontend logikk, men dette er ikke koblet opp med backenden enda. Alle brukere behandles for øyeblikket som gjester.
 
 ## Planen fremover
 
@@ -52,7 +53,6 @@ For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger
 
 For å kjøre testene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
-`npm test` 
-
+`npm test`
 
 Gruppen valgte å ikke prioritere tester for den andre underveisvurderingen. Dette var et bevisst valg for å spare tid. Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. Vi har ikke fått testet på andre enheter, ettersom nettsiden ikke er satt opp på VM enda, men vi har testet utseendet på mobil vha. devtools på PC
