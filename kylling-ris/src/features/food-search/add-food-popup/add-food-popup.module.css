@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.addFoodPopup>div {
+.addFoodPopup > div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,7 @@
   align-items: center;
 }
 
-.weightInput>input {
+.weightInput > input {
   width: 5em;
   max-width: 50vw;
   font-size: larger;
@@ -54,7 +54,7 @@
 }
 
 /* unit */
-.weightInput>div {
+.weightInput > div {
   font-size: larger;
 }
 
@@ -133,11 +133,13 @@
 }
 
 .addButton:hover {
-  transform: scale(0.9)
+  transform: scale(0.9);
 }
 
 .enter {
-  transition: opacity 300ms ease-out, transform 200ms ease-out;
+  transition:
+    opacity 300ms ease-out,
+    transform 200ms ease-out;
 }
 
 .enterFrom {
@@ -149,7 +151,9 @@
 }
 
 .leave {
-  transition: opacity 200ms ease-in, transform 200ms ease-in;
+  transition:
+    opacity 200ms ease-in,
+    transform 200ms ease-in;
 }
 
 .leaveFrom {

@@ -30,10 +30,7 @@ export default function FoodSearch() {
           data-testid="search-bar"
         />
         <Popover className={styles.filterWrapper}>
-          <Popover.Button
-            className={styles.filterButton}
-            aria-label="Filter"
-          >
+          <Popover.Button className={styles.filterButton} aria-label="Filter">
             <HiOutlineAdjustmentsHorizontal
               className={styles.filterImage}
               size={40}

@@ -101,9 +101,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
             <div className={styles.bottom}>
               <div
                 ref={calendarRef}
-                className={`${
-                  styles.datePickerWrapper
-                } ${"card flex justify-content-center"}`}
+                className={`${styles.datePickerWrapper} ${"card flex justify-content-center"}`}
               >
                 <label className={styles.datePickerLabel} htmlFor="datepicker">
                   Velg en dato

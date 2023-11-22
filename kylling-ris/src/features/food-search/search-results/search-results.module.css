@@ -26,23 +26,23 @@
 .foodInfo {
   cursor: pointer;
   width: 100%;
-  padding: 0 .5vh;
+  padding: 0 0.5vh;
 }
 
 .foodItem:hover {
-  background-color: #C8E2FA
+  background-color: #c8e2fa;
 }
 
 .foodItem:hover .addFoodPopup {
   background-color: white;
 }
 
-.foodInfo>h1 {
+.foodInfo > h1 {
   font-size: 1em;
   font-weight: medium;
 }
 
-.foodInfo>h2 {
+.foodInfo > h2 {
   font-size: 0.9em;
   font-weight: normal;
 }
@@ -87,7 +87,6 @@
 
 /* Hides scrollbar on mobile devices, while still keeping functionality  */
 @media only screen and (max-width: 1170px) {
-
   /* Chromium */
   ::-webkit-scrollbar {
     display: none;
@@ -97,6 +96,6 @@
     /* Firefox */
     scrollbar-width: none;
     /* Safari, IE and Edge */
-    -ms-overflow-style: none
+    -ms-overflow-style: none;
   }
 }

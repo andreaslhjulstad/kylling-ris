@@ -31,7 +31,6 @@ const ALLERGENS = [
 
 export default function FilterOptionPopup() {
   const [showAllergens, setShowAllergens] = useState(false);
-  const [selectAll, setSelectAll] = useState(false);
   const { sortOption, allergens } = useSelector(
     (state: RootState) => state.searchOption
   );
@@ -46,16 +45,6 @@ export default function FilterOptionPopup() {
       {}
     )
   );
-
-  const toggleSelectAll = () => {
-    setSelectAll(!selectAll);
-    setAllergenIsAllowed(
-      Object.keys(allergenIsAllowed).reduce(
-        (prev, allergen) => ({ ...prev, [allergen]: !selectAll }),
-        {}
-      )
-    );
-  };
 
   useEffect(() => {
     dispatch(setAllergens(allergensNotShown(allergenIsAllowed)));

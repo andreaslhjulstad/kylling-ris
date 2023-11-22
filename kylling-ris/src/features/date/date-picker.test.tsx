@@ -99,9 +99,7 @@ describe("DatePicker", () => {
 
     fireEvent.click(forwardArrow);
     // The date should not change, since the forward arrow is disabled
-    expect(weekday).toHaveTextContent(
-      weekdays[currentDate.getDay()]
-    );
+    expect(weekday).toHaveTextContent(weekdays[currentDate.getDay()]);
 
     fireEvent.click(backwardArrow);
     // The date should change, since the backward arrow is enabled
@@ -111,8 +109,6 @@ describe("DatePicker", () => {
 
     fireEvent.click(forwardArrow);
     // The date should change, since the backward arrow is enabled
-    expect(weekday).toHaveTextContent(
-      weekdays[currentDate.getDay()]
-    );
+    expect(weekday).toHaveTextContent(weekdays[currentDate.getDay()]);
   });
 });
