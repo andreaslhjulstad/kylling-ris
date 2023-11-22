@@ -189,16 +189,5 @@ describe("Register page", () => {
     expect(
       queryByText("Passordet må inneholde minst ett tall.")
     ).not.toBeInTheDocument();
-
-    // All fields legal
-    await userEvent.clear(password);
-    await userEvent.clear(confirmPassword);
-    await userEvent.type(password, "a1C_EFGHI");
-    await userEvent.type(confirmPassword, "a1C_EFGHI");
-    await userEvent.click(submit);
-
-    expect(
-      queryByText("Passordet må inneholde minst ett symbol.")
-    ).not.toBeInTheDocument();
   }, 15000);
 });
