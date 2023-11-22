@@ -143,10 +143,12 @@ const allergensQueryFormat = (allergens: string[]) => ({
 const searchQueryQueryFormat = (searchQuery: string) =>
   // "*" matches any suffix
   // special characters from https://lucene.apache.org/core/2_9_4/queryparsersyntax.html
-  searchQuery
-    .split("")
-    .filter((c) => !`[+-&|!(){}[]^"~*?:\\]`.includes(c))
-    .join("") + "*";
+  searchQuery === ""
+    ? "*"
+    : searchQuery
+        .split("")
+        .filter((c) => !`[+-&|!(){}[]^"~*?:\\]`.includes(c))
+        .join("") + "~";
 
 // Only updates the returned value after the input value has not been updated for a time specified.
 function useUpdateOnInactivity<T>(
