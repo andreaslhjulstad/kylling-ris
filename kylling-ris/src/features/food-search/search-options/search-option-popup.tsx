@@ -14,23 +14,52 @@ const allergensNotShown = (allergenIsAlloweds: AllergenIsShown): string[] => {
     .map(([allergen, _]) => allergen);
 };
 
+const ALLERGENS = [
+  "Gluten",
+  "Melk",
+  "Egg",
+  "Soya",
+  "Sulfitt",
+  "Fisk",
+  "Skalldyr",
+  "Sesam",
+  "Selleri",
+  "Sennep",
+  "Nøtter",
+  "Peanøtter"
+];
+
 export default function FilterOptionPopup() {
+  const [showAllergens, setShowAllergens] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
   const { sortOption, allergens } = useSelector(
     (state: RootState) => state.searchOption
   );
-
   const dispatch = useDispatch();
 
-  const [allergenIsAllowed, setAllergenIsAllowed] = useState<AllergenIsShown>({
-    Gluten: !allergens.includes("Gluten"),
-    Melk: !allergens.includes("Melk"),
-    Soya: !allergens.includes("Soya")
-  });
+  const [allergenIsAllowed, setAllergenIsAllowed] = useState<AllergenIsShown>(
+    ALLERGENS.reduce(
+      (acc, allergen) => ({
+        ...acc,
+        [allergen]: !allergens.includes(allergen)
+      }),
+      {}
+    )
+  );
+
+  const toggleSelectAll = () => {
+    setSelectAll(!selectAll);
+    setAllergenIsAllowed(
+      Object.keys(allergenIsAllowed).reduce(
+        (prev, allergen) => ({ ...prev, [allergen]: !selectAll }),
+        {}
+      )
+    );
+  };
 
   useEffect(() => {
     dispatch(setAllergens(allergensNotShown(allergenIsAllowed)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allergenIsAllowed]);
+  }, [allergenIsAllowed, dispatch]);
 
   return (
     <div>
@@ -61,56 +90,35 @@ export default function FilterOptionPopup() {
           </option>
         </select>
 
-        <div className={styles.labelCheckboxContainer}>
-          <input
-            className={styles.checkbox}
-            type="checkbox"
-            name="Gluten"
-            id="Gluten"
-            checked={allergenIsAllowed["Gluten"]}
-            onChange={() =>
-              setAllergenIsAllowed((allergenIsAllowed) => ({
-                ...allergenIsAllowed,
-                Gluten: !allergenIsAllowed["Gluten"]
-              }))
-            }
-          />
-          <label>Inneholder gluten</label>
-        </div>
+        <button
+          className={styles.button}
+          onClick={() => setShowAllergens(!showAllergens)}
+        >
+          {showAllergens ? "Gjem allergener" : "Vis allergener"}
+        </button>
 
-        <div className={styles.labelCheckboxContainer}>
-          <input
-            className={styles.checkbox}
-            type="checkbox"
-            name="Melk"
-            id="Melk"
-            checked={allergenIsAllowed["Melk"]}
-            onChange={() =>
-              setAllergenIsAllowed((allergenIsAllowed) => ({
-                ...allergenIsAllowed,
-                Melk: !allergenIsAllowed["Melk"]
-              }))
-            }
-          />
-          <label>Inneholder melk</label>
-        </div>
-
-        <div className={styles.labelCheckboxContainer}>
-          <input
-            className={styles.checkbox}
-            type="checkbox"
-            name="Soya"
-            id="Soya"
-            checked={allergenIsAllowed["Soya"]}
-            onChange={() =>
-              setAllergenIsAllowed((allergenIsAllowed) => ({
-                ...allergenIsAllowed,
-                Soya: !allergenIsAllowed["Soya"]
-              }))
-            }
-          />
-          <label>Inneholder soya</label>
-        </div>
+        {showAllergens && (
+          <div className={styles.allergensOptions}>
+            {ALLERGENS.map((allergen) => (
+              <div key={allergen} className={styles.labelCheckboxContainer}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  name={allergen}
+                  id={allergen}
+                  checked={allergenIsAllowed[allergen]}
+                  onChange={() =>
+                    setAllergenIsAllowed((prev) => ({
+                      ...prev,
+                      [allergen]: !prev[allergen]
+                    }))
+                  }
+                />
+                <label>Inneholder {allergen.toLowerCase()}</label>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
