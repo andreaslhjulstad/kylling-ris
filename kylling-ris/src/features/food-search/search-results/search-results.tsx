@@ -48,7 +48,7 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
             <div
               className={styles.foodItem}
               key={food.id}
-              data-testid={`food-search-result-${food.id}`}
+              data-testid={"food-search-result"}
             >
               <div
                 className={styles.foodInfo}
