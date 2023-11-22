@@ -1,23 +1,44 @@
 import "@testing-library/jest-dom";
-import { describe, expect } from "vitest";
+import { describe, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
-import store from "../../redux/store";
 import LoginPage from "./loginpage";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { MockedProvider } from "@apollo/client/testing";
+import { SIGNIN_QUERY } from "../../features/auth/use-login";
+
+const mockData = {
+  email: "test@test.com",
+  password: "Test@t3st.com"
+};
+
+const mocks = [
+  {
+    request: {
+      query: SIGNIN_QUERY,
+      variables: {
+        email: mockData.email,
+        password: mockData.password
+      }
+    },
+    result: vi.fn(() => ({
+      data: {
+        userId: "10"
+      }
+    }))
+  }
+];
+
+const loginMock = mocks[0].result;
 
 describe("Login page", () => {
   test("Login page renders correctly", () => {
     const { getByTestId } = render(
-      <Provider store={store}>
-        <MockedProvider>
-          <BrowserRouter>
-            <LoginPage />
-          </BrowserRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider mocks={mocks}>
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
+      </MockedProvider>
     );
 
     const email = getByTestId("e-mail");
@@ -43,13 +64,11 @@ describe("Login page", () => {
 
   test("User inputs", async () => {
     const { getByTestId } = render(
-      <Provider store={store}>
-        <MockedProvider>
-          <BrowserRouter>
-            <LoginPage />
-          </BrowserRouter>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider mocks={mocks}>
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
+      </MockedProvider>
     );
 
     const email = getByTestId("e-mail");
@@ -74,5 +93,12 @@ describe("Login page", () => {
     await userEvent.type(password, " ola 123");
     expect(email).toHaveValue("Ola.Nordmann@mail.no");
     expect(password).toHaveValue("ola123");
+
+    // Test legal values
+    await userEvent.clear(email);
+    await userEvent.clear(password);
+    await userEvent.type(email, mockData.email);
+    await userEvent.type(password, mockData.password);
+    expect(loginMock).toHaveBeenCalled();
   });
 });
