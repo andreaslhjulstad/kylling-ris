@@ -215,40 +215,17 @@ describe("Register page", () => {
     // All fields legal
     await userEvent.clear(password);
     await userEvent.clear(confirmPassword);
-    await userEvent.type(password, "a1C_EFGHI");
-    await userEvent.type(confirmPassword, "a1C_EFGHI");
+    await userEvent.clear(username);
+    await userEvent.clear(email);
+    await userEvent.type(password, mockData.password);
+    await userEvent.type(confirmPassword, mockData.password);
+    await userEvent.type(email, mockData.email);
+    await userEvent.type(username, mockData.name);
     await userEvent.click(submit);
 
+    expect(registerUserMock).toHaveBeenCalled();
     expect(
       queryByText("Passordet må inneholde minst ett symbol.")
     ).not.toBeInTheDocument();
   }, 15000);
-
-  test("User inputs in backend", async () => {
-    const { getByTestId } = render(
-      <MockedProvider mocks={mocks}>
-        <BrowserRouter>
-          <RegisterPage />
-        </BrowserRouter>
-      </MockedProvider>
-    );
-
-    // Test legal values
-    const username = getByTestId("username");
-    const email = getByTestId("e-mail");
-    const password = getByTestId("password");
-    const confirmPassword = getByTestId("confirm-password");
-    const submit = getByTestId("submit");
-
-    await userEvent.clear(password);
-    await userEvent.clear(confirmPassword);
-    await userEvent.clear(email);
-    await userEvent.clear(username);
-    await userEvent.type(username, mockData.name);
-    await userEvent.type(email, mockData.email);
-    await userEvent.type(password, mockData.password);
-    await userEvent.type(confirmPassword, mockData.password);
-    await userEvent.click(submit);
-    expect(registerUserMock).toHaveBeenCalled();
-  });
 });

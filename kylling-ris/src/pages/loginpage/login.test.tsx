@@ -99,6 +99,7 @@ describe("Login page", () => {
     await userEvent.clear(password);
     await userEvent.type(email, mockData.email);
     await userEvent.type(password, mockData.password);
+    await userEvent.click(submit);
     expect(loginMock).toHaveBeenCalled();
   });
 });
