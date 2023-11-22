@@ -6,7 +6,7 @@ import { foodLogTableStyles } from "./food-log-table-styles";
 import { useSelector } from "react-redux";
 import FoodItem from "./food-item";
 import { RootState } from "../../redux/store";
-import { useDeleteFoodFromLog, useEditFood, useFoodLog } from "./use-food-log";
+import { useDeleteFoodFromLog, useFoodLog } from "./use-food-log";
 import appropriateUnit from "../misc/appropriate-unit";
 import EditWeightPopup from "./edit-weight-popup";
 
