@@ -32,6 +32,12 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     setFoodInfoPopupOpen(true);
   }
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>, food: FoodInfo) {
+    if (event.key === "Enter") {
+      foodInfoClicked(food);
+    }
+  }
+
   return (
     <div className={styles.searchResults}>
       <InfiniteScroll
@@ -48,11 +54,13 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
             <div
               className={styles.foodItem}
               key={food.id}
-              data-testid={`food-search-result-${food.id}`}
+              data-testid={"food-search-result"}
             >
               <div
                 className={styles.foodInfo}
                 onClick={() => foodInfoClicked(food)}
+                onKeyDown={(event) => handleKeyDown(event, food)}
+                tabIndex={0}
               >
                 <h1>{maxTextWidth(40, food.name)}</h1>
                 <h2>

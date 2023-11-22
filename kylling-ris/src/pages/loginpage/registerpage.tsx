@@ -142,6 +142,7 @@ export default function RegisterPage() {
           onChange={(e) => setUsername(e.target.value)}
           maxLength={24} // Currently limiting usernames to 24 characters
           data-testid="username"
+          aria-label="Brukernavn"
         />
         {errors.username && (
           <small className="p-error">{errors.username}</small>
@@ -155,6 +156,7 @@ export default function RegisterPage() {
           onChange={(e) => setCurrentEmail(e.target.value)}
           maxLength={255} // Max length for email addresses
           data-testid="e-mail"
+          aria-label="E-postadresse"
         />
         {errors.email && <small className="p-error">{errors.email}</small>}
         <label htmlFor="password">Passord</label>
@@ -167,6 +169,7 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             keyfilter={/^\S*$/}
             data-testid="password"
+            aria-label="Passord"
           />
           <Button
             type="button"
@@ -175,6 +178,7 @@ export default function RegisterPage() {
             icon={eyeIcon.password}
             onClick={() => toggleVisibility("password")}
             data-testid="toggle-1"
+            aria-label="Veksle synlighet"
           />
         </span>
         {errors.password && (
@@ -190,6 +194,7 @@ export default function RegisterPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             keyfilter={/^\S*$/}
             data-testid="confirm-password"
+            aria-label="Bekreft passord"
           />
           <Button
             type="button"
@@ -198,6 +203,7 @@ export default function RegisterPage() {
             icon={eyeIcon.confirmPassword}
             onClick={() => toggleVisibility("confirmPassword")}
             data-testid="toggle-2"
+            aria-label="Veksle synlighet"
           />
         </span>
         {errors.confirmPassword && (

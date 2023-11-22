@@ -43,5 +43,14 @@ export const mutationTypeDef = `#graphql
             """,
             columnName:  "id"
         )
+
+        editFood(id: Float!, weight: Float!): FoodItem @cypher(
+            statement: """
+                MATCH (foodItem: FoodItem {id: $id})
+                SET foodItem.weight = $weight
+                RETURN foodItem
+            """,
+            columnName: "foodItem"
+        )
     }
 `;
