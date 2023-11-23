@@ -111,7 +111,9 @@ export const EDIT_FOOD_MUTATION = gql`
 `;
 
 export function useEditFood(): (foodItemId: number, weight: number) => void {
-  const [editFood] = useMutation(EDIT_FOOD_MUTATION, { refetchQueries: ["FoodLog"] });
+  const [editFood] = useMutation(EDIT_FOOD_MUTATION, {
+    refetchQueries: ["FoodLog"]
+  });
 
   return (foodItemId, weight) => {
     editFood({ variables: { foodItemId, weight } });

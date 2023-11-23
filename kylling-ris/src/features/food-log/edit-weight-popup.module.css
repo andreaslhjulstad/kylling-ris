@@ -32,7 +32,7 @@
   margin-bottom: 10px;
 }
 
-.weightInput>input {
+.weightInput > input {
   width: 5em;
   max-width: 50vw;
   font-size: larger;
@@ -49,7 +49,7 @@
   padding-bottom: 1px;
 }
 
-.weightInput>div {
+.weightInput > div {
   font-size: larger;
 }
 
@@ -83,7 +83,6 @@
   .editWeightPopup {
     width: 50%;
   }
-
 }
 
 @media screen and (max-width: 775px) {
@@ -92,12 +91,11 @@
   }
 
   .content {
-    padding: 1vh 1vh 0 1vh
+    padding: 1vh 1vh 0 1vh;
   }
 
   .submitButton {
     padding: 10px;
     font-size: 1.5rem;
   }
-
 }

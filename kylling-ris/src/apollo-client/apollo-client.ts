@@ -10,7 +10,9 @@ export const apolloClient = new ApolloClient({
         authorization: localStorage.getItem("userId")
       }
     };
-  }).concat(createHttpLink({ uri: "http://localhost:3000/graphql" })),
+  }).concat(
+    createHttpLink({ uri: "http://it2810-50.idi.ntnu.no:3000/graphql" })
+  ),
 
   cache: new InMemoryCache({
     typePolicies: {

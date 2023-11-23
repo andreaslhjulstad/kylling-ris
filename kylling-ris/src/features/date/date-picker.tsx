@@ -172,8 +172,8 @@ export default function DatePicker() {
   const displayWeekday = weekdays[moment(selectedDate).day()];
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    if (event.key === 'Enter') {
-      setShowCalendar(true)
+    if (event.key === "Enter") {
+      setShowCalendar(true);
     }
   }
 

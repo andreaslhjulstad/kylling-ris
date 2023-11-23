@@ -32,7 +32,10 @@ export default function SearchResults({ searchQuery }: SearchResultsProps) {
     setFoodInfoPopupOpen(true);
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>, food: FoodInfo) {
+  function handleKeyDown(
+    event: React.KeyboardEvent<HTMLDivElement>,
+    food: FoodInfo
+  ) {
     if (event.key === "Enter") {
       foodInfoClicked(food);
     }
