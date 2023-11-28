@@ -62,19 +62,20 @@ export default function FilterOptionPopup() {
           onChange={({ target: { value: sort } }) => {
             dispatch(changeSort(sort));
           }}
+          data-testid="sort-dropdown"
         >
-          <option value="name-ascending">Navn a-å</option>
-          <option value="name-descending">Navn å-a</option>
-          <option value="protein-ascending">
+          <option value="name-ascending" data-testid="sort-name-ascending">Navn a-å</option>
+          <option value="name-descending" data-testid="sort-name-descending">Navn å-a</option>
+          <option value="protein-ascending" data-testid="sort-protein-ascending">
             Proteiner pr. 100g/ml (stigende)
           </option>
-          <option value="protein-descending">
+          <option value="protein-descending" data-testid="sort-protein-descending">
             Proteiner pr. 100g/ml (synkende)
           </option>
-          <option value="kcal-ascending">
+          <option value="kcal-ascending" data-testid="sort-kcal-ascending">
             Kalorier pr. 100g/ml (stigende)
           </option>
-          <option value="kcal-descending">
+          <option value="kcal-descending" data-testid="sort-kcal-descending">
             Kalorier pr. 100g/ml (synkende)
           </option>
         </select>
@@ -82,6 +83,7 @@ export default function FilterOptionPopup() {
         <button
           className={styles.button}
           onClick={() => setShowAllergens(!showAllergens)}
+          data-testid="show-allergens-button"
         >
           {showAllergens ? "Gjem allergener" : "Vis allergener"}
         </button>
@@ -94,7 +96,7 @@ export default function FilterOptionPopup() {
                   className={styles.checkbox}
                   type="checkbox"
                   name={allergen}
-                  id={allergen}
+                  id={allergen.toLowerCase()}
                   checked={allergenIsAllowed[allergen]}
                   onChange={() =>
                     setAllergenIsAllowed((prev) => ({
@@ -102,6 +104,7 @@ export default function FilterOptionPopup() {
                       [allergen]: !prev[allergen]
                     }))
                   }
+                  data-testid="allergen"
                 />
                 <label>Inneholder {allergen.toLowerCase()}</label>
               </div>
