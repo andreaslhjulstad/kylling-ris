@@ -38,9 +38,13 @@ For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger
 
 ## Testing
 
-For å kjøre testene, naviger til rotmappen og kjør med npm:  
+For å kjøre enhetstestene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
 `npm run test`  
+
+For å kjøre end-to-end-testene, naviger til rotmappen og kjør med npm:  
+`cd .\kylling-ris`  
+`npx playwright test`
 End-to-end tester krever tilgang til server. Ta på VPN.
 
 Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har vi skrevet tester for de fleste komponentene og sidene.
