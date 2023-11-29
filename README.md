@@ -33,23 +33,23 @@ For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger
 - Bruker importerte tredjepartskomponenter (f.eks. datepicker-kalender- og infinite scroll-elementene).
 - Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer. Ca. 7500 ulike matobjekter ligger i databasen.
 - Prettier har (stort sett) blitt benyttet underveis for å formatere koden. Det har blitt kjørt gjennom repoet med eslint og prettier før innlevering.
-- Vi har satt opp tester for frontend, og backend testes noe i "end-to-end"-tester av matsøk. Vi testet også manuelt queries og mutations med Apollo Server sandbox.  
+- Vi har satt opp tester for frontend, og backend testes noe i "end-to-end"-tester av matsøk. Vi testet også manuelt queries og mutations med Apollo Server sandbox.
 - Kommentarer har blitt benyttet underveis for å utdype koden.
 
 ## Testing
 
-- Vi har testet det meste av funksjonaliteten i appen.  
-  - Basic frontend-funksjonalitet testes med enhetstester for komponenter, samt snapshot-tester for sidene.  
-  - Mocking brukes for å teste frontend-funksjonalitet uavhengig av serveren.  
-  - Vi har satt opp end-to-end-tester med Playwright for å teste flyten i appen, og indirekte teste backend-funksjonalitet. Disse ligger i en egen "e2e"-mappe.  
+- Vi har testet det meste av funksjonaliteten i appen.
+  - Basic frontend-funksjonalitet testes med enhetstester for komponenter, samt snapshot-tester for sidene.
+  - Mocking brukes for å teste frontend-funksjonalitet uavhengig av serveren.
+  - Vi har satt opp end-to-end-tester med Playwright for å teste flyten i appen, og indirekte teste backend-funksjonalitet. Disse ligger i en egen "e2e"-mappe.
 
 For å kjøre enhetstestene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
-`npm run test`  
+`npm run test`
 
 For å kjøre end-to-end-testene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
-`npx playwright test`  
+`npx playwright test`
 
 Det kan hende du må installere browsers for å kjøre e2e-testene, kjør med npm:  
 `npx playwright install`
@@ -86,7 +86,7 @@ Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har
 
 ### Søkeinnstillinger
 
-Vi har sortering og filtreringsvalg på matsøk fordi det er krav, men det passer ikke helt til denne typen applikasjon. Hensikten med matsøket er å finne mat man allerede har spist; den er ikke der for å finne ut av hva man skal handle på butikken. Derfor har vi gitt denne funksjonaliteten lite plass på nettsiden - den er gjemt bak en liten knapp.
+Vi har sortering og filtreringsvalg på matsøk fordi det er krav, men det passer ikke helt til denne typen applikasjon. Hensikten med matsøket er å finne mat man allerede har spist; den er ikke der for å finne ut av hva man skal handle på butikken. Derfor har vi gitt denne funksjonaliteten lite plass på nettsiden - den er gjemt bak en liten knapp. Nåværende implementasjon tillater bare sortering når man ikke har søkt på noe. Dette er på grunn av begrensninger med soteringsfunksjonen. Brukeren informeres om dette ved hjelp av et tooltip.
 
 ### Lucene søk
 
@@ -98,7 +98,7 @@ Når det kommer til brukersikkerhet valgte gruppen å nedprioritere dette. Dette
 
 ### Gjemming av warnings/errors
 
-Vi har gjemt noen warnings/errors fra konsollen. Dette gjøres i [main.tsx](/kylling-ris/src/main.tsx). Dette ble gjort fordi dette er feilmeldinger som vi ikke har kontroll over, da de skyldes bruk av tredjeparts komponenter. Vi har heller ikke noe bruk for disse feilmeldingene, i tillegg til at siden kjører fint på tross av de. Det ble derfor gjort et valg om å gjemme disse.  
+Vi har gjemt noen warnings/errors fra konsollen. Dette gjøres i [main.tsx](/kylling-ris/src/main.tsx). Dette ble gjort fordi dette er feilmeldinger som vi ikke har kontroll over, da de skyldes bruk av tredjeparts komponenter. Vi har heller ikke noe bruk for disse feilmeldingene, i tillegg til at siden kjører fint på tross av de. Det ble derfor gjort et valg om å gjemme disse.
 
 ### Ekstra funksjonalitet vi kunne implementert
 
