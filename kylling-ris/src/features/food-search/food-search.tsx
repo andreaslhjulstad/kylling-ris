@@ -1,5 +1,5 @@
 import SearchResults from "./search-results/search-results";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./food-search.module.css";
 import { IoSearch } from "react-icons/io5";
 
@@ -7,10 +7,16 @@ import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 import FilterOptionPopup from "./search-options/search-option-popup";
 
 import { Popover, Transition } from "@headlessui/react";
+import { useDispatch } from "react-redux";
+import { setSearchInput } from "./searchReducer";
 
 export default function FoodSearch() {
-  //What the user has entered in the search field.
-  const [searchInput, setSearchInput] = useState<string>("");
+  const [localSearchInput, setLocalSearchInput] = useState<string>("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSearchInput(localSearchInput));
+  }, [localSearchInput, dispatch]);
 
   return (
     <div className={styles.foodSearch}>
@@ -23,14 +29,18 @@ export default function FoodSearch() {
         <input
           placeholder="Søk"
           aria-label="Søk"
-          value={searchInput}
+          value={localSearchInput}
           onChange={({ target: { value: searchInput } }) => {
-            setSearchInput(searchInput);
+            setLocalSearchInput(searchInput);
           }}
           data-testid="search-bar"
         />
         <Popover className={styles.filterWrapper}>
-          <Popover.Button className={styles.filterButton} aria-label="Filter" data-testid="filter-button">
+          <Popover.Button
+            className={styles.filterButton}
+            aria-label="Filter"
+            data-testid="filter-button"
+          >
             <HiOutlineAdjustmentsHorizontal
               className={styles.filterImage}
               size={40}
@@ -50,7 +60,7 @@ export default function FoodSearch() {
           </Transition>
         </Popover>
       </div>
-      <SearchResults searchQuery={searchInput} />
+      <SearchResults searchQuery={localSearchInput} />
     </div>
   );
 }
