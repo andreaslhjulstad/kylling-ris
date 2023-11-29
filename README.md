@@ -66,13 +66,17 @@ Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har
 ## Bærekraft
 
 - Vi bruker kun små bilder på SVG format, noe som minker datatraffiken på nettsiden vår.
-- Vi er klar over at mørke farger sparer strøm, men vi valgte heller å ha ett bra fargepalett, fremfor to middelmådige.
+- Vi er klar over at mørke farger sparer strøm, men vi har lyst at nettsiden skal ha akkurat det fargepalettet vi har. Dark mode mener vi hadde sett stygt ut med fargene våre.
 
 ## Diverse
 
 ### Søkeinnstillinger
 
 Vi har sortering og filtreringsvalg på matsøk fordi det er krav, men det passer ikke helt til denne typen applikasjon. Hensikten med matsøket er å finne mat man allerede har spist; den er ikke der for å finne ut av hva man skal handle på butikken. Derfor har vi gitt denne funksjonaliteten lite plass på nettsiden - den er gjemt bak en liten knapp.
+
+### Sortering
+
+Sorteringsvalget i søkeinstillinger gjelder kun når man ikke har skrevet inn et søk. Når man har, er den sortert på relevans til søket.
 
 ### Lucene søk
 
