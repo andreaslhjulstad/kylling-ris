@@ -18,7 +18,7 @@ export default function FoodSearch() {
         <IoSearch
           size={40}
           className={styles.searchIcon}
-          data-testid="search-bar"
+          data-testid="search-icon"
         />
         <input
           placeholder="Søk"
@@ -30,7 +30,7 @@ export default function FoodSearch() {
           data-testid="search-bar"
         />
         <Popover className={styles.filterWrapper}>
-          <Popover.Button className={styles.filterButton} aria-label="Filter">
+          <Popover.Button className={styles.filterButton} aria-label="Filter" data-testid="filter-button">
             <HiOutlineAdjustmentsHorizontal
               className={styles.filterImage}
               size={40}

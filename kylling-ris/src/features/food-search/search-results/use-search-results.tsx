@@ -2,9 +2,7 @@ import FoodInfo from "./food-info";
 import { useState, useEffect } from "react";
 import { SearchOption } from "../search-options/search-option-reducer";
 import { gql, useQuery } from "@apollo/client";
-
-export const searchResultsPerLoad: number = 12;
-export const searchInactivityTime: number = 300;
+import { searchInactivityTime, searchResultsPerLoad } from "./config";
 
 export default function useSearchResults(
   searchQuery: string,

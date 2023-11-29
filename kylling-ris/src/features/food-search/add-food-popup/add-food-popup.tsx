@@ -72,6 +72,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
         className={styles.addButton}
         onClick={openModal}
         aria-label="Legg til mat"
+        data-testid="add-food-button"
       >
         <CiCirclePlus size={40} strokeWidth={0.25} />
       </button>
@@ -127,6 +128,7 @@ export default function AddFoodPopup({ food }: AddFoodPopupProps) {
                   onChange={({ target: { value: weightInput } }) =>
                     setWeightInput(weightInput)
                   }
+                  data-testid="weight-input"
                 />
                 <div>{food.weightUnit}</div>
               </div>
