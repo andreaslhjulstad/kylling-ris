@@ -1,6 +1,6 @@
 # Kylling&Ris
 
-Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og registrere mat de har spist. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med data, hentet fra et REST-API med produkter fra norske dagligvarebutikker: https://kassal.app/api. Brukeren kan så enkelt registrere matelementer ved å klikke på tilhørende pluss-knapp. Deretter kan brukeren skrive inn vekten på produktet og velge hvilken dato hen vil registrere det på. Produktet vises så i en tabell, hvor man kan navigere mellom datoer ved hjelp av en kalender og dens tilhørende pilknapper. I tabellen kan brukeren siden fjerne eller endre registrerte elementer fra tabellen vha. henholdvis et søppelbøtte- og blyantikon.
+Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og registrere mat de har spist. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med data, hentet fra et REST-API med produkter fra norske dagligvarebutikker: <https://kassal.app/api>. Brukeren kan så enkelt registrere matelementer ved å klikke på tilhørende pluss-knapp. Deretter kan brukeren skrive inn vekten på produktet og velge hvilken dato hen vil registrere det på. Produktet vises så i en tabell, hvor man kan navigere mellom datoer ved hjelp av en kalender og dens tilhørende pilknapper. I tabellen kan brukeren siden fjerne eller endre registrerte elementer fra tabellen vha. henholdvis et søppelbøtte- og blyantikon.
 
 ## Oppsett
 
@@ -33,10 +33,15 @@ For å starte serveren må man enten være på Eduroam eller ha på VPN. Naviger
 - Bruker importerte tredjepartskomponenter (f.eks. datepicker-kalender- og infinite scroll-elementene).
 - Benytter Neo4j for backend-database. Bruker GraphQL, Apollo Server og Apollo Client for spørringer. Ca. 7500 ulike matobjekter ligger i databasen.
 - Prettier har (stort sett) blitt benyttet underveis for å formatere koden. Det har blitt kjørt gjennom repoet med eslint og prettier før innlevering.
-- Vi har tester for login- og registereringsside, datepicker, popup for mer info om matvaren og matsøk. Vi har brukt mocking for å teste frontend-funksjonalitet. Backend har ikke egne automatiserte tester, men den blir testet noe i "end-to-end"-tester av matsøk. Vi testet manuelt queries og mutations med Apollo Server sandbox.
+- Vi har satt opp tester for frontend, og backend testes noe i "end-to-end"-tester av matsøk. Vi testet også manuelt queries og mutations med Apollo Server sandbox.  
 - Kommentarer har blitt benyttet underveis for å utdype koden.
 
 ## Testing
+
+- Vi har testet det meste av funksjonaliteten i appen.  
+  - Basic frontend-funksjonalitet testes med enhetstester for komponenter, samt snapshot-tester for sidene.  
+  - Mocking brukes for å teste frontend-funksjonalitet uavhengig av serveren.  
+  - Vi har satt opp end-to-end-tester med Playwright for å teste flyten i appen, og indirekte teste backend-funksjonalitet. Disse ligger i en egen "e2e"-mappe.  
 
 For å kjøre enhetstestene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
@@ -44,7 +49,7 @@ For å kjøre enhetstestene, naviger til rotmappen og kjør med npm:
 
 For å kjøre end-to-end-testene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
-`npx playwright test`
+`npx playwright test`  
 End-to-end tester krever tilgang til server. Ta på VPN.
 
 Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har vi skrevet tester for de fleste komponentene og sidene.
@@ -85,6 +90,13 @@ Vi bruker neo4j, som bruker lucene til søking. Den kunne vi ikke helt få til �
 ### Brukersikkerhet
 
 Når det kommer til brukersikkerhet valgte gruppen å nedprioritere dette. Dette grunnet at applikasjonen kun skal brukes i prosjektsammenheng, og det ikke var spesifisert noe krav om dette. Derfor er passord lagret i klartekst i databasen. I en reell situasjon ville vi måttet "hashe" passordene, for å ikke lagre de i klartekst i databasen. Dette vil øke sikkerheten dersom databasen skulle blitt kompromittert, eller lekket på en annen måte.
+
+### Gjemming av warnings/errors
+
+Vi har gjemt noen warnings/errors fra konsollen. Dette gjøres i [main.tsx](/kylling-ris/src/main.tsx).  
+Dette ble gjort fordi dette er feilmeldinger som vi ikke har kontroll over, da de skyldes bruk av tredjeparts komponenter.  
+Vi har heller ikke noe bruk for disse feilmeldingene, i tillegg til at siden kjører fint på tross av de.  
+Det ble derfor gjort et valg om å gjemme disse.  
 
 ### Ekstra funksjonalitet vi kunne implementert
 
