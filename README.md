@@ -50,6 +50,10 @@ For å kjøre enhetstestene, naviger til rotmappen og kjør med npm:
 For å kjøre end-to-end-testene, naviger til rotmappen og kjør med npm:  
 `cd .\kylling-ris`  
 `npx playwright test`  
+
+Det kan hende du må installere browsers for å kjøre e2e-testene, kjør med npm:  
+`npx playwright install`
+
 End-to-end tester krever tilgang til server. Ta på VPN.
 
 Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har vi skrevet tester for de fleste komponentene og sidene.
@@ -93,10 +97,7 @@ Når det kommer til brukersikkerhet valgte gruppen å nedprioritere dette. Dette
 
 ### Gjemming av warnings/errors
 
-Vi har gjemt noen warnings/errors fra konsollen. Dette gjøres i [main.tsx](/kylling-ris/src/main.tsx).  
-Dette ble gjort fordi dette er feilmeldinger som vi ikke har kontroll over, da de skyldes bruk av tredjeparts komponenter.  
-Vi har heller ikke noe bruk for disse feilmeldingene, i tillegg til at siden kjører fint på tross av de.  
-Det ble derfor gjort et valg om å gjemme disse.  
+Vi har gjemt noen warnings/errors fra konsollen. Dette gjøres i [main.tsx](/kylling-ris/src/main.tsx). Dette ble gjort fordi dette er feilmeldinger som vi ikke har kontroll over, da de skyldes bruk av tredjeparts komponenter. Vi har heller ikke noe bruk for disse feilmeldingene, i tillegg til at siden kjører fint på tross av de. Det ble derfor gjort et valg om å gjemme disse.  
 
 ### Ekstra funksjonalitet vi kunne implementert
 
