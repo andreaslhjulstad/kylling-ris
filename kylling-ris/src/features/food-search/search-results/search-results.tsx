@@ -19,7 +19,6 @@ const maxTextWidth = (chars: number, text: string): string =>
 export default function SearchResults({ searchQuery }: SearchResultsProps) {
   const [foodInfoPopupOpen, setFoodInfoPopupOpen] = useState<boolean>(false);
   const [selectedFood, setSelectedFood] = useState<FoodInfo | null>(null);
-
   const searchOptions = useSelector((state: RootState) => state.searchOption);
 
   const { foods, hasMoreFoodItems, loadMoreFoodItems } = useSearchResults(

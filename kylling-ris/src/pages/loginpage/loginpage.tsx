@@ -22,7 +22,7 @@ export default function LoginPage() {
       if (loginWasSuccessful) {
         navigate("/project2");
       } else {
-        setLoginError("Fant ingen bruker med gitt e-postadresse.");
+        setLoginError("Feil e-postadresse eller passord.");
       }
     });
   }

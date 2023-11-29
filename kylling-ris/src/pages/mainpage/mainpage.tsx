@@ -11,30 +11,44 @@ import TitleAndLogo from "../../features/title-logo/title-logo";
 
 export default function Mainpage() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const isMobile = screenWidth < 1170;
+  const isMobile = screenWidth <= 1170;
   const isSmallMobile = screenWidth < 775;
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{
+        backgroundColor:
+          currentTab === 0 || screenWidth > 1170
+            ? "white"
+            : screenWidth > 775
+            ? "#2275c3"
+            : "white"
+      }}
+    >
       <UserMenu />
-
       {isMobile ? (
         <div>
           <div className={styles.titleAndLogoContainer}>
             {isSmallMobile ? <TitleAndLogo /> : <TitleAndLogoMainpage />}
           </div>
-          <TabView>
+          <TabView
+            activeIndex={currentTab}
+            onTabChange={(e) => {
+              setCurrentTab(e.index);
+            }}
+          >
             <TabPanel header="Søk" leftIcon="pi pi-search-plus">
               <div className={styles.searchAndLogoCard}>
                 <div className={styles.search}>
