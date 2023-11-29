@@ -4,6 +4,7 @@ exports[`renders Mainpage component correctly 1`] = `
 <div>
   <div
     class="_wrapper_2a47db"
+    style="background-color: white;"
   >
     <div>
       <h3
