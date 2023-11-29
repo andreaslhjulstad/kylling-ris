@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./search-option-popup.module.css";
 import { changeSort, setAllergens } from "./search-option-reducer";
 import { RootState } from "../../../redux/store";
+import { Tooltip } from "react-tooltip";
 
 interface AllergenIsShown {
   [allergen: string]: boolean;
@@ -72,6 +73,8 @@ export default function FilterOptionPopup() {
             dispatch(changeSort(sort));
           }}
           data-testid="sort-dropdown"
+          data-tooltip-id="sort-tooltip"
+          data-tooltip-content="Sortering er foreløpig kun mulig på tomt søk"
         >
           <option value="name-ascending" data-testid="sort-name-ascending">
             Navn a-å
@@ -98,6 +101,12 @@ export default function FilterOptionPopup() {
             Kalorier pr. 100g/ml (synkende)
           </option>
         </select>
+        {optionsDisabled && (
+          <Tooltip
+            id="sort-tooltip"
+            style={{ backgroundColor: "#3f3f40", color: "white" }}
+          />
+        )}
 
         <button
           className={styles.button}
