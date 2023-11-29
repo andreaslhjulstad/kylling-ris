@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
-
-const searchResultsPerLoad = 12;
-const searchInactivityTime = 300;
+import {
+  searchInactivityTime,
+  searchResultsPerLoad
+} from "../features/food-search/search-results/config";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:5173/project2");
@@ -22,11 +23,12 @@ test("Basic search functionality", async ({ page }) => {
   await searchBar.fill("Kyllingfilet Naturell");
   // Wait for inactivity period and check results again
   await page.waitForTimeout(searchInactivityTime);
+  // Wait for the specific element with the expected text content to appear in the DOM
+  await page.waitForSelector(`data-testid=food-search-result >> nth=0 >> text="Kyllingfilet Naturell"`);
   const firstFoodNameInSearch = await page
     .locator(`data-testid=food-search-result >> nth=0`)
     .evaluate((node) => node.firstChild?.firstChild?.textContent);
   expect(firstFoodNameInSearch).toEqual("Kyllingfilet Naturell");
-
   await searchBar.clear();
 });
 
@@ -112,8 +114,8 @@ test("Filtering functionality", async ({ page }) => {
   );
   expect(areAllChecked).toBe(true);
 
-  // Check that the first element is &Co Superfiber havre by default
-  let firstFoodName = await page
+  // Check that the first element is "&Co Superfiber havre" by default
+  const firstFoodName = await page
     .locator(`data-testid=food-search-result >> nth=0`)
     .evaluate((node) => node.firstChild?.firstChild?.textContent);
   expect(firstFoodName).toEqual("&Co Superfiber havre");
@@ -123,11 +125,13 @@ test("Filtering functionality", async ({ page }) => {
   await glutenCheckbox.uncheck();
   expect(glutenCheckbox).not.toBeChecked();
 
-  // Check that the first element is now something else
-  firstFoodName = await page
-    .locator(`data-testid=food-search-result >> nth=0`)
-    .evaluate((node) => node.firstChild?.firstChild?.textContent);
-  expect(firstFoodName).not.toEqual("&Co Superfiber havre");
+  const searchResults = page.getByTestId("food-search-result");
+
+  // Check that the search result no longer contains "&Co Superfiber havre"
+  const foodNames = await searchResults.evaluateAll((nodes) =>
+    nodes.map((node) => node.firstChild?.firstChild?.textContent)
+  );
+  expect(foodNames).not.toContain("&Co Superfiber havre");
 
   await glutenCheckbox.check();
 });
