@@ -44,7 +44,7 @@ export default function FoodLogTable() {
       <div className={styles.buttons}>
         <button
           className={styles.deleteButton}
-          aria-label="Delete food"
+          aria-label="fjern mat"
           onClick={() => {
             deleteFoodFromLog(row.id);
           }}
@@ -53,6 +53,7 @@ export default function FoodLogTable() {
         </button>
         <button
           className={styles.editButton}
+          aria-label="rediger mat"
           onClick={() => {
             setSelectedId(row.id);
             setSelectedWeightUnit(row.weightUnit);
