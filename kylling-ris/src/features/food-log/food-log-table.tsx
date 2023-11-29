@@ -48,6 +48,7 @@ export default function FoodLogTable() {
           onClick={() => {
             deleteFoodFromLog(row.id);
           }}
+          data-testid="delete-food-button"
         >
           <HiTrash className={styles.deleteIcon} strokeWidth={0} size={19} />
         </button>
@@ -59,6 +60,7 @@ export default function FoodLogTable() {
             setSelectedWeight(row.weight);
             setEditWeightPopupOpen(true);
           }}
+          data-testid="edit-weight-button"
         >
           <HiPencilAlt
             className={styles.deleteIcon}
