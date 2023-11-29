@@ -74,10 +74,6 @@ Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har
 
 Vi har sortering og filtreringsvalg på matsøk fordi det er krav, men det passer ikke helt til denne typen applikasjon. Hensikten med matsøket er å finne mat man allerede har spist; den er ikke der for å finne ut av hva man skal handle på butikken. Derfor har vi gitt denne funksjonaliteten lite plass på nettsiden - den er gjemt bak en liten knapp.
 
-### Sortering
-
-Sorteringsvalget i søkeinstillinger gjelder kun når man ikke har skrevet inn et søk. Når man har, er den sortert på relevans til søket.
-
 ### Lucene søk
 
 Vi bruker neo4j, som bruker lucene til søking. Den kunne vi ikke helt få til å gi gode søkeresultater. Vi har prøvd å matche med "\*" på slutten. Da gir den alle resultatene, men resultatene har samme relevans. Vi bruker fuzzy søk med "~", og da får de ulik relevans, men det er fortsatt noen rare resultater. Lucene virker ikke å være laget for sånn type søk vi har.
