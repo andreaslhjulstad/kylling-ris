@@ -79,8 +79,8 @@ Vi har prøvd nettsiden på Firefox, Edge, Chrome og Opera på PC. I tillegg har
 ## Bærekraft
 
 - Vi bruker kun små bilder på SVG format, noe som minker datatraffiken på nettsiden vår.
-- Det gjøres kall til databasen for å laste inn flere matvarer etterhvert som man scroller ned. På den måten hentes ikke unødvendig mye data ut. 
-- Vi er klar over at mørke farger sparer strøm, men vi valgte heller å ha ett bra fargepalett, fremfor to middelmådige.
+- Det gjøres kall til databasen for å laste inn flere matvarer etterhvert som man scroller ned. På den måten hentes ikke unødvendig mye data ut.
+- Vi er klar over at mørke farger sparer strøm, men vi har lyst at nettsiden skal ha akkurat det fargepalettet vi har. Dark mode mener vi hadde sett stygt ut med fargene våre.
 
 ## Diverse
 
