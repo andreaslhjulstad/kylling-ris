@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./search-option-popup.module.css";
 import { changeSort, setAllergens } from "./search-option-reducer";
 import { RootState } from "../../../redux/store";
+import { Tooltip } from "react-tooltip";
 
 interface AllergenIsShown {
   [allergen: string]: boolean;
@@ -31,10 +32,14 @@ const ALLERGENS = [
 
 export default function FilterOptionPopup() {
   const [showAllergens, setShowAllergens] = useState(false);
+  const [optionsDisabled, setOptionsDisabled] = useState(false);
   const { sortOption, allergens } = useSelector(
     (state: RootState) => state.searchOption
   );
   const dispatch = useDispatch();
+  const searchInput = useSelector(
+    (state: RootState) => state.searchInput.searchInput
+  );
 
   const [allergenIsAllowed, setAllergenIsAllowed] = useState<AllergenIsShown>(
     ALLERGENS.reduce(
@@ -50,12 +55,17 @@ export default function FilterOptionPopup() {
     dispatch(setAllergens(allergensNotShown(allergenIsAllowed)));
   }, [allergenIsAllowed, dispatch]);
 
+  useEffect(() => {
+    setOptionsDisabled(searchInput !== "");
+  }, [searchInput]);
+
   return (
     <div>
       <div className={styles.filterContent}>
         <div className={styles.title}>Filtrer og sorter</div>
 
         <select
+          disabled={optionsDisabled}
           className={styles.dropdown}
           name="sort"
           value={sortOption}
@@ -63,13 +73,25 @@ export default function FilterOptionPopup() {
             dispatch(changeSort(sort));
           }}
           data-testid="sort-dropdown"
+          data-tooltip-id="sort-tooltip"
+          data-tooltip-content="Sortering er foreløpig kun mulig på tomt søk"
         >
-          <option value="name-ascending" data-testid="sort-name-ascending">Navn a-å</option>
-          <option value="name-descending" data-testid="sort-name-descending">Navn å-a</option>
-          <option value="protein-ascending" data-testid="sort-protein-ascending">
+          <option value="name-ascending" data-testid="sort-name-ascending">
+            Navn a-å
+          </option>
+          <option value="name-descending" data-testid="sort-name-descending">
+            Navn å-a
+          </option>
+          <option
+            value="protein-ascending"
+            data-testid="sort-protein-ascending"
+          >
             Proteiner pr. 100g/ml (stigende)
           </option>
-          <option value="protein-descending" data-testid="sort-protein-descending">
+          <option
+            value="protein-descending"
+            data-testid="sort-protein-descending"
+          >
             Proteiner pr. 100g/ml (synkende)
           </option>
           <option value="kcal-ascending" data-testid="sort-kcal-ascending">
@@ -79,6 +101,12 @@ export default function FilterOptionPopup() {
             Kalorier pr. 100g/ml (synkende)
           </option>
         </select>
+        {optionsDisabled && (
+          <Tooltip
+            id="sort-tooltip"
+            style={{ backgroundColor: "#3f3f40", color: "white" }}
+          />
+        )}
 
         <button
           className={styles.button}

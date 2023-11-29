@@ -31,6 +31,10 @@
   background-color: #e8e8e8;
 }
 
+.dropdown:hover:disabled {
+  background-color: #f8f8f8;
+}
+
 .allergensOptions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -59,6 +63,13 @@
 
 .labelCheckboxContainer {
   margin-bottom: 5px;
+}
+
+.sortLabel {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .checkbox {
