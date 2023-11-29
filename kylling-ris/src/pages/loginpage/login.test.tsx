@@ -33,7 +33,7 @@ const loginMock = mocks[0].result;
 
 describe("Login page", () => {
   test("Login page renders correctly", () => {
-    const { getByTestId } = render(
+    const { container, getByTestId } = render(
       <MockedProvider mocks={mocks}>
         <BrowserRouter>
           <LoginPage />
@@ -41,20 +41,11 @@ describe("Login page", () => {
       </MockedProvider>
     );
 
+    expect(container).toMatchSnapshot();
+
     const email = getByTestId("e-mail");
     const password = getByTestId("password");
-    const toggle = getByTestId("toggle");
     const submit = getByTestId("submit");
-    const register = getByTestId("navigate-register");
-    const mainpage = getByTestId("navigate-mainpage");
-
-    // Test elements rendered correctly
-    expect(email).toBeInTheDocument();
-    expect(password).toBeInTheDocument();
-    expect(toggle).toBeInTheDocument();
-    expect(submit).toBeInTheDocument();
-    expect(register).toBeInTheDocument();
-    expect(mainpage).toBeInTheDocument();
 
     // Test initial state of elements
     expect(email).toHaveValue("");
