@@ -33,8 +33,8 @@ export default function Mainpage() {
           currentTab === 0 || screenWidth > 1170
             ? "white"
             : screenWidth > 775
-            ? "#2275c3"
-            : "white"
+              ? "#2275c3"
+              : "white"
       }}
     >
       <UserMenu />

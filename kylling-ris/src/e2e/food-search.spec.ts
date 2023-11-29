@@ -6,7 +6,7 @@ import {
 
 test.beforeEach(async ({ page }) => {
   // await page.goto("http://localhost:5173/project2");
-  await page.goto('http://it2810-50.idi.ntnu.no/project2/');
+  await page.goto("http://it2810-50.idi.ntnu.no/project2/");
 });
 
 test("Basic search functionality", async ({ page }) => {
@@ -24,7 +24,9 @@ test("Basic search functionality", async ({ page }) => {
   // Wait for inactivity period and check results again
   await page.waitForTimeout(searchInactivityTime);
   // Wait for the specific element with the expected text content to appear in the DOM
-  await page.waitForSelector(`data-testid=food-search-result >> nth=0 >> text="Kyllingfilet Naturell"`);
+  await page.waitForSelector(
+    `data-testid=food-search-result >> nth=0 >> text="Kyllingfilet Naturell"`
+  );
   const firstFoodNameInSearch = await page
     .locator(`data-testid=food-search-result >> nth=0`)
     .evaluate((node) => node.firstChild?.firstChild?.textContent);
