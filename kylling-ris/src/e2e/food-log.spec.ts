@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:5173/project2");
-  // await page.goto('http://it2810-50.idi.ntnu.no/project2/');
+  // await page.goto("http://localhost:5173/project2");
+  await page.goto('http://it2810-50.idi.ntnu.no/project2/');
 });
 
 test("Add food to log and edit and remove it", async ({ page }) => {
