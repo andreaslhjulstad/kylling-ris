@@ -1,6 +1,9 @@
 # Kylling&Ris
 
-Kylling&Ris er en nettside à la myfitnesspal, som lar brukeren søke på og registrere mat de har spist. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med data, hentet fra et REST-API med produkter fra norske dagligvarebutikker: <https://kassal.app/api>. Brukeren kan så enkelt registrere matelementer ved å klikke på tilhørende pluss-knapp. Deretter kan brukeren skrive inn vekten på produktet og velge hvilken dato hen vil registrere det på. Produktet vises så i en tabell, hvor man kan navigere mellom datoer ved hjelp av en kalender og dens tilhørende pilknapper. I tabellen kan brukeren siden fjerne eller endre registrerte elementer fra tabellen vha. henholdvis et søppelbøtte- og blyantikon.
+Kylling&Ris er en nettside som kan brukes for å holde kontroll på kalori- og proteininntak for de som trener. Nettsiden gir brukeren muligheten til å søke, filtrere og sortere et sett med data, hentet fra et REST-API med produkter fra norske dagligvarebutikker: <https://kassal.app/api>. Brukeren kan så enkelt registrere matelementer ved å klikke på tilhørende pluss-knapp. Deretter kan brukeren skrive inn vekten på produktet og velge hvilken dato hen vil registrere det på. Produktet vises så i en tabell, hvor man kan navigere mellom datoer ved hjelp av en kalender og dens tilhørende pilknapper. I tabellen kan brukeren siden fjerne eller endre registrerte elementer fra tabellen vha. henholdvis et søppelbøtte- og blyantikon.
+
+<img width="1127" alt="293894434-12770223-4c8f-471b-9ca9-d6387bd1fb3e" src="https://github.com/user-attachments/assets/5b80438c-615c-4e01-bbe6-4fecf788067c">
+
 
 ## Oppsett
 
